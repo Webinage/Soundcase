@@ -31,7 +31,7 @@ Funds donated via Patreon go directly to support Evan You's full-time work on So
 
 ## Introduction
 
-Soundcase (pronounced `/vjuː/`, like Mike Soundcase) is a web based **audio engine** for building awesome stuff. It is designed from the ground up to be incrementally adoptable, and can easily scale between a library and a framework depending on different use cases. It consists of an approachable core library that focuses on the view layer only, and an ecosystem of supporting libraries that helps you tackle complexity in large Single-Page Applications.
+Soundcase (pronounced `/soundcaseː/`) is a web based **audio engine** for building awesome stuff. It is designed from the ground up to be incrementally adoptable, and can easily scale between a library and a framework depending on different use cases. It consists of an approachable core library, and an ecosystem of supporting libraries that helps you tackle complexity in large Audio Applications.
 
 #### Browser Compatibility
 
@@ -53,9 +53,9 @@ To check out [live examples](https://soundcase.org/examples/) and docs, visit [s
 
 For questions and support please use [the official forum](https://forum.soundcase.org) or [community chat](https://chat.soundcase.org/). The issue list of this repo is **exclusively** for bug reports and feature requests. -->
 
-<!-- ## Issues
+## Issues
 
-Please make sure to read the [Issue Reporting Checklist](https://github.com/soundcase/soundcase/blob/dev/.github/CONTRIBUTING.md#issue-reporting-guidelines) before opening an issue. Issues not conforming to the guidelines may be closed immediately. -->
+Please make sure to read the [Issue Reporting Checklist](https://github.com/soundcase/soundcase/blob/dev/.github/CONTRIBUTING.md#issue-reporting-guidelines) before opening an issue. Issues not conforming to the guidelines may be closed immediately.
 
 <!-- ## Changelog
 
@@ -66,11 +66,11 @@ Detailed changes for each release are documented in the [release notes](https://
 - [Twitter](https://twitter.com/soundcase)
 - [Blog](https://medium.com/soundcase) -->
 
-<!-- ## Contribution
+## Contribution
 
 Please make sure to read the [Contributing Guide](https://github.com/soundcase/soundcase/blob/dev/.github/CONTRIBUTING.md) before making a pull request. If you have a Soundcase-related project/component/tool, add it with a pull request to [this curated list](https://github.com/soundcase/awesome-soundcase)!
 
-Thank you to all the people who already contributed to Soundcase! -->
+Thank you to all the people who already contributed to Soundcase!
 
 <!-- <a href="https://github.com/soundcase/soundcase/graphs/contributors"><img src="https://opencollective.com/soundcase/contributors.svg?width=890" /></a> -->
 
