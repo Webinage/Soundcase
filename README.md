@@ -19,13 +19,13 @@ Soundcase is an MIT-licensed open source project with its ongoing development ma
 
 Funds donated via Patreon go directly to support Evan You's full-time work on Soundcase. Funds donated via OpenCollective are managed with transparent expenses and will be used for compensating work and expenses for core team members or sponsoring community events. Your name/logo will receive proper recognition and exposure by donating on either platform. -->
 
-<h3 align="center">Special Sponsors</h3>
+<!-- <h3 align="center">Special Sponsors</h3>
 
 <p align="center">
   <a href="https://botdesign.net/" target="_blank">
     <img width="260px" src="https://uploads-ssl.webflow.com/5ee60001f940615b280376be/5ee61ede5ea153f57484df25_logo-botdesign-clair-2.png">
   </a>
-</p>
+</p> -->
   
 ---
 
