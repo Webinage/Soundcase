@@ -31,7 +31,7 @@ Funds donated via Patreon go directly to support Evan You's full-time work on So
 
 ## Introduction
 
-Soundcase (pronounced `/vjuː/`, like Mike Soundcase) is a **progressive framework** for building user interfaces. It is designed from the ground up to be incrementally adoptable, and can easily scale between a library and a framework depending on different use cases. It consists of an approachable core library that focuses on the view layer only, and an ecosystem of supporting libraries that helps you tackle complexity in large Single-Page Applications.
+Soundcase (pronounced `/vjuː/`, like Mike Soundcase) is a web based **audio engine** for building awesome stuff. It is designed from the ground up to be incrementally adoptable, and can easily scale between a library and a framework depending on different use cases. It consists of an approachable core library that focuses on the view layer only, and an ecosystem of supporting libraries that helps you tackle complexity in large Single-Page Applications.
 
 #### Browser Compatibility
 
