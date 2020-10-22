@@ -23,7 +23,7 @@ Funds donated via Patreon go directly to support Evan You's full-time work on So
 
 <p align="center">
   <a href="https://botdesign.net/" target="_blank">
-    <img width="260px" src="https://botdesign.net/logo.png">
+    <img width="260px" src="https://uploads-ssl.webflow.com/5ee60001f940615b280376be/5ee61ede5ea153f57484df25_logo-botdesign-clair-2.png">
   </a>
 </p>
   
