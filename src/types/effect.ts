@@ -1,15 +1,19 @@
-// export enum EffectType {
-//   _3BandEQ = '_3BandEQ',
-//   Delay = 'Delay',
-//   Distortion = 'Distortion',
-//   Filter = 'Filter',
-//   Pan = 'Pan',
-//   Reverb = 'Reverb',
-// }
+import {
+  Delay,
+  Distortion,
+  DistortionOptions,
+  Filter,
+  FilterOptions,
+  MyDelayOptions,
+  Pan,
+  PanOptions,
+  Reverb,
+  ReverbOptions,
+  _3BandEQ,
+  _3BandEQOptions
+} from '../classes';
 
-import { DistortionOptions, _3BandEQOptions } from '../classes';
-
-export type EffectType =
+export type EffectTypeName =
   | '_3BandEQ'
   | 'Delay'
   | 'Distortion'
@@ -17,6 +21,12 @@ export type EffectType =
   | 'Pan'
   | 'Reverb';
 
-// export type Effect = _3BandEQ | Delay | Distortion | Filter | Pan | Reverb;
+export type EffectType = _3BandEQ | Delay | Distortion | Filter | Pan | Reverb;
 
-export type EffectOptions = _3BandEQOptions | DistortionOptions;
+export type EffectOptions =
+  | _3BandEQOptions
+  | MyDelayOptions
+  | DistortionOptions
+  | FilterOptions
+  | PanOptions
+  | ReverbOptions;

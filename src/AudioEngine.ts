@@ -3,13 +3,18 @@ import { ChannelStrip, MixChannel } from './classes/channels';
 import {
   Delay,
   Distortion,
+  DistortionOptions,
   Filter,
+  FilterOptions,
+  MyDelayOptions,
   Pan,
+  PanOptions,
   Reverb,
+  ReverbOptions,
   _3BandEQ,
   _3BandEQOptions
 } from './classes/effects';
-import { Effect, EffectOptions, EffectType, SoundsLibrary } from './types';
+import { EffectType, EffectTypeName, SoundsLibrary } from './types';
 
 export type EngineMixChannels =
   | 'soundEffectsChannel'
@@ -101,17 +106,19 @@ export class AudioEngine {
     return this._soundPlayers.get(playerName);
   }
 
-  createEffect(effectType: 'Delay', effectOptions?: EffectOptions): Delay;
+  createEffect(effectType: '_3BandEQ', breakpoints?: _3BandEQOptions): _3BandEQ;
+  createEffect(effectType: 'Delay', effectOptions?: MyDelayOptions): Delay;
   createEffect(
     effectType: 'Distortion',
-    effectOptions?: EffectOptions
+    effectOptions?: DistortionOptions
   ): Distortion;
-  createEffect(effectType: 'Filter', effectOptions?: EffectOptions): Filter;
-  createEffect(effectType: 'Pan', effectOptions?: EffectOptions): Pan;
-  createEffect(effectType: 'Reverb', effectOptions?: EffectOptions): Reverb;
-  createEffect(effectType: '_3BandEQ', breakpoints?: _3BandEQOptions): _3BandEQ;
-  createEffect(effectType: EffectType, options: EffectOptions = {}): Effect {
-    if (effectType === 'Delay') {
+  createEffect(effectType: 'Filter', effectOptions?: FilterOptions): Filter;
+  createEffect(effectType: 'Pan', effectOptions?: PanOptions): Pan;
+  createEffect(effectType: 'Reverb', effectOptions?: ReverbOptions): Reverb;
+  createEffect(effectType: EffectTypeName, options: any = {}): EffectType {
+    if (effectType === '_3BandEQ') {
+      return new _3BandEQ(this._masterContext, options);
+    } else if (effectType === 'Delay') {
       return new Delay(this._masterContext, options);
     } else if (effectType === 'Distortion') {
       return new Distortion(this._masterContext, options);
@@ -121,31 +128,28 @@ export class AudioEngine {
       return new Pan(this._masterContext, options);
     } else if (effectType === 'Reverb') {
       return new Reverb(this._masterContext, options);
-    } else if (effectType === '_3BandEQ') {
-      return new _3BandEQ(this._masterContext, options);
     }
   }
 
   createChannelStrip(
     channelName: string,
-    effects?: Effect[],
+    effects?: EffectType[],
     mixChannelName?: EngineMixChannels
   ): ChannelStrip;
   createChannelStrip(
     channelName: string,
-    effects?: Effect[],
+    effects?: EffectType[],
     channelStripName?: string
   ): ChannelStrip;
   createChannelStrip(
     name: string,
-    effects: Effect[] = [],
+    effects: EffectType[] = [],
     channelName: any = 'soundEffectsChannel'
   ): ChannelStrip {
     this._channelStrips.set(
       name,
       new ChannelStrip(this._masterContext, effects)
     );
-    // this._channelStrips.get(name).context.destination.connect(
     this._channelStrips
       .get(name)
       .output.connect(

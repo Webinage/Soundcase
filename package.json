@@ -1,6 +1,6 @@
 {
   "license": "GNU GPLv3",
-  "name": "tyson",
+  "name": "SoundT",
   "version": "0.0.1",
   "description": "A typescript audio engine",
   "main": "dist/index.js",

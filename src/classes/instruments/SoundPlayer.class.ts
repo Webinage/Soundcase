@@ -1,4 +1,4 @@
-import { Channel, Sound, SoundsLibrary } from '../types';
+import { Channel, Sound, SoundsLibrary } from '../../types';
 
 export interface SoundElement {
   htmlAudioElement: HTMLAudioElement;

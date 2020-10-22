@@ -1,10 +1,10 @@
-import { EffectType } from '../../types';
+import { EffectTypeName } from '../../types';
 import { makeDistortionCurve } from '../../utils';
 
 export class Effect<OT> {
   protected options: OT;
   constructor(
-    protected name: EffectType,
+    protected name: EffectTypeName,
     protected _context: AudioContext,
     options: OT
   ) {

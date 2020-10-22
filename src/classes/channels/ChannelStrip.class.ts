@@ -1,13 +1,13 @@
-import { Effect } from '../../types';
+import { EffectType } from '../../types';
 import { Channel } from './Channel.abstract.class';
 
 export class ChannelStrip implements Channel {
   input: ChannelMergerNode;
   output: GainNode;
-  private _effects: Effect[] = [];
+  private _effects: EffectType[] = [];
 
-  constructor(_context: AudioContext, effect: Effect);
-  constructor(_context: AudioContext, effects: Effect[]);
+  constructor(_context: AudioContext, effect: EffectType);
+  constructor(_context: AudioContext, effects: EffectType[]);
   constructor(private _context: AudioContext, fx: any) {
     this.input = new ChannelMergerNode(this._context);
     this.output = new GainNode(this._context);
@@ -25,12 +25,12 @@ export class ChannelStrip implements Channel {
     return channel.output;
   }
 
-  addEffect(effect: Effect) {
+  addEffect(effect: EffectType) {
     this._effects.push(effect);
     this.rootEffects();
   }
 
-  addEffects(effects: Effect[]) {
+  addEffects(effects: EffectType[]) {
     this._effects = [...this._effects, ...effects];
     this.rootEffects();
   }

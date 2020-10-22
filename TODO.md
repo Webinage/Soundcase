@@ -1,7 +1,7 @@
-- copier le dossier .github de vue js
+- une bannière pour le README.md + le logo botdesign pour le sponsor special
 - le readme
 - Typer tous les retours de fonction, etc...
-- Minifier/Uglifier la lib pour unpkg
+- Minifier/Uglifier la lib pour unpkg ( xxx.min.js )
 - Configurer le repo
 - Faire une doc pour la homepage
 - Rajouter comme pour png5 types, files, repository, keywords, author, bugs, homepage
@@ -24,3 +24,7 @@
 
 - refaire les options des effects pour inclure en optionnel la totalité des propriétés possible
 - faire une method option sur chaque effet pour récupérer un object options ( sauvegarde, duplicat )
+
+- se débarasser des any et implicit any
+
+- Faire des template d'issue sur github

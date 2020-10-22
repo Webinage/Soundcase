@@ -5,7 +5,7 @@ function exchange<T>(array: T[], iIndex: number, jIndex: number): T[] {
   return clonedArray;
 }
 
-function cloneArray(arr: any[]): any[] {
+function cloneArray<T>(arr: T[]): T[] {
   const clonedArr = [...arr];
   return clonedArr;
 }
