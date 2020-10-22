@@ -1,5 +1,6 @@
+- Pour l'Introduction, regarder celle de P5js
 - une bannière pour le README.md + le logo botdesign pour le sponsor special
-- le readme
+- la prononciation de soundcase
 - Typer tous les retours de fonction, etc...
 - Minifier/Uglifier la lib pour unpkg ( xxx.min.js )
 - Configurer le repo
@@ -28,3 +29,4 @@
 - se débarasser des any et implicit any
 
 - Faire des template d'issue sur github
+  https://docs.github.com/en/enterprise-server@2.20/github/building-a-strong-community/configuring-issue-templates-for-your-repository
