@@ -2,7 +2,7 @@
 [![PRs welcome](https://img.shields.io/badge/PRs-welcome-ff69b4.svg)](https://github.com/soundcase/soundcase/pulls)
 [![GitHub](https://img.shields.io/github/license/soundcase/soundcase)](https://github.com/soundcase/soundcase/pulls)
 
-<p align="center"><img src='./.github/banner.png?raw=true' /></p>
+<p align="center"><img src='./.github/banner.jpg?raw=true' /></p>
 # A web based audio engine
 
 <!-- Try it here : [https://xledocteurx.github.io/png5/](https://xledocteurx.github.io/png5/) -->
@@ -26,7 +26,7 @@ Funds donated via Patreon go directly to support Evan You's full-time work on So
     <img width="260px" src="https://uploads-ssl.webflow.com/5ee60001f940615b280376be/5ee61ede5ea153f57484df25_logo-botdesign-clair-2.png">
   </a>
 </p> -->
-  
+
 ---
 
 ## Introduction
