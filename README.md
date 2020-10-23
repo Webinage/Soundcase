@@ -1,23 +1,22 @@
 [![GitHub tag (latest by date)](https://img.shields.io/github/v/tag/soundcase/soundcase)](https://www.npmjs.com/package/soundcase)
 [![PRs welcome](https://img.shields.io/badge/PRs-welcome-ff69b4.svg)](https://github.com/soundcase/soundcase/pulls)
-[![GitHub](https://img.shields.io/github/license/soundcase/soundcase)](https://github.com/soundcase/soundcase/pulls)
+[![GitHub](https://img.shields.io/github/license/soundcase/soundcase)](https://github.com/Soundcase/Soundcase/blob/master/LICENSE)
 
 <p align="center"><img src='./.github/banner.jpg?raw=true' /></p>
-# A web based audio engine
 
 <!-- Try it here : [https://xledocteurx.github.io/png5/](https://xledocteurx.github.io/png5/) -->
 
 <!-- <h2 align="center">Supporting Soundcase</h2>
 
-Soundcase is an MIT-licensed open source project with its ongoing development made possible entirely by the support of these awesome [backers](https://github.com/soundcase/soundcase/blob/dev/BACKERS.md). If you'd like to join them, please consider:
+Soundcase is an MIT-licensed open source project with its ongoing development made possible entirely by the support of these awesome [backers](https://github.com/soundcase/soundcase/blob/master/BACKERS.md). If you'd like to join them, please consider:
 
-- [Become a backer or sponsor on Patreon](https://www.patreon.com/lenoirc).
-- [Become a backer or sponsor on Open Collective](https://opencollective.com/soundcase).
-- [One-time donation via PayPal or crypto-currencies.](https://soundcase.org/support-soundcase/#One-time-Donations)
+- [Become a backer or sponsor on Patreon](https://www.patreon.com/lenoirc)
+- [Become a backer or sponsor on OpenCollective](https://opencollective.com/soundcase)
+- [One-time donation via PayPal](https://paypal.me/xledocteurx)
 
 #### What's the difference between Patreon and OpenCollective?
 
-Funds donated via Patreon go directly to support Evan You's full-time work on Soundcase. Funds donated via OpenCollective are managed with transparent expenses and will be used for compensating work and expenses for core team members or sponsoring community events. Your name/logo will receive proper recognition and exposure by donating on either platform. -->
+Funds donated via Patreon go directly to support Christopher Lenoir's full-time work on Soundcase. Funds donated via OpenCollective are managed with transparent expenses and will be used for compensating work and expenses for core team members or sponsoring community events. Your name/logo will receive proper recognition and exposure by donating on either platform. -->
 
 <!-- <h3 align="center">Special Sponsors</h3>
 
@@ -31,7 +30,8 @@ Funds donated via Patreon go directly to support Evan You's full-time work on So
 
 ## Introduction
 
-Soundcase (pronounced `/soundcaseː/`) is a web based **audio engine** for building awesome stuff. It is designed from the ground up to be incrementally adoptable, and can easily scale between a library and a framework depending on different use cases. It consists of an approachable core library, and an ecosystem of supporting libraries that helps you tackle complexity in large Audio Applications.
+Soundcase (pronounced `/saʊnd:keɪs/`) is a web based **audio engine** for building awesome audio stuff, with a focus on making coding accessible and inclusive for artists, sound engineer, educators, beginners, and anyone else! Soundcase is free and open-source because we believe software, and the tools to learn it, should be accessible to everyone.
+It is designed from the ground up to be incrementally adoptable, and can easily scale between a library and a framework depending on different use cases. It consists of an approachable core library, and an ecosystem of supporting libraries that helps you tackle complexity in large Audio Applications.
 
 #### Browser Compatibility
 
@@ -55,7 +55,7 @@ For questions and support please use [the official forum](https://forum.soundcas
 
 ## Issues
 
-Please make sure to read the [Issue Reporting Checklist](https://github.com/soundcase/soundcase/blob/dev/.github/CONTRIBUTING.md#issue-reporting-guidelines) before opening an issue. Issues not conforming to the guidelines may be closed immediately.
+Please make sure to read the [Issue Reporting Checklist](https://github.com/soundcase/soundcase/blob/master/.github/CONTRIBUTING.md#issue-reporting-guidelines) before opening an issue. Issues not conforming to the guidelines may be closed immediately.
 
 <!-- ## Changelog
 
@@ -68,7 +68,7 @@ Detailed changes for each release are documented in the [release notes](https://
 
 ## Contribution
 
-Please make sure to read the [Contributing Guide](https://github.com/soundcase/soundcase/blob/dev/.github/CONTRIBUTING.md) before making a pull request. If you have a Soundcase-related project/component/tool, add it with a pull request to [this curated list](https://github.com/soundcase/awesome-soundcase)!
+Please make sure to read the [Contributing Guide](https://github.com/soundcase/soundcase/blob/master/.github/CONTRIBUTING.md) before making a pull request. If you have a Soundcase-related project/component/tool, add it with a pull request to [this curated list](https://github.com/soundcase/awesome-soundcase)!
 
 Thank you to all the people who already contributed to Soundcase!
 
@@ -78,4 +78,4 @@ Thank you to all the people who already contributed to Soundcase!
 
 [GNU GPLv3](https://www.gnu.org/licenses/)
 
-Copyright (c) 2020-present, Christopher Lenoir
+Copyright (c) 2020-present, Soundcase by Christopher Lenoir
