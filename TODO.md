@@ -1,3 +1,5 @@
+- get rid of the channel merger node as an input
+
 - Pour l'Introduction, regarder celle de P5js
 - une bannière pour le README.md + le logo botdesign pour le sponsor special
 - la prononciation de soundcase

@@ -3,7 +3,7 @@
 [![GitHub](https://img.shields.io/github/license/soundcase/soundcase)](https://github.com/soundcase/soundcase/pulls)
 
 <p align="center"><img src='./.github/banner.png?raw=true' /></p>
-# An audio framework for musicians, MAO anthousiasts, game designers,
+# A web based audio engine
 
 <!-- Try it here : [https://xledocteurx.github.io/png5/](https://xledocteurx.github.io/png5/) -->
 
