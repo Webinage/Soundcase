@@ -77,7 +77,7 @@ The default test script will do the following: lint with ESLint -> type check wi
 
 <!-- - **`test`**: contains all tests. The unit tests are written with [Jasmine](http://jasmine.github.io/2.3/introduction.html) and run with [Karma](http://karma-runner.github.io/0.13/index.html). The e2e tests are written for and run with [Nightwatch.js](http://nightwatchjs.org/). -->
 
-- **`src`**: contains the source code. The codebase is written in Typescript<!-- with [Flow](https://flowtype.org/) type annotations. -->
+- **`src`**: contains the source code. The codebase is written in Typescript
 
   - **`classes`**: xxx.
 

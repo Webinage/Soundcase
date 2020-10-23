@@ -1,6 +1,6 @@
 {
   "license": "GNU GPLv3",
-  "name": "Soundcase",
+  "name": "@soundcase/soundcase",
   "version": "0.0.1",
   "description": "A web based audio engine",
   "author": {

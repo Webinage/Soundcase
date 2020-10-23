@@ -1,9 +1,8 @@
 [![GitHub tag (latest by date)](https://img.shields.io/github/v/tag/soundcase/soundcase)](https://www.npmjs.com/package/soundcase)
 [![PRs welcome](https://img.shields.io/badge/PRs-welcome-ff69b4.svg)](https://github.com/soundcase/soundcase/pulls)
-[![GitHub](https://img.shields.io/github/license/soundcase/soundcase)](https://github.com/soundcase/soundcase/pulls)
+[![GitHub](https://img.shields.io/github/license/soundcase/soundcase)](https://github.com/Soundcase/Soundcase/blob/master/LICENSE)
 
 <p align="center"><img src='./.github/banner.jpg?raw=true' /></p>
-# A web based audio engine
 
 <!-- Try it here : [https://xledocteurx.github.io/png5/](https://xledocteurx.github.io/png5/) -->
 
@@ -31,7 +30,8 @@ Funds donated via Patreon go directly to support Christopher Lenoir's full-time 
 
 ## Introduction
 
-Soundcase (pronounced `/saʊnd:keɪs/`) is a web based **audio engine** for building awesome stuff. It is designed from the ground up to be incrementally adoptable, and can easily scale between a library and a framework depending on different use cases. It consists of an approachable core library, and an ecosystem of supporting libraries that helps you tackle complexity in large Audio Applications.
+Soundcase (pronounced `/saʊnd:keɪs/`) is a web based **audio engine** for building awesome audio stuff, with a focus on making coding accessible and inclusive for artists, sound engineer, educators, beginners, and anyone else! Soundcase is free and open-source because we believe software, and the tools to learn it, should be accessible to everyone.
+It is designed from the ground up to be incrementally adoptable, and can easily scale between a library and a framework depending on different use cases. It consists of an approachable core library, and an ecosystem of supporting libraries that helps you tackle complexity in large Audio Applications.
 
 #### Browser Compatibility
 
