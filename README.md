@@ -11,9 +11,9 @@
 
 Soundcase is an MIT-licensed open source project with its ongoing development made possible entirely by the support of these awesome [backers](https://github.com/soundcase/soundcase/blob/dev/BACKERS.md). If you'd like to join them, please consider:
 
-- [Become a backer or sponsor on Patreon](https://www.patreon.com/lenoirc).
-- [Become a backer or sponsor on Open Collective](https://opencollective.com/soundcase).
-- [One-time donation via PayPal or crypto-currencies.](https://soundcase.org/support-soundcase/#One-time-Donations)
+- [Become a backer or sponsor on Patreon](https://www.patreon.com/lenoirc)
+- [Become a backer or sponsor on OpenCollective](https://opencollective.com/soundcase)
+- [One-time donation via PayPal](https://paypal.me/xledocteurx)
 
 #### What's the difference between Patreon and OpenCollective?
 

@@ -1,4 +1,9 @@
+- custom contribution dans le funding.md pour paypal
+- finir de remplir le contributing?md
+
 - get rid of the channel merger node as an input
+
+- documenter le code ( rechercher flowtype ) / sinon jsdoc
 
 - Pour l'Introduction, regarder celle de P5js
 - une bannière pour le README.md + le logo botdesign pour le sponsor special
@@ -32,3 +37,5 @@
 
 - Faire des template d'issue sur github
   https://docs.github.com/en/enterprise-server@2.20/github/building-a-strong-community/configuring-issue-templates-for-your-repository
+
+- Les tests unitaires

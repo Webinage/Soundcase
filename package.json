@@ -8,6 +8,7 @@
   "unpkg": "dist/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
+    "docs": "cd ./docs/website && npm run start",
     "build": "rm -rf ./dist && webpack --config webpack.config.js",
     "prepublish": "npm install && npm run test && npm run build"
   },
