@@ -8,7 +8,7 @@
 
 <!-- <h2 align="center">Supporting Soundcase</h2>
 
-Soundcase is an MIT-licensed open source project with its ongoing development made possible entirely by the support of these awesome [backers](https://github.com/soundcase/soundcase/blob/dev/BACKERS.md). If you'd like to join them, please consider:
+Soundcase is an MIT-licensed open source project with its ongoing development made possible entirely by the support of these awesome [backers](https://github.com/soundcase/soundcase/blob/master/BACKERS.md). If you'd like to join them, please consider:
 
 - [Become a backer or sponsor on Patreon](https://www.patreon.com/lenoirc)
 - [Become a backer or sponsor on OpenCollective](https://opencollective.com/soundcase)
@@ -55,7 +55,7 @@ For questions and support please use [the official forum](https://forum.soundcas
 
 ## Issues
 
-Please make sure to read the [Issue Reporting Checklist](https://github.com/soundcase/soundcase/blob/dev/.github/CONTRIBUTING.md#issue-reporting-guidelines) before opening an issue. Issues not conforming to the guidelines may be closed immediately.
+Please make sure to read the [Issue Reporting Checklist](https://github.com/soundcase/soundcase/blob/master/.github/CONTRIBUTING.md#issue-reporting-guidelines) before opening an issue. Issues not conforming to the guidelines may be closed immediately.
 
 <!-- ## Changelog
 
@@ -68,7 +68,7 @@ Detailed changes for each release are documented in the [release notes](https://
 
 ## Contribution
 
-Please make sure to read the [Contributing Guide](https://github.com/soundcase/soundcase/blob/dev/.github/CONTRIBUTING.md) before making a pull request. If you have a Soundcase-related project/component/tool, add it with a pull request to [this curated list](https://github.com/soundcase/awesome-soundcase)!
+Please make sure to read the [Contributing Guide](https://github.com/soundcase/soundcase/blob/master/.github/CONTRIBUTING.md) before making a pull request. If you have a Soundcase-related project/component/tool, add it with a pull request to [this curated list](https://github.com/soundcase/awesome-soundcase)!
 
 Thank you to all the people who already contributed to Soundcase!
 
@@ -78,4 +78,4 @@ Thank you to all the people who already contributed to Soundcase!
 
 [GNU GPLv3](https://www.gnu.org/licenses/)
 
-Copyright (c) 2020-present, Christopher Lenoir
+Copyright (c) 2020-present, Soundcase by Christopher Lenoir
