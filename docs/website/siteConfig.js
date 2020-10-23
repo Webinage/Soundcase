@@ -39,7 +39,7 @@ const siteConfig = {
   // For no header links in the top nav bar -> headerLinks: [],
   headerLinks: [
     {
-      href: this.baseUrl,
+      href: '/Soundcase',
       label: 'Home',
       external: false
     },
@@ -85,7 +85,7 @@ const siteConfig = {
   */
 
   // This copyright info is used in /core/Footer.js and blog RSS/Atom feeds.
-  copyright: `Copyright © ${new Date().getFullYear()} Christopher Lenoir`,
+  copyright: `Copyright © ${new Date().getFullYear()}, Soundcase by Christopher Lenoir`,
 
   highlight: {
     // Highlight.js theme to use for syntax highlighting in code blocks.
