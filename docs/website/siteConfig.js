@@ -23,15 +23,15 @@ const users = [
 const siteConfig = {
   title: 'Soundcase', // Title for your website.
   tagline: 'A web audio engine',
-  url: 'https://soundcase.github.io/soundcase/', // Your website URL
-  baseUrl: '/', // Base URL for your project */
+  url: 'https://soundcase.github.io', // Your website URL
+  baseUrl: '/Soundcase/', // Base URL for your project */
   // For github.io type URLs, you would set the url and baseUrl like:
   //   url: 'https://facebook.github.io',
   //   baseUrl: '/test-site/',
 
   // Used for publishing and more
-  projectName: 'soundcase',
   organizationName: 'soundcase',
+  projectName: 'soundcase',
   // For top-level user or org sites, the organization is still the same.
   // e.g., for the https://JoelMarcey.github.io site, it would be set like...
   //   organizationName: 'JoelMarcey'
@@ -39,11 +39,11 @@ const siteConfig = {
   // For no header links in the top nav bar -> headerLinks: [],
   headerLinks: [
     {
-      href: '/',
+      href: this.baseUrl,
       label: 'Home',
       external: false
     },
-    // { doc: 'doc1', label: 'Getting started' },
+    { doc: 'doc1', label: 'Getting started' },
     // { doc: 'doc1', label: 'Docs' },
     // { doc: 'doc1', label: 'API' },
     // { page: 'examples', label: 'Examples' },

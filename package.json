@@ -1,5 +1,5 @@
 {
-  "license": "GNU GPLv3",
+  "license": "GPL-3.0-or-later",
   "name": "@soundcase/soundcase",
   "version": "0.0.1",
   "description": "A web based audio engine",
@@ -7,14 +7,21 @@
     "name": "Lenoir Christopher",
     "email": "lenoirc.fr@gmail.com"
   },
+  "homepage": "http://soundcase.github.io/Soundcase",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:Soundcase/Soundcase.git"
+  },
   "main": "dist/index.js",
   "types": "dist/src/index.d.ts",
   "unpkg": "dist/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "docs": "cd ./docs/website && npm run start",
+    "docs-publish": "cd ./docs/website && rm -rf ./build && npm run build && GIT_USER=xledocteurx CURRENT_BRANCH=master USE_SSH=true npm run publish-gh-pages",
     "build": "rm -rf ./dist && webpack --config webpack.config.js",
     "prepublish": "npm install && npm run test && npm run build",
+    "publish": "npm run build && npm publish --access public && npm run docs-publish",
     "commit": "git-cz"
   },
   "config": {

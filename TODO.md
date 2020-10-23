@@ -1,6 +1,8 @@
 - custom contribution dans le funding.md pour paypal
 - finir de remplir le contributing?md
 
+- personaliser les couleurs
+
 - get rid of the channel merger node as an input
 
 - documenter le code ( rechercher flowtype ) / sinon jsdoc

@@ -69,7 +69,7 @@ The default test script will do the following: lint with ESLint -> type check wi
 
 - **`dist`**: Contains built files for distribution. Note this directory is only available when you build the project from source files with `npm run builg`.
 
-- **`docs`**: Contains the docosaurus documentation. Usually, you don't need to touch them. However, if you plan on documenting the code it would be helpful to familiarize yourself with the following files/folders:
+- **`docs`**: Contains the docusaurus documentation. Usually, you don't need to touch them. However, if you plan on documenting the code it would be helpful to familiarize yourself with the following files/folders:
 
   - `docs/docs/`: Contains all the documentation items. Written in markdown.
 

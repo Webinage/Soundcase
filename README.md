@@ -47,7 +47,7 @@ Soundcase supports all browsers that are [ES5-compliant](https://kangax.github.i
 
 <!-- ## Documentation
 
-To check out [live examples](https://soundcase.org/examples/) and docs, visit [soundcase.org](https://soundcase.org). -->
+To check out [live examples](https://soundcase.github.io/Soundcase/examples/) and docs, visit [soundcase.github.io/Soundcase](https://soundcase.github.io/Soundcase). -->
 
 <!-- ## Questions
 
