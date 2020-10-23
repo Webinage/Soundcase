@@ -1,26 +1,36 @@
 {
   "license": "GNU GPLv3",
-  "name": "SoundT",
+  "name": "@soundcase/soundcase",
   "version": "0.0.1",
-  "description": "A typescript audio engine",
+  "description": "A web based audio engine",
+  "author": {
+    "name": "Lenoir Christopher",
+    "email": "lenoirc.fr@gmail.com"
+  },
   "main": "dist/index.js",
   "types": "dist/src/index.d.ts",
   "unpkg": "dist/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
+    "docs": "cd ./docs/website && npm run start",
     "build": "rm -rf ./dist && webpack --config webpack.config.js",
-    "prepublish": "npm install && npm run test && npm run build"
+    "prepublish": "npm install && npm run test && npm run build",
+    "commit": "git-cz"
   },
-  "author": {
-    "name": "Lenoir Christopher",
-    "email": "lenoirc.fr@gmail.com"
+  "config": {
+    "commitizen": {
+      "path": "cz-conventional-changelog"
+    }
   },
   "files": [
     "dist/*"
   ],
   "dependencies": {},
   "devDependencies": {
+    "commitizen": "^4.2.2",
+    "cz-conventional-changelog": "^3.3.0",
     "gh-pages": "^3.1.0",
+    "git-cz": "^4.7.1",
     "ts-loader": "^8.0.5",
     "typescript": "^4.0.3",
     "webpack": "^5.1.3",
