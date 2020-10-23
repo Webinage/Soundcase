@@ -31,7 +31,7 @@ Funds donated via Patreon go directly to support Christopher Lenoir's full-time 
 
 ## Introduction
 
-Soundcase (pronounced `/soundcaseː/`) is a web based **audio engine** for building awesome stuff. It is designed from the ground up to be incrementally adoptable, and can easily scale between a library and a framework depending on different use cases. It consists of an approachable core library, and an ecosystem of supporting libraries that helps you tackle complexity in large Audio Applications.
+Soundcase (pronounced `/saʊnd:keɪs/`) is a web based **audio engine** for building awesome stuff. It is designed from the ground up to be incrementally adoptable, and can easily scale between a library and a framework depending on different use cases. It consists of an approachable core library, and an ecosystem of supporting libraries that helps you tackle complexity in large Audio Applications.
 
 #### Browser Compatibility
 
