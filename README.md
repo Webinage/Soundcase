@@ -17,7 +17,7 @@ Soundcase is an MIT-licensed open source project with its ongoing development ma
 
 #### What's the difference between Patreon and OpenCollective?
 
-Funds donated via Patreon go directly to support Evan You's full-time work on Soundcase. Funds donated via OpenCollective are managed with transparent expenses and will be used for compensating work and expenses for core team members or sponsoring community events. Your name/logo will receive proper recognition and exposure by donating on either platform. -->
+Funds donated via Patreon go directly to support Christopher Lenoir's full-time work on Soundcase. Funds donated via OpenCollective are managed with transparent expenses and will be used for compensating work and expenses for core team members or sponsoring community events. Your name/logo will receive proper recognition and exposure by donating on either platform. -->
 
 <!-- <h3 align="center">Special Sponsors</h3>
 

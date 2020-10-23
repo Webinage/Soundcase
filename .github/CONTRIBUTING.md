@@ -51,13 +51,10 @@ Commit messages should follow the [commit message convention](./COMMIT_CONVENTIO
 ### Commonly used NPM scripts
 
 ```bash
-# watch and auto re-build dist/Soundcase
-$ npm run dev
+# watch and run the documentation app
+$ npm run docs
 
-# watch and auto re-run unit tests in Chrome
-$ npm run dev:test
-
-# build all dist files, including npm packages
+# build all dist files, including npm packages and typings .d.ts files
 $ npm run build
 
 # run the full test suite, including linting/type checking
@@ -110,7 +107,7 @@ As a pure community-driven project without major corporate backing, we also welc
 
 ### What's the difference between Patreon and OpenCollective funding?
 
-Funds donated via Patreon go directly to support Evan You's full-time work on Soundcase. Funds donated via OpenCollective are managed with transparent expenses and will be used for compensating work and expenses for core team members or sponsoring community events. Your name/logo will receive proper recognition and exposure by donating on either platform.
+Funds donated via Patreon go directly to support Christopher Lenoir's full-time work on Soundcase. Funds donated via OpenCollective are managed with transparent expenses and will be used for compensating work and expenses for core team members or sponsoring community events. Your name/logo will receive proper recognition and exposure by donating on either platform.
 
 ## Credits
 
