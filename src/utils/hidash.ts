@@ -1,17 +1,11 @@
 /**
- * Summary. (use period)
+ * Switch two items in an array.
  *
- * Description. (use period)
+ * @param {Array<T>}  array     Array to switch items from.
+ * @param {number}    iIndex    First item to switch position.
+ * @param {number}    jIndex    Second item to switch position.
  *
- * @see  Function/class relied on
- *
- * @param {type}   var           Description.
- * @param {type}   [var]         Description of optional variable.
- * @param {type}   [var=default] Description of optional variable with default variable.
- * @param {Object} objectVar     Description.
- * @param {type}   objectVar.key Description of a key in the objectVar parameter.
- *
- * @return {type} Return value description.
+ * @return {Array<T>} Return a new array
  */
 function exchange<T>(array: T[], iIndex: number, jIndex: number): T[] {
   let clonedArray = cloneArray(array);
@@ -21,19 +15,13 @@ function exchange<T>(array: T[], iIndex: number, jIndex: number): T[] {
 }
 
 /**
- * Summary. (use period)
- *
- * Description. (use period)
+ * Clone an array.
  *
  * @see  Function/class relied on
  *
- * @param {type}   var           Description.
- * @param {type}   [var]         Description of optional variable.
- * @param {type}   [var=default] Description of optional variable with default variable.
- * @param {Object} objectVar     Description.
- * @param {type}   objectVar.key Description of a key in the objectVar parameter.
+ * @param {Array<T>}   array    Array to clone.
  *
- * @return {type} Return value description.
+ * @return {Array<T>} Return a new array
  */
 function cloneArray<T>(arr: T[]): T[] {
   const clonedArr = [...arr];

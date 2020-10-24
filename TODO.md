@@ -1,8 +1,14 @@
+- créer une interface de base pour toutes les options
+- créer une class generique pour les instruments (dont le sound player)
+- plus de any
+- plus de "as" dans le soundPlayer et l'audioEngine
 - Faire que les effets ( voir tous les composants ) puissent être utilisés sans channels ( voir sans la classe audio engine )
 - Class singleton
+- Gérer autrement les effectsNames ( meilleure maiontenabilité )
+- un transformer typescript pour les chemins relatifs
 
-- custom contribution dans le funding.md pour paypal
-- finir de remplir le contributing?md
+- retirer les channels de base dans l'audio engine et faire des methodes pour en rajouter.
+  -> se répercute dans le projet d'allan en etendant la classe audioengine pour créer un préset avec les 3 channels de base
 
 - personaliser les couleurs
 
@@ -40,7 +46,10 @@
 
 - se débarasser des any et implicit any
 
+- Convertir les listes de signatures surchargées par des single ligne avec des pipes
+
 - Faire des template d'issue sur github
   https://docs.github.com/en/enterprise-server@2.20/github/building-a-strong-community/configuring-issue-templates-for-your-repository
 
+- des warnings sur les éléments non connectés ( input et outputs )
 - Les tests unitaires

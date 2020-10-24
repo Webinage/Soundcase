@@ -17,6 +17,10 @@ module.exports = {
   resolve: {
     extensions: ['.ts', '.js']
   },
+  // input: {
+  //     foo: 'src/lorem/foo.ts',
+  //     bar: 'src/ipsum/bar.ts'
+  // },
   output: {
     filename: 'index.js',
     path: path.resolve(__dirname, 'dist')

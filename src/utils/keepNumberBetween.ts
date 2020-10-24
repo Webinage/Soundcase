@@ -1,17 +1,11 @@
 /**
- * Summary. (use period)
+ * Keep the input number between two values
  *
- * Description. (use period)
+ * @param {number}   number   Number to constrain.
+ * @param {number}   min      Minimal value.
+ * @param {number}   max      Maximum value.
  *
- * @see  Function/class relied on
- *
- * @param {type}   var           Description.
- * @param {type}   [var]         Description of optional variable.
- * @param {type}   [var=default] Description of optional variable with default variable.
- * @param {Object} objectVar     Description.
- * @param {type}   objectVar.key Description of a key in the objectVar parameter.
- *
- * @return {type} Return value description.
+ * @return {type} Return a number
  */
 export function keepNumberBetwwen(number: number, min: number, max: number) {
   return number > max ? max : number < min ? min : number;

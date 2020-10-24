@@ -1,17 +1,9 @@
 /**
- * Summary. (use period)
+ * I am not sure what I am doing.
  *
- * Description. (use period)
+ * @param {number}   amount   Distortion curve sharpening coef.
  *
- * @see  Function/class relied on
- *
- * @param {type}   var           Description.
- * @param {type}   [var]         Description of optional variable.
- * @param {type}   [var=default] Description of optional variable with default variable.
- * @param {Object} objectVar     Description.
- * @param {type}   objectVar.key Description of a key in the objectVar parameter.
- *
- * @return {type} Return value description.
+ * @return {Float32Array} Return a float32 array containing curve data.
  */
 export function makeDistortionCurve(amount: number = 50): Float32Array {
   const k = amount,
