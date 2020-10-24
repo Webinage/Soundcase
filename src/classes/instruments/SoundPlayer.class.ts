@@ -5,6 +5,16 @@ export interface SoundElement {
   mediaElementAudioSourceNode: MediaElementAudioSourceNode;
 }
 
+/**
+ * Summary. (A channel to handle single/multiple effects)
+ *
+ * Description. (A channel to handle single/multiple effects)
+ *
+ * @class
+ * @augments parent
+ *
+ * @return {ChannelStrip} Return value description.
+ */
 export class SoundPlayer {
   private _audioElements: Map<string, SoundElement> = new Map<
     string,
@@ -20,12 +30,42 @@ export class SoundPlayer {
     this._output = new GainNode(this._context);
   }
 
+  /**
+   * Summary. (use period)
+   *
+   * Description. (use period)
+   *
+   * @see  Function/class relied on
+   *
+   * @param {type}   var           Description.
+   * @param {type}   [var]         Description of optional variable.
+   * @param {type}   [var=default] Description of optional variable with default variable.
+   * @param {Object} objectVar     Description.
+   * @param {type}   objectVar.key Description of a key in the objectVar parameter.
+   *
+   * @return {type} Return value description.
+   */
   connect(channel: Channel) {
     this._channel = channel;
     this._output.disconnect();
     this._output.connect(channel.input);
   }
 
+  /**
+   * Summary. (use period)
+   *
+   * Description. (use period)
+   *
+   * @see  Function/class relied on
+   *
+   * @param {type}   var           Description.
+   * @param {type}   [var]         Description of optional variable.
+   * @param {type}   [var=default] Description of optional variable with default variable.
+   * @param {Object} objectVar     Description.
+   * @param {type}   objectVar.key Description of a key in the objectVar parameter.
+   *
+   * @return {type} Return value description.
+   */
   async playSound(name: string, volume = this._soundsLibrary.get(name).volume) {
     if (!this._audioElements.get(name)) {
       await this.loadSound(name, volume);
@@ -36,10 +76,40 @@ export class SoundPlayer {
     this._audioElements.get(name).htmlAudioElement.play();
   }
 
+  /**
+   * Summary. (use period)
+   *
+   * Description. (use period)
+   *
+   * @see  Function/class relied on
+   *
+   * @param {type}   var           Description.
+   * @param {type}   [var]         Description of optional variable.
+   * @param {type}   [var=default] Description of optional variable with default variable.
+   * @param {Object} objectVar     Description.
+   * @param {type}   objectVar.key Description of a key in the objectVar parameter.
+   *
+   * @return {type} Return value description.
+   */
   pauseSound(name: string) {
     this._audioElements.get(name).htmlAudioElement.pause();
   }
 
+  /**
+   * Summary. (use period)
+   *
+   * Description. (use period)
+   *
+   * @see  Function/class relied on
+   *
+   * @param {type}   var           Description.
+   * @param {type}   [var]         Description of optional variable.
+   * @param {type}   [var=default] Description of optional variable with default variable.
+   * @param {Object} objectVar     Description.
+   * @param {type}   objectVar.key Description of a key in the objectVar parameter.
+   *
+   * @return {type} Return value description.
+   */
   stopSound(name: string) {
     this._audioElements.get(name).htmlAudioElement.pause();
     this._audioElements.get(name).htmlAudioElement.currentTime = 0;

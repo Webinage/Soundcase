@@ -1,3 +1,9 @@
-import { ChannelStrip, MixChannel } from '../classes/channels'
+import { ChannelStrip, MixChannel } from '../classes/channels';
 
-export type Channel = MixChannel | ChannelStrip
+/**
+ * Summary. (A channel to handle single/multiple effects)
+ *
+ * Description. (A channel to handle single/multiple effects)
+ *
+ */
+export type Channel = MixChannel | ChannelStrip;

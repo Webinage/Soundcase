@@ -20,7 +20,7 @@
     "docs": "cd ./docs/website && npm run start",
     "docs-publish": "cd ./docs/website && rm -rf ./build && npm run build && GIT_USER=xledocteurx CURRENT_BRANCH=master USE_SSH=true npm run publish-gh-pages",
     "build": "rm -rf ./dist && webpack --config webpack.config.js",
-    "prepublish": "npm install && npm run test && npm run build",
+    "prepublish": "npm install && npm run test && npm run build && zip -r -X ./docs/website/static/dist.zip ./dist",
     "publish": "npm run build && npm publish --access public && npm run docs-publish",
     "commit": "git-cz"
   },

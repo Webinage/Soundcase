@@ -1,15 +1,5 @@
-import { keepNumberBetwwen } from '../../utils';
-import { MixChannel } from '../channels';
-import { Effect } from './Effect.abstract.class';
-
-/**
- * Summary. (A channel to handle single/multiple effects)
- *
- * Description. (A channel to handle single/multiple effects)
- *
- */
-export interface ReverbOptions {}
-// Check ConvolverOptions
+import { EffectTypeName } from '../../types';
+import { makeDistortionCurve } from '../../utils';
 
 /**
  * Summary. (A channel to handle single/multiple effects)
@@ -21,34 +11,41 @@ export interface ReverbOptions {}
  *
  * @return {ChannelStrip} Return value description.
  */
-export class Reverb extends Effect<ReverbOptions> {
-  private _dryChannel: MixChannel;
-  private _effectChannel: MixChannel;
-  private _node: ConvolverNode;
-
-  private _dryWetRatio: number;
+export class Effect<OT> {
+  protected options: OT;
+  protected _output: GainNode;
+  protected _input: ChannelMergerNode;
 
   constructor(
-    _context: AudioContext,
-    options: ConvolverOptions = {},
-    dryWetRatio: number = 0.5
+    protected name: EffectTypeName,
+    protected _context: AudioContext,
+    options: OT
   ) {
-    super('Reverb', _context, options);
-    this._dryChannel = new MixChannel(this._context);
-    this._effectChannel = new MixChannel(this._context);
-    this.setDryWetRatio(dryWetRatio);
-    this._node = new ConvolverNode(this._context, options);
+    this._input = new ChannelMergerNode(this._context);
+    this._output = new GainNode(this._context);
 
-    this._input
-      .connect(this._dryChannel.input)
-      .connect(this._dryChannel.output)
-      .connect(this._output);
-
-    this._input
-      .connect(this._effectChannel.input)
-      .connect(this._node)
-      .connect(this._effectChannel.output)
-      .connect(this._output);
+    if (name === '_3BandEQ') {
+      this.options = {
+        ...{ breakPoints: { lowMid: 200, midHigh: 2000 }, Q: 1, detune: 0 },
+        ...options
+      };
+    } else if (name === 'Delay') {
+      this.options = { ...{ delayTime: 0.5 }, ...options };
+    } else if (name === 'Distortion') {
+      this.options = {
+        ...{ curve: makeDistortionCurve(), oversample: '2x' },
+        ...options
+      };
+    } else if (name === 'Filter') {
+      this.options = {
+        ...{ type: 'lowpass', frequency: 500, Q: 1, detune: 0, gain: 1 },
+        ...options
+      };
+    } else if (name === 'Pan') {
+      this.options = { ...{ pan: 0 }, ...options };
+    } else if (name === 'Reverb') {
+      this.options = { ...{}, ...options };
+    }
   }
 
   /**
@@ -66,7 +63,7 @@ export class Reverb extends Effect<ReverbOptions> {
    *
    * @return {type} Return value description.
    */
-  get input() {
+  get input(): ChannelMergerNode {
     return this._input;
   }
 
@@ -85,9 +82,13 @@ export class Reverb extends Effect<ReverbOptions> {
    *
    * @return {type} Return value description.
    */
-  get output() {
+  get output(): GainNode {
     return this._output;
   }
+
+  // get options() {
+  //   return {};
+  // }
 
   /**
    * Summary. (use period)
@@ -104,9 +105,7 @@ export class Reverb extends Effect<ReverbOptions> {
    *
    * @return {type} Return value description.
    */
-  setDryWetRatio(ratio: number) {
-    this._dryWetRatio = keepNumberBetwwen(ratio, 0, 1);
-    this._dryChannel.output.gain.value = 1 - this._dryWetRatio;
-    this._effectChannel.output.gain.value = this._dryWetRatio;
+  setGain(value: number) {
+    this._output.gain.value = value;
   }
 }

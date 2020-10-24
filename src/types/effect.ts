@@ -13,6 +13,12 @@ import {
   _3BandEQOptions
 } from '../classes';
 
+/**
+ * Summary. (A channel to handle single/multiple effects)
+ *
+ * Description. (A channel to handle single/multiple effects)
+ *
+ */
 export type EffectTypeName =
   | '_3BandEQ'
   | 'Delay'
@@ -21,8 +27,20 @@ export type EffectTypeName =
   | 'Pan'
   | 'Reverb';
 
+/**
+ * Summary. (A channel to handle single/multiple effects)
+ *
+ * Description. (A channel to handle single/multiple effects)
+ *
+ */
 export type EffectType = _3BandEQ | Delay | Distortion | Filter | Pan | Reverb;
 
+/**
+ * Summary. (A channel to handle single/multiple effects)
+ *
+ * Description. (A channel to handle single/multiple effects)
+ *
+ */
 export type EffectOptions =
   | _3BandEQOptions
   | MyDelayOptions

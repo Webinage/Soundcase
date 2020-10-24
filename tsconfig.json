@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "outDir": "./dist",
+    "outDir": ".github/dist",
     "allowJs": true,
     "declaration": true,
     // "emitDeclarationOnly": true,

@@ -47,6 +47,7 @@ const siteConfig = {
     // { doc: 'doc1', label: 'Docs' },
     // { doc: 'doc1', label: 'API' },
     // { page: 'examples', label: 'Examples' },
+    // { doc: 'doc1', label: 'Libraries' },
     // { page: 'help', label: 'Help' },
     { blog: true, label: 'Blog' },
     {

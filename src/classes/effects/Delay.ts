@@ -1,16 +1,29 @@
 import { keepNumberBetwwen } from '../../utils';
 import { MixChannel } from '../channels';
-import { Effect } from './Effect.class.abstract';
+import { Effect } from './Effect.abstract.class';
 
-// Check DelayOptions
+/**
+ * Summary. (A channel to handle single/multiple effects)
+ *
+ * Description. (A channel to handle single/multiple effects)
+ *
+ */
 export interface MyDelayOptions {
   delayTime?: number;
 }
+// Check DelayOptions
 
+/**
+ * Summary. (A channel to handle single/multiple effects)
+ *
+ * Description. (A channel to handle single/multiple effects)
+ *
+ * @class
+ * @augments parent
+ *
+ * @return {ChannelStrip} Return value description.
+ */
 export class Delay extends Effect<MyDelayOptions> {
-  private _input: ChannelMergerNode;
-  private _gain: GainNode;
-
   private _dryChannel: MixChannel;
   private _effectChannel: MixChannel;
   private _node: DelayNode;
@@ -23,8 +36,6 @@ export class Delay extends Effect<MyDelayOptions> {
     dryWetRatio: number = 0.5
   ) {
     super('Delay', _context, options);
-    this._input = new ChannelMergerNode(this._context);
-    this._gain = new GainNode(this._context);
 
     this._dryChannel = new MixChannel(this._context);
     this._effectChannel = new MixChannel(this._context);
@@ -34,36 +45,92 @@ export class Delay extends Effect<MyDelayOptions> {
     this._input
       .connect(this._dryChannel.input)
       .connect(this._dryChannel.output)
-      .connect(this._gain);
+      .connect(this._output);
 
     this._input
       .connect(this._effectChannel.input)
       .connect(this._node)
       .connect(this._effectChannel.output)
-      .connect(this._gain);
+      .connect(this._output);
 
-    this._gain.connect(this._context.destination);
+    this._output.connect(this._context.destination);
   }
 
+  /**
+   * Summary. (use period)
+   *
+   * Description. (use period)
+   *
+   * @see  Function/class relied on
+   *
+   * @param {type}   var           Description.
+   * @param {type}   [var]         Description of optional variable.
+   * @param {type}   [var=default] Description of optional variable with default variable.
+   * @param {Object} objectVar     Description.
+   * @param {type}   objectVar.key Description of a key in the objectVar parameter.
+   *
+   * @return {type} Return value description.
+   */
   get input() {
     return this._input;
   }
 
+  /**
+   * Summary. (use period)
+   *
+   * Description. (use period)
+   *
+   * @see  Function/class relied on
+   *
+   * @param {type}   var           Description.
+   * @param {type}   [var]         Description of optional variable.
+   * @param {type}   [var=default] Description of optional variable with default variable.
+   * @param {Object} objectVar     Description.
+   * @param {type}   objectVar.key Description of a key in the objectVar parameter.
+   *
+   * @return {type} Return value description.
+   */
   get output() {
-    return this._gain;
+    return this._output;
   }
 
+  /**
+   * Summary. (use period)
+   *
+   * Description. (use period)
+   *
+   * @see  Function/class relied on
+   *
+   * @param {type}   var           Description.
+   * @param {type}   [var]         Description of optional variable.
+   * @param {type}   [var=default] Description of optional variable with default variable.
+   * @param {Object} objectVar     Description.
+   * @param {type}   objectVar.key Description of a key in the objectVar parameter.
+   *
+   * @return {type} Return value description.
+   */
   setDryWetRatio(ratio: number) {
     this._dryWetRatio = keepNumberBetwwen(ratio, 0, 1);
     this._dryChannel.output.gain.value = 1 - this._dryWetRatio;
     this._effectChannel.output.gain.value = this._dryWetRatio;
   }
 
+  /**
+   * Summary. (use period)
+   *
+   * Description. (use period)
+   *
+   * @see  Function/class relied on
+   *
+   * @param {type}   var           Description.
+   * @param {type}   [var]         Description of optional variable.
+   * @param {type}   [var=default] Description of optional variable with default variable.
+   * @param {Object} objectVar     Description.
+   * @param {type}   objectVar.key Description of a key in the objectVar parameter.
+   *
+   * @return {type} Return value description.
+   */
   setDelayTime(time: number) {
     this._node.delayTime.value = time;
-  }
-
-  setGain(value: number) {
-    this._gain.gain.value = value;
   }
 }

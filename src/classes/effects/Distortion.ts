@@ -1,36 +1,92 @@
 import { makeDistortionCurve } from '../../utils';
-import { Effect } from './Effect.class.abstract';
+import { Effect } from './Effect.abstract.class';
 
-// Check WaveShaperOptions
+/**
+ * Summary. (A channel to handle single/multiple effects)
+ *
+ * Description. (A channel to handle single/multiple effects)
+ *
+ */
 export interface DistortionOptions {
   curve?: Float32Array | number[];
   oversample?: OverSampleType;
 }
+// Check WaveShaperOptions
 
+/**
+ * Summary. (A channel to handle single/multiple effects)
+ *
+ * Description. (A channel to handle single/multiple effects)
+ *
+ * @class
+ * @augments parent
+ *
+ * @return {ChannelStrip} Return value description.
+ */
 export class Distortion extends Effect<DistortionOptions> {
-  private _input: ChannelMergerNode;
-  private _gain: GainNode;
-
   private _node: WaveShaperNode;
 
   constructor(_context: AudioContext, options: DistortionOptions = {}) {
     super('Distortion', _context, options);
-    this._input = new ChannelMergerNode(this._context);
-    this._gain = new GainNode(this._context);
 
     this._node = new WaveShaperNode(this._context, options);
 
-    this._input.connect(this._node).connect(this._gain);
+    this._input.connect(this._node).connect(this._output);
   }
 
+  /**
+   * Summary. (use period)
+   *
+   * Description. (use period)
+   *
+   * @see  Function/class relied on
+   *
+   * @param {type}   var           Description.
+   * @param {type}   [var]         Description of optional variable.
+   * @param {type}   [var=default] Description of optional variable with default variable.
+   * @param {Object} objectVar     Description.
+   * @param {type}   objectVar.key Description of a key in the objectVar parameter.
+   *
+   * @return {type} Return value description.
+   */
   get input() {
     return this._input;
   }
 
+  /**
+   * Summary. (use period)
+   *
+   * Description. (use period)
+   *
+   * @see  Function/class relied on
+   *
+   * @param {type}   var           Description.
+   * @param {type}   [var]         Description of optional variable.
+   * @param {type}   [var=default] Description of optional variable with default variable.
+   * @param {Object} objectVar     Description.
+   * @param {type}   objectVar.key Description of a key in the objectVar parameter.
+   *
+   * @return {type} Return value description.
+   */
   get output() {
-    return this._gain;
+    return this._output;
   }
 
+  /**
+   * Summary. (use period)
+   *
+   * Description. (use period)
+   *
+   * @see  Function/class relied on
+   *
+   * @param {type}   var           Description.
+   * @param {type}   [var]         Description of optional variable.
+   * @param {type}   [var=default] Description of optional variable with default variable.
+   * @param {Object} objectVar     Description.
+   * @param {type}   objectVar.key Description of a key in the objectVar parameter.
+   *
+   * @return {type} Return value description.
+   */
   setCurve(amount: number): void;
   setCurve(curve: number[]): void;
   setCurve(curve: Float32Array): void;
@@ -42,11 +98,22 @@ export class Distortion extends Effect<DistortionOptions> {
     }
   }
 
+  /**
+   * Summary. (use period)
+   *
+   * Description. (use period)
+   *
+   * @see  Function/class relied on
+   *
+   * @param {type}   var           Description.
+   * @param {type}   [var]         Description of optional variable.
+   * @param {type}   [var=default] Description of optional variable with default variable.
+   * @param {Object} objectVar     Description.
+   * @param {type}   objectVar.key Description of a key in the objectVar parameter.
+   *
+   * @return {type} Return value description.
+   */
   setOversample(oversample: OverSampleType): void {
     this._node.oversample = oversample;
-  }
-
-  setGain(value: number): void {
-    this._gain.gain.value = value;
   }
 }

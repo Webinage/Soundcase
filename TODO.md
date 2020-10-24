@@ -1,3 +1,6 @@
+- Faire que les effets ( voir tous les composants ) puissent être utilisés sans channels ( voir sans la classe audio engine )
+- Class singleton
+
 - custom contribution dans le funding.md pour paypal
 - finir de remplir le contributing?md
 
