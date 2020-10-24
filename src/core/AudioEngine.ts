@@ -1,20 +1,18 @@
-import { SoundPlayer } from './classes';
-import { ChannelStrip, MixChannel } from './classes/channels';
 import {
-  Delay,
-  Distortion,
   DistortionOptions,
-  Filter,
+  Effect,
+  EffectOptions,
+  EffectsNames,
   FilterOptions,
   MyDelayOptions,
-  Pan,
   PanOptions,
-  Reverb,
   ReverbOptions,
-  _3BandEQ,
+  SoundsLibrary,
   _3BandEQOptions
-} from './classes/effects';
-import { EffectType, EffectTypeName, SoundsLibrary } from './types';
+} from '../types';
+import { ChannelStrip, MixChannel } from './channels';
+import { Delay, Distortion, Filter, Pan, Reverb, _3BandEQ } from './effects';
+import { SoundPlayer } from './instruments';
 
 /**
  * Summary. (A channel to handle single/multiple effects)
@@ -183,20 +181,20 @@ export class AudioEngine {
    *
    * @return {type} Return value description.
    */
+  // createSoundPlayer(
+  //   playerName: string,
+  //   sounds: SoundsLibrary,
+  //   mixChannelName?: EngineMixChannels
+  // ): SoundPlayer;
+  // createSoundPlayer(
+  //   playerName: string,
+  //   sounds: SoundsLibrary,
+  //   channelStripName?: string
+  // ): SoundPlayer;
   createSoundPlayer(
     playerName: string,
     sounds: SoundsLibrary,
-    mixChannelName?: EngineMixChannels
-  ): SoundPlayer;
-  createSoundPlayer(
-    playerName: string,
-    sounds: SoundsLibrary,
-    channelStripName?: string
-  ): SoundPlayer;
-  createSoundPlayer(
-    playerName: string,
-    sounds: SoundsLibrary,
-    channelName: any = 'soundEffectsChannel'
+    channelName: EngineMixChannels | string = 'soundEffectsChannel'
   ): SoundPlayer {
     this._soundPlayers.set(
       playerName,
@@ -204,7 +202,7 @@ export class AudioEngine {
         this._masterContext,
         sounds,
         Object.keys(this._mixChannels).some(key => key === channelName)
-          ? this._mixChannels.get(channelName)
+          ? this._mixChannels.get(channelName as EngineMixChannels)
           : this._channelStrips.get(channelName)
       )
     );
@@ -227,16 +225,19 @@ export class AudioEngine {
    *
    * @return {type} Return value description.
    */
-  createEffect(effectType: '_3BandEQ', breakpoints?: _3BandEQOptions): _3BandEQ;
-  createEffect(effectType: 'Delay', effectOptions?: MyDelayOptions): Delay;
+  createEffect(effectType: '_3BandEQ', options?: _3BandEQOptions): _3BandEQ;
+  createEffect(effectType: 'Delay', options?: MyDelayOptions): Delay;
   createEffect(
     effectType: 'Distortion',
-    effectOptions?: DistortionOptions
+    options?: DistortionOptions
   ): Distortion;
-  createEffect(effectType: 'Filter', effectOptions?: FilterOptions): Filter;
-  createEffect(effectType: 'Pan', effectOptions?: PanOptions): Pan;
-  createEffect(effectType: 'Reverb', effectOptions?: ReverbOptions): Reverb;
-  createEffect(effectType: EffectTypeName, options: any = {}): EffectType {
+  createEffect(effectType: 'Filter', options?: FilterOptions): Filter;
+  createEffect(effectType: 'Pan', options?: PanOptions): Pan;
+  createEffect(effectType: 'Reverb', options?: ReverbOptions): Reverb;
+  createEffect(
+    effectType: EffectsNames,
+    options: EffectOptions = {}
+  ): Effect<EffectOptions> {
     if (effectType === '_3BandEQ') {
       return new _3BandEQ(this._masterContext, options);
     } else if (effectType === 'Delay') {
@@ -269,17 +270,17 @@ export class AudioEngine {
    */
   createChannelStrip(
     channelName: string,
-    effects?: EffectType[],
+    effects?: Effect<EffectOptions>[],
     mixChannelName?: EngineMixChannels
   ): ChannelStrip;
   createChannelStrip(
     channelName: string,
-    effects?: EffectType[],
+    effects?: Effect<EffectOptions>[],
     channelStripName?: string
   ): ChannelStrip;
   createChannelStrip(
     name: string,
-    effects: EffectType[] = [],
+    effects: Effect<EffectOptions>[] = [],
     channelName: any = 'soundEffectsChannel'
   ): ChannelStrip {
     this._channelStrips.set(

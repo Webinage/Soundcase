@@ -1,17 +1,4 @@
-import { makeDistortionCurve } from '../../utils';
-import { Effect } from './Effect.abstract.class';
-
-/**
- * Summary. (A channel to handle single/multiple effects)
- *
- * Description. (A channel to handle single/multiple effects)
- *
- */
-export interface DistortionOptions {
-  curve?: Float32Array | number[];
-  oversample?: OverSampleType;
-}
-// Check WaveShaperOptions
+import { Effect, FilterOptions } from '../../types';
 
 /**
  * Summary. (A channel to handle single/multiple effects)
@@ -23,13 +10,13 @@ export interface DistortionOptions {
  *
  * @return {ChannelStrip} Return value description.
  */
-export class Distortion extends Effect<DistortionOptions> {
-  private _node: WaveShaperNode;
+export class Filter extends Effect<FilterOptions> {
+  private _node: BiquadFilterNode;
 
-  constructor(_context: AudioContext, options: DistortionOptions = {}) {
-    super('Distortion', _context, options);
+  constructor(_context: AudioContext, options: FilterOptions = {}) {
+    super('Filter', _context, options);
 
-    this._node = new WaveShaperNode(this._context, options);
+    this._node = new BiquadFilterNode(this._context, options);
 
     this._input.connect(this._node).connect(this._output);
   }
@@ -87,15 +74,8 @@ export class Distortion extends Effect<DistortionOptions> {
    *
    * @return {type} Return value description.
    */
-  setCurve(amount: number): void;
-  setCurve(curve: number[]): void;
-  setCurve(curve: Float32Array): void;
-  setCurve(input: any): void {
-    if (typeof input === 'number') {
-      this._node.curve = makeDistortionCurve(input);
-    } else {
-      this._node.curve = input;
-    }
+  setFrequency(value: number) {
+    this._node.frequency.value = value;
   }
 
   /**
@@ -113,7 +93,26 @@ export class Distortion extends Effect<DistortionOptions> {
    *
    * @return {type} Return value description.
    */
-  setOversample(oversample: OverSampleType): void {
-    this._node.oversample = oversample;
+  setQ(value: number) {
+    this._node.Q.value = value;
+  }
+
+  /**
+   * Summary. (use period)
+   *
+   * Description. (use period)
+   *
+   * @see  Function/class relied on
+   *
+   * @param {type}   var           Description.
+   * @param {type}   [var]         Description of optional variable.
+   * @param {type}   [var=default] Description of optional variable with default variable.
+   * @param {Object} objectVar     Description.
+   * @param {type}   objectVar.key Description of a key in the objectVar parameter.
+   *
+   * @return {type} Return value description.
+   */
+  setFilterGain(value: number) {
+    this._node.gain.value = value;
   }
 }

@@ -1,4 +1,3 @@
-export * from './channel';
-export * from './dic';
-export * from './effect';
-export * from './sound';
+export * from './abstractClasses';
+export * from './interfaces';
+export * from './types';

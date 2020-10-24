@@ -1,5 +1,6 @@
-import { EffectType } from '../../types';
-import { Channel } from './Channel.abstract.class';
+import { Channel } from '.';
+import { EffectOptions, EffectsNames } from '..';
+import { makeDistortionCurve } from '../../utils';
 
 /**
  * Summary. (A channel to handle single/multiple effects)
@@ -11,17 +12,109 @@ import { Channel } from './Channel.abstract.class';
  *
  * @return {ChannelStrip} Return value description.
  */
-export class ChannelStrip extends Channel {
-  private _effects: EffectType[] = [];
+export abstract class Effect<OT> {
+  protected options: OT;
+  protected _output: GainNode;
+  protected _input: ChannelMergerNode;
 
-  constructor(_context: AudioContext, effect: EffectType);
-  constructor(_context: AudioContext, effects: EffectType[]);
-  constructor(_context: AudioContext, fx: any) {
-    super(_context);
-    if (Array.isArray(fx)) {
-      this.addEffects(fx);
+  constructor(
+    protected name: EffectsNames,
+    protected _context: AudioContext,
+    options: OT
+  ) {
+    this._input = new ChannelMergerNode(this._context);
+    this._output = new GainNode(this._context);
+
+    if (name === '_3BandEQ') {
+      this.options = {
+        ...{ breakPoints: { lowMid: 200, midHigh: 2000 }, Q: 1, detune: 0 },
+        ...options
+      };
+    } else if (name === 'Delay') {
+      this.options = { ...{ delayTime: 0.5 }, ...options };
+    } else if (name === 'Distortion') {
+      this.options = {
+        ...{ curve: makeDistortionCurve(), oversample: '2x' },
+        ...options
+      };
+    } else if (name === 'Filter') {
+      this.options = {
+        ...{ type: 'lowpass', frequency: 500, Q: 1, detune: 0, gain: 1 },
+        ...options
+      };
+    } else if (name === 'Pan') {
+      this.options = { ...{ pan: 0 }, ...options };
+    } else if (name === 'Reverb') {
+      this.options = { ...{}, ...options };
+    }
+  }
+
+  /**
+   * Summary. (use period)
+   *
+   * Description. (use period)
+   *
+   * @see  Function/class relied on
+   *
+   * @param {type}   var           Description.
+   * @param {type}   [var]         Description of optional variable.
+   * @param {type}   [var=default] Description of optional variable with default variable.
+   * @param {Object} objectVar     Description.
+   * @param {type}   objectVar.key Description of a key in the objectVar parameter.
+   *
+   * @return {type} Return value description.
+   */
+  get input(): ChannelMergerNode {
+    return this._input;
+  }
+
+  /**
+   * Summary. (use period)
+   *
+   * Description. (use period)
+   *
+   * @see  Function/class relied on
+   *
+   * @param {type}   var           Description.
+   * @param {type}   [var]         Description of optional variable.
+   * @param {type}   [var=default] Description of optional variable with default variable.
+   * @param {Object} objectVar     Description.
+   * @param {type}   objectVar.key Description of a key in the objectVar parameter.
+   *
+   * @return {type} Return value description.
+   */
+  get output(): GainNode {
+    return this._output;
+  }
+
+  // get options() {
+  //   return {};
+  // }
+
+  /**
+   * Summary. (use period)
+   *
+   * Description. (use period)
+   *
+   * @see  Function/class relied on
+   *
+   * @param {type}   var           Description.
+   * @param {type}   [var]         Description of optional variable.
+   * @param {type}   [var=default] Description of optional variable with default variable.
+   * @param {Object} objectVar     Description.
+   * @param {type}   objectVar.key Description of a key in the objectVar parameter.
+   *
+   * @return {type} Return value description.
+   */
+  // connect(effect: Effect<EffectOptions>): AudioNode;
+  // connect(channel: Channel): AudioNode;
+  // connect(node: AudioNode): AudioNode;
+  connect(item: AudioNode | Effect<EffectOptions> | Channel): AudioNode {
+    if ('input' in item && 'output' in item) {
+      this._output.connect(item.input);
+      return item.output;
     } else {
-      this.addEffect(fx);
+      return this._output.connect(item);
     }
   }
 
@@ -40,82 +133,7 @@ export class ChannelStrip extends Channel {
    *
    * @return {type} Return value description.
    */
-  connect(channel: Channel): AudioNode {
-    // this._output.disconnect()
-    this._output.connect(channel.input);
-    return channel.output;
-  }
-
-  /**
-   * Summary. (use period)
-   *
-   * Description. (use period)
-   *
-   * @see  Function/class relied on
-   *
-   * @param {type}   var           Description.
-   * @param {type}   [var]         Description of optional variable.
-   * @param {type}   [var=default] Description of optional variable with default variable.
-   * @param {Object} objectVar     Description.
-   * @param {type}   objectVar.key Description of a key in the objectVar parameter.
-   *
-   * @return {type} Return value description.
-   */
-  addEffect(effect: EffectType) {
-    this._effects.push(effect);
-    this.rootEffects();
-  }
-
-  /**
-   * Summary. (use period)
-   *
-   * Description. (use period)
-   *
-   * @see  Function/class relied on
-   *
-   * @param {type}   var           Description.
-   * @param {type}   [var]         Description of optional variable.
-   * @param {type}   [var=default] Description of optional variable with default variable.
-   * @param {Object} objectVar     Description.
-   * @param {type}   objectVar.key Description of a key in the objectVar parameter.
-   *
-   * @return {type} Return value description.
-   */
-  addEffects(effects: EffectType[]) {
-    this._effects = [...this._effects, ...effects];
-    this.rootEffects();
-  }
-
-  /**
-   * Summary. (use period)
-   *
-   * Description. (use period)
-   *
-   * @see  Function/class relied on
-   *
-   * @param {type}   var           Description.
-   * @param {type}   [var]         Description of optional variable.
-   * @param {type}   [var=default] Description of optional variable with default variable.
-   * @param {Object} objectVar     Description.
-   * @param {type}   objectVar.key Description of a key in the objectVar parameter.
-   *
-   * @return {type} Return value description.
-   */
-  rootEffects() {
-    this._input.disconnect();
-    this._effects.forEach(ef => {
-      ef.output.disconnect();
-    });
-    this._input.connect(this._effects[0].input);
-    if (this._effects.length > 1) {
-      for (let i = 0; i < this._effects.length - 1; i++) {
-        this._effects[i].output.connect(this._effects[i + 1].input);
-      }
-    }
-
-    this._effects[this._effects.length - 1].output.connect(this._output);
-
-    // const channelFlow = this._effects.reduce((prev_node, ef) => prev_node.connect(ef._input), this._input)
-    // channelFlow.connect(this.gain)
+  setGain(value: number) {
+    this._output.gain.value = value;
   }
 }

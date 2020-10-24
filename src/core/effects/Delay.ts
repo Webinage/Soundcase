@@ -1,5 +1,6 @@
-import { EffectTypeName } from '../../types';
-import { makeDistortionCurve } from '../../utils';
+import { Effect, MyDelayOptions } from '../../types';
+import { keepNumberBetwwen } from '../../utils';
+import { MixChannel } from '../channels';
 
 /**
  * Summary. (A channel to handle single/multiple effects)
@@ -11,41 +12,37 @@ import { makeDistortionCurve } from '../../utils';
  *
  * @return {ChannelStrip} Return value description.
  */
-export class Effect<OT> {
-  protected options: OT;
-  protected _output: GainNode;
-  protected _input: ChannelMergerNode;
+export class Delay extends Effect<MyDelayOptions> {
+  private _dryChannel: MixChannel;
+  private _effectChannel: MixChannel;
+  private _node: DelayNode;
+
+  private _dryWetRatio: number;
 
   constructor(
-    protected name: EffectTypeName,
-    protected _context: AudioContext,
-    options: OT
+    _context: AudioContext,
+    options: MyDelayOptions = {},
+    dryWetRatio: number = 0.5
   ) {
-    this._input = new ChannelMergerNode(this._context);
-    this._output = new GainNode(this._context);
+    super('Delay', _context, options);
 
-    if (name === '_3BandEQ') {
-      this.options = {
-        ...{ breakPoints: { lowMid: 200, midHigh: 2000 }, Q: 1, detune: 0 },
-        ...options
-      };
-    } else if (name === 'Delay') {
-      this.options = { ...{ delayTime: 0.5 }, ...options };
-    } else if (name === 'Distortion') {
-      this.options = {
-        ...{ curve: makeDistortionCurve(), oversample: '2x' },
-        ...options
-      };
-    } else if (name === 'Filter') {
-      this.options = {
-        ...{ type: 'lowpass', frequency: 500, Q: 1, detune: 0, gain: 1 },
-        ...options
-      };
-    } else if (name === 'Pan') {
-      this.options = { ...{ pan: 0 }, ...options };
-    } else if (name === 'Reverb') {
-      this.options = { ...{}, ...options };
-    }
+    this._dryChannel = new MixChannel(this._context);
+    this._effectChannel = new MixChannel(this._context);
+    this.setDryWetRatio(dryWetRatio);
+    this._node = new DelayNode(this._context, options);
+
+    this._input
+      .connect(this._dryChannel.input)
+      .connect(this._dryChannel.output)
+      .connect(this._output);
+
+    this._input
+      .connect(this._effectChannel.input)
+      .connect(this._node)
+      .connect(this._effectChannel.output)
+      .connect(this._output);
+
+    this._output.connect(this._context.destination);
   }
 
   /**
@@ -63,7 +60,7 @@ export class Effect<OT> {
    *
    * @return {type} Return value description.
    */
-  get input(): ChannelMergerNode {
+  get input() {
     return this._input;
   }
 
@@ -82,13 +79,9 @@ export class Effect<OT> {
    *
    * @return {type} Return value description.
    */
-  get output(): GainNode {
+  get output() {
     return this._output;
   }
-
-  // get options() {
-  //   return {};
-  // }
 
   /**
    * Summary. (use period)
@@ -105,7 +98,28 @@ export class Effect<OT> {
    *
    * @return {type} Return value description.
    */
-  setGain(value: number) {
-    this._output.gain.value = value;
+  setDryWetRatio(ratio: number) {
+    this._dryWetRatio = keepNumberBetwwen(ratio, 0, 1);
+    this._dryChannel.output.gain.value = 1 - this._dryWetRatio;
+    this._effectChannel.output.gain.value = this._dryWetRatio;
+  }
+
+  /**
+   * Summary. (use period)
+   *
+   * Description. (use period)
+   *
+   * @see  Function/class relied on
+   *
+   * @param {type}   var           Description.
+   * @param {type}   [var]         Description of optional variable.
+   * @param {type}   [var=default] Description of optional variable with default variable.
+   * @param {Object} objectVar     Description.
+   * @param {type}   objectVar.key Description of a key in the objectVar parameter.
+   *
+   * @return {type} Return value description.
+   */
+  setDelayTime(time: number) {
+    this._node.delayTime.value = time;
   }
 }

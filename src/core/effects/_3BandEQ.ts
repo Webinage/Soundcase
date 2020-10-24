@@ -1,21 +1,5 @@
+import { Effect, _3BandEQOptions } from '../../types';
 import { MixChannel } from '../channels';
-import { Effect } from './Effect.abstract.class';
-
-/**
- * Summary. (A channel to handle single/multiple effects)
- *
- * Description. (A channel to handle single/multiple effects)
- *
- */
-export interface _3BandEQOptions {
-  breakPoints?: {
-    lowMid: number;
-    midHigh: number;
-  };
-  Q?: number;
-  detune?: number;
-}
-// Check BiquadFilterOptions
 
 /**
  * Summary. (A channel to handle single/multiple effects)

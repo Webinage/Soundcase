@@ -1,17 +1,5 @@
-import { keepNumberBetwwen } from '../../utils';
-import { MixChannel } from '../channels';
-import { Effect } from './Effect.abstract.class';
-
-/**
- * Summary. (A channel to handle single/multiple effects)
- *
- * Description. (A channel to handle single/multiple effects)
- *
- */
-export interface MyDelayOptions {
-  delayTime?: number;
-}
-// Check DelayOptions
+import { DistortionOptions, Effect } from '../../types';
+import { makeDistortionCurve } from '../../utils';
 
 /**
  * Summary. (A channel to handle single/multiple effects)
@@ -23,37 +11,15 @@ export interface MyDelayOptions {
  *
  * @return {ChannelStrip} Return value description.
  */
-export class Delay extends Effect<MyDelayOptions> {
-  private _dryChannel: MixChannel;
-  private _effectChannel: MixChannel;
-  private _node: DelayNode;
+export class Distortion extends Effect<DistortionOptions> {
+  private _node: WaveShaperNode;
 
-  private _dryWetRatio: number;
+  constructor(_context: AudioContext, options: DistortionOptions = {}) {
+    super('Distortion', _context, options);
 
-  constructor(
-    _context: AudioContext,
-    options: MyDelayOptions = {},
-    dryWetRatio: number = 0.5
-  ) {
-    super('Delay', _context, options);
+    this._node = new WaveShaperNode(this._context, options);
 
-    this._dryChannel = new MixChannel(this._context);
-    this._effectChannel = new MixChannel(this._context);
-    this.setDryWetRatio(dryWetRatio);
-    this._node = new DelayNode(this._context, options);
-
-    this._input
-      .connect(this._dryChannel.input)
-      .connect(this._dryChannel.output)
-      .connect(this._output);
-
-    this._input
-      .connect(this._effectChannel.input)
-      .connect(this._node)
-      .connect(this._effectChannel.output)
-      .connect(this._output);
-
-    this._output.connect(this._context.destination);
+    this._input.connect(this._node).connect(this._output);
   }
 
   /**
@@ -109,10 +75,15 @@ export class Delay extends Effect<MyDelayOptions> {
    *
    * @return {type} Return value description.
    */
-  setDryWetRatio(ratio: number) {
-    this._dryWetRatio = keepNumberBetwwen(ratio, 0, 1);
-    this._dryChannel.output.gain.value = 1 - this._dryWetRatio;
-    this._effectChannel.output.gain.value = this._dryWetRatio;
+  setCurve(amount: number): void;
+  setCurve(curve: number[]): void;
+  setCurve(curve: Float32Array): void;
+  setCurve(input: any): void {
+    if (typeof input === 'number') {
+      this._node.curve = makeDistortionCurve(input);
+    } else {
+      this._node.curve = input;
+    }
   }
 
   /**
@@ -130,7 +101,7 @@ export class Delay extends Effect<MyDelayOptions> {
    *
    * @return {type} Return value description.
    */
-  setDelayTime(time: number) {
-    this._node.delayTime.value = time;
+  setOversample(oversample: OverSampleType): void {
+    this._node.oversample = oversample;
   }
 }

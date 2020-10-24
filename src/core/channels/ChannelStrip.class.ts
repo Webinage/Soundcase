@@ -1,15 +1,4 @@
-import { keepNumberBetwwen } from '../../utils';
-import { MixChannel } from '../channels';
-import { Effect } from './Effect.abstract.class';
-
-/**
- * Summary. (A channel to handle single/multiple effects)
- *
- * Description. (A channel to handle single/multiple effects)
- *
- */
-export interface ReverbOptions {}
-// Check ConvolverOptions
+import { Channel, Effect, EffectOptions } from '../../types';
 
 /**
  * Summary. (A channel to handle single/multiple effects)
@@ -21,34 +10,18 @@ export interface ReverbOptions {}
  *
  * @return {ChannelStrip} Return value description.
  */
-export class Reverb extends Effect<ReverbOptions> {
-  private _dryChannel: MixChannel;
-  private _effectChannel: MixChannel;
-  private _node: ConvolverNode;
+export class ChannelStrip extends Channel {
+  private _effects: Effect<EffectOptions>[] = [];
 
-  private _dryWetRatio: number;
-
-  constructor(
-    _context: AudioContext,
-    options: ConvolverOptions = {},
-    dryWetRatio: number = 0.5
-  ) {
-    super('Reverb', _context, options);
-    this._dryChannel = new MixChannel(this._context);
-    this._effectChannel = new MixChannel(this._context);
-    this.setDryWetRatio(dryWetRatio);
-    this._node = new ConvolverNode(this._context, options);
-
-    this._input
-      .connect(this._dryChannel.input)
-      .connect(this._dryChannel.output)
-      .connect(this._output);
-
-    this._input
-      .connect(this._effectChannel.input)
-      .connect(this._node)
-      .connect(this._effectChannel.output)
-      .connect(this._output);
+  constructor(_context: AudioContext, effect: Effect<EffectOptions>);
+  constructor(_context: AudioContext, effects: Effect<EffectOptions>[]);
+  constructor(_context: AudioContext, fx: any) {
+    super(_context);
+    if (Array.isArray(fx)) {
+      this.addEffects(fx);
+    } else {
+      this.addEffect(fx);
+    }
   }
 
   /**
@@ -66,8 +39,9 @@ export class Reverb extends Effect<ReverbOptions> {
    *
    * @return {type} Return value description.
    */
-  get input() {
-    return this._input;
+  addEffect(effect: Effect<EffectOptions>) {
+    this._effects.push(effect);
+    this.rootEffects();
   }
 
   /**
@@ -85,8 +59,9 @@ export class Reverb extends Effect<ReverbOptions> {
    *
    * @return {type} Return value description.
    */
-  get output() {
-    return this._output;
+  addEffects(effects: Effect<EffectOptions>[]) {
+    this._effects = [...this._effects, ...effects];
+    this.rootEffects();
   }
 
   /**
@@ -104,9 +79,21 @@ export class Reverb extends Effect<ReverbOptions> {
    *
    * @return {type} Return value description.
    */
-  setDryWetRatio(ratio: number) {
-    this._dryWetRatio = keepNumberBetwwen(ratio, 0, 1);
-    this._dryChannel.output.gain.value = 1 - this._dryWetRatio;
-    this._effectChannel.output.gain.value = this._dryWetRatio;
+  rootEffects() {
+    this._input.disconnect();
+    this._effects.forEach(ef => {
+      ef.output.disconnect();
+    });
+    this._input.connect(this._effects[0].input);
+    if (this._effects.length > 1) {
+      for (let i = 0; i < this._effects.length - 1; i++) {
+        this._effects[i].output.connect(this._effects[i + 1].input);
+      }
+    }
+
+    this._effects[this._effects.length - 1].output.connect(this._output);
+
+    // const channelFlow = this._effects.reduce((prev_node, ef) => prev_node.connect(ef._input), this._input)
+    // channelFlow.connect(this.gain)
   }
 }

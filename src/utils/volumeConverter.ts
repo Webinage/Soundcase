@@ -1,44 +1,22 @@
 /**
+ * Convert decibels to percentage.
  * Volume is expressed in percentage
- */
-
-/**
- * Summary. (use period)
  *
- * Description. (use period)
+ * @param {number}   db    Volume in decibels.
  *
- * @see  Function/class relied on
- *
- * @param {type}   var           Description.
- * @param {type}   [var]         Description of optional variable.
- * @param {type}   [var=default] Description of optional variable with default variable.
- * @param {Object} objectVar     Description.
- * @param {type}   objectVar.key Description of a key in the objectVar parameter.
- *
- * @return {type} Return value description.
+ * @return {number} Return the volume in percentage.
  */
 export function dbToVolume(db: number) {
   return Math.pow(10, 0.05 * db);
 }
 
 /**
+ * Convert percentage to decibels.
  * Volume is expressed in percentage
- */
-
-/**
- * Summary. (use period)
  *
- * Description. (use period)
+ * @param {number}   volume    Volume in percentage.
  *
- * @see  Function/class relied on
- *
- * @param {type}   var           Description.
- * @param {type}   [var]         Description of optional variable.
- * @param {type}   [var=default] Description of optional variable with default variable.
- * @param {Object} objectVar     Description.
- * @param {type}   objectVar.key Description of a key in the objectVar parameter.
- *
- * @return {type} Return value description.
+ * @return {number} Return the volume in decibels.
  */
 export function volumeToDb(volume: number) {
   return 20 * Math.log10(volume);

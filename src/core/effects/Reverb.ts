@@ -1,3 +1,7 @@
+import { Effect, ReverbOptions } from '../../types';
+import { keepNumberBetwwen } from '../../utils';
+import { MixChannel } from '../channels';
+
 /**
  * Summary. (A channel to handle single/multiple effects)
  *
@@ -8,13 +12,34 @@
  *
  * @return {ChannelStrip} Return value description.
  */
-export abstract class Channel {
-  protected _input: ChannelMergerNode;
-  protected _output: GainNode;
+export class Reverb extends Effect<ReverbOptions> {
+  private _dryChannel: MixChannel;
+  private _effectChannel: MixChannel;
+  private _node: ConvolverNode;
 
-  constructor(protected _context: AudioContext) {
-    this._input = new ChannelMergerNode(this._context);
-    this._output = new GainNode(this._context);
+  private _dryWetRatio: number;
+
+  constructor(
+    _context: AudioContext,
+    options: ConvolverOptions = {},
+    dryWetRatio: number = 0.5
+  ) {
+    super('Reverb', _context, options);
+    this._dryChannel = new MixChannel(this._context);
+    this._effectChannel = new MixChannel(this._context);
+    this.setDryWetRatio(dryWetRatio);
+    this._node = new ConvolverNode(this._context, options);
+
+    this._input
+      .connect(this._dryChannel.input)
+      .connect(this._dryChannel.output)
+      .connect(this._output);
+
+    this._input
+      .connect(this._effectChannel.input)
+      .connect(this._node)
+      .connect(this._effectChannel.output)
+      .connect(this._output);
   }
 
   /**
@@ -32,7 +57,7 @@ export abstract class Channel {
    *
    * @return {type} Return value description.
    */
-  get input(): ChannelMergerNode {
+  get input() {
     return this._input;
   }
 
@@ -51,7 +76,7 @@ export abstract class Channel {
    *
    * @return {type} Return value description.
    */
-  get output(): GainNode {
+  get output() {
     return this._output;
   }
 
@@ -70,24 +95,9 @@ export abstract class Channel {
    *
    * @return {type} Return value description.
    */
-  abstract connect(channel: Channel): AudioNode;
-
-  /**
-   * Summary. (use period)
-   *
-   * Description. (use period)
-   *
-   * @see  Function/class relied on
-   *
-   * @param {type}   var           Description.
-   * @param {type}   [var]         Description of optional variable.
-   * @param {type}   [var=default] Description of optional variable with default variable.
-   * @param {Object} objectVar     Description.
-   * @param {type}   objectVar.key Description of a key in the objectVar parameter.
-   *
-   * @return {type} Return value description.
-   */
-  setGain(value: number): void {
-    this._output.gain.value = value;
+  setDryWetRatio(ratio: number) {
+    this._dryWetRatio = keepNumberBetwwen(ratio, 0, 1);
+    this._dryChannel.output.gain.value = 1 - this._dryWetRatio;
+    this._effectChannel.output.gain.value = this._dryWetRatio;
   }
 }

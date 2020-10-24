@@ -1,4 +1,4 @@
-import { AudioEngine } from './AudioEngine';
+import { AudioEngine } from './core/AudioEngine';
 // import * as channels from './classes/channels/index';
 // import * as effects from './classes/effects/index';
 // import { SoundPlayer } from './classes/SoundPlayer.class';
