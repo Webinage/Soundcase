@@ -12,17 +12,29 @@
     "type": "git",
     "url": "git@github.com:Soundcase/Soundcase.git"
   },
-  "main": "dist/index.js",
-  "types": "dist/src/index.d.ts",
-  "unpkg": "dist/index.js",
+  "browser": "lib-umd/soundcase.js",
+  "main": "lib-cjs/src/index.js",
+  "types": "lib-cjs/src/index.d.ts",
+  "module": "lib-es5-esm/src/index.js",
+  "es2015": "lib-es6-esm/src/index.js",
+  "unpkg": "lib-umd/soundcase.min.js",
   "scripts": {
+    "commit": "git-cz",
     "test": "echo \"Error: no test specified\" && exit 1",
+    "clean-umd": "rm -rf ./_bundle",
+    "clean-cjs": "rm -rf ./lib-cjs",
+    "clean-es5-esm": "rm -rf ./lib-es5-esm",
+    "clean-es6-esm": "rm -rf ./lib-es6-esm",
+    "clean": "npm run clean-cjs && npm run clean-es5-esm && npm run clean-es6-esm && npm run clean-umd",
+    "build-umd": "npm run clean-umd && webpack --config webpack.config.js",
+    "build-cjs": "npm run clean-cjs && tsc",
+    "build-es5-esm": "npm run clean-es5-esm && tsc -t es5 -m es6 --outDir lib-es5-esm",
+    "build-es6-esm": "npm run clean-es6-esm && tsc -t es6 -m es6 --outDir lib-es6-esm",
+    "build": "npm run build-umd && npm run build-cjs && npm run build-es5-esm && npm run build-es6-esm",
     "docs": "cd ./docs/website && npm run start",
     "docs-publish": "cd ./docs/website && rm -rf ./build && npm run build && GIT_USER=xledocteurx CURRENT_BRANCH=master USE_SSH=true npm run publish-gh-pages",
-    "build": "rm -rf ./dist && webpack --config webpack.config.js",
-    "prepublish": "npm install && npm run test && npm run build && zip -r -X ./docs/website/static/dist.zip ./dist",
-    "publish": "npm run build && npm publish --access public && npm run docs-publish",
-    "commit": "git-cz"
+    "before-publish": "npm install && npm run test && npm run build && zip -r -X ./docs/website/static/dist.zip ./dist",
+    "publish": "npm run build && npm publish --access public && npm run docs-publish"
   },
   "config": {
     "commitizen": {
@@ -34,6 +46,7 @@
   ],
   "dependencies": {},
   "devDependencies": {
+    "awesome-typescript-loader": "^5.2.1",
     "commitizen": "^4.2.2",
     "cz-conventional-changelog": "^3.3.0",
     "gh-pages": "^3.1.0",

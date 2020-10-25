@@ -1,20 +1,27 @@
 {
   "compilerOptions": {
-    "outDir": "./dist",
+    "outDir": "lib-cjs",
     "allowJs": true,
     "declaration": true,
-    // "sourceMap": true,
+    "sourceMap": true,
     // "emitDeclarationOnly": true,
     "moduleResolution": "node",
     "experimentalDecorators": true,
     // "strict": true,
     "noImplicitAny": true,
-    "module": "es6",
     "target": "es5",
-    "lib": ["es2018", "dom", "esnext.asynciterable"],
-    "jsx": "react",
-    "allowJs": true
-  }
-  //   "include": ["./srct/**/*"],
-  //   "exclude": ["node_modules"]
+    // "module": "es6",
+    "module": "commonjs",
+    // "lib": ["es2018", "dom", "esnext.asynciterable"],
+    "lib": ["es2015", "dom"]
+  },
+  "include": ["./src/**/*"],
+  "exclude": [
+    "lib-umd",
+    "lib-cjs",
+    "lib-es5-esm",
+    "lib-es6-esm",
+    "node_modules",
+    "docs"
+  ]
 }

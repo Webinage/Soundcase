@@ -4,6 +4,10 @@ node_modules
 docs
 src
 
+.*
+**/tsconfig.json
+**/webpack.config.js
+
 # local env files
 .env.local
 .env.*.local

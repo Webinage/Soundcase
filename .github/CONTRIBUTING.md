@@ -79,13 +79,15 @@ The default test script will do the following: lint with ESLint -> type check wi
 
 - **`src`**: contains the source code. The codebase is written in Typescript
 
-  - **`classes`**: xxx.
+  - **`core`**: xxx.
 
     Consist of.
 
-    - **`xxx`**: contains code related to xxx.
+    - **`channels`**: contains code related to xxx.
 
-    - **`xxx`**: contains code related to xxx.
+    - **`effects`**: contains code related to xxx.
+
+    - **`instruments`**: contains code related to xxx.
 
   - **`types`**: contains TypeScript type definitions.
 

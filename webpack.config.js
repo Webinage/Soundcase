@@ -1,28 +1,42 @@
 const path = require('path');
+const webpack = require('webpack');
 
 module.exports = {
-  entry: './src/index.ts',
-  // devtool: 'inline-source-map',
-  // devtool: "source-map",
   mode: 'production',
-  module: {
-    rules: [
-      {
-        test: /\.ts?$/,
-        use: 'ts-loader',
-        exclude: /node_modules/
-      }
-    ]
+  entry: {
+    soundcase: './src/index.ts',
+    'soundcase.min': './src/index.ts'
+  },
+  output: {
+    path: path.resolve(__dirname, 'lib-umd'),
+    filename: '[name].js',
+    libraryTarget: 'umd',
+    library: 'Soundcase',
+    umdNamedDefine: true
   },
   resolve: {
     extensions: ['.ts', '.js']
   },
-  // input: {
-  //     foo: 'src/lorem/foo.ts',
-  //     bar: 'src/ipsum/bar.ts'
-  // },
-  output: {
-    filename: 'index.js',
-    path: path.resolve(__dirname, 'dist')
+  // devtool: 'inline-source-map',
+  devtool: 'source-map',
+  plugins: [
+    // new webpack.optimize.UglifyJsPlugin({
+    //   minimize: true,
+    //   sourceMap: true,
+    //   include: /\.min\.js$/
+    // })
+  ],
+  module: {
+    rules: [
+      {
+        test: /\.ts?$/,
+        // use: 'ts-loader'
+        loader: 'awesome-typescript-loader',
+        exclude: /node_modules/,
+        options: {
+          declaration: false
+        }
+      }
+    ]
   }
 };
