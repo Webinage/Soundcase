@@ -1,4 +1,6 @@
 - créer une interface de base pour toutes les options
+- compléter l'arboraissance du contributing.md
+- compléter les interface d'options des effets
 - créer une class generique pour les instruments (dont le sound player)
 - plus de any
 - plus de "as" dans le soundPlayer et l'audioEngine

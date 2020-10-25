@@ -1,15 +1,11 @@
 /**
- * Summary. (A channel to handle single/multiple effects)
- *
- * Description. (A channel to handle single/multiple effects)
+ * Parent interface for effects options
  *
  */
 export interface EffectOptions {}
 
 /**
- * Summary. (A channel to handle single/multiple effects)
- *
- * Description. (A channel to handle single/multiple effects)
+ * Options for _3BandEQ
  *
  */
 export interface _3BandEQOptions extends EffectOptions {
@@ -23,9 +19,7 @@ export interface _3BandEQOptions extends EffectOptions {
 // Check BiquadFilterOptions
 
 /**
- * Summary. (A channel to handle single/multiple effects)
- *
- * Description. (A channel to handle single/multiple effects)
+ * Options for Delay
  *
  */
 export interface MyDelayOptions extends EffectOptions {
@@ -34,9 +28,7 @@ export interface MyDelayOptions extends EffectOptions {
 // Check DelayOptions
 
 /**
- * Summary. (A channel to handle single/multiple effects)
- *
- * Description. (A channel to handle single/multiple effects)
+ * Options for distortion
  *
  */
 export interface DistortionOptions extends EffectOptions {
@@ -46,9 +38,7 @@ export interface DistortionOptions extends EffectOptions {
 // Check WaveShaperOptions
 
 /**
- * Summary. (A channel to handle single/multiple effects)
- *
- * Description. (A channel to handle single/multiple effects)
+ * Options for filter
  *
  */
 export interface FilterOptions extends EffectOptions {
@@ -61,9 +51,7 @@ export interface FilterOptions extends EffectOptions {
 // Check BiquadFilterOptions
 
 /**
- * Summary. (A channel to handle single/multiple effects)
- *
- * Description. (A channel to handle single/multiple effects)
+ * Options for pan (panning)
  *
  */
 export interface PanOptions extends EffectOptions {
@@ -72,9 +60,7 @@ export interface PanOptions extends EffectOptions {
 // Check PannerOptions
 
 /**
- * Summary. (A channel to handle single/multiple effects)
- *
- * Description. (A channel to handle single/multiple effects)
+ * Options for reverb
  *
  */
 export interface ReverbOptions extends EffectOptions {}

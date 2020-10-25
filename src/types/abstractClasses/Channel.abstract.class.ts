@@ -6,7 +6,9 @@ import { EffectOptions } from '..';
  *
  * Description. (A channel to handle single/multiple effects)
  *
- * @class
+ *  @class Classname
+ *  @extends ParentClass
+ *  @constructor
  * @augments parent
  *
  * @return {ChannelStrip} Return value description.

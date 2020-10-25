@@ -5,7 +5,9 @@ import { Channel } from '../../types';
  *
  * Description. (use period)
  *
- * @class
+ *  @class Classname
+ *  @extends ParentClass
+ *  @constructor
  * @augments parent
  *
  * @return {ChannelStrip} Return value description.

@@ -1,7 +1,5 @@
 /**
- * Summary. (A channel to handle single/multiple effects)
- *
- * Description. (A channel to handle single/multiple effects)
+ * All effects classe names
  *
  */
 export type EffectsNames =
