@@ -21,7 +21,7 @@
     "lib-cjs",
     "lib-es5-esm",
     "lib-es6-esm",
-    "node_modules",
-    "docs"
+    "docs",
+    "node_modules"
   ]
 }

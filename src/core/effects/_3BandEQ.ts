@@ -6,12 +6,12 @@ import { MixChannel } from '../channels';
  *
  * Description. (A channel to handle single/multiple effects)
  *
- *  @class Classname
- *  @extends ParentClass
+ *  @class _3BandEQ
+ *  @extends Effect
  *  @constructor
  * @augments parent
  *
- * @return {ChannelStrip} Return value description.
+ * @return {_3BandEQ} Return a _3BandEQ
  */
 export class _3BandEQ extends Effect<_3BandEQOptions> {
   private _lowFilterNode: BiquadFilterNode;
@@ -21,6 +21,11 @@ export class _3BandEQ extends Effect<_3BandEQOptions> {
   private _highFilterNode: BiquadFilterNode;
   private _highFilterChannel: MixChannel;
 
+  /**
+   * Create a _3BandEQ.
+   * @param {AudioContext} _context  The audio context the effect will run in.
+   * @param {_3BandEQOptions} options  The options the effect will be created with.
+   */
   constructor(_context: AudioContext, options: _3BandEQOptions = {}) {
     super('_3BandEQ', _context, options);
     // this._effectContext = new EffectContext()

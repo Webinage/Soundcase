@@ -21,6 +21,10 @@ export class Reverb extends Effect<ReverbOptions> {
 
   private _dryWetRatio: number;
 
+  /**
+   * Create a point.
+   * @param {number} x  The x value.
+   */
   constructor(
     _context: AudioContext,
     options: ConvolverOptions = {},

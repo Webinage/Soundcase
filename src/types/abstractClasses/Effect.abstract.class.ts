@@ -8,7 +8,6 @@ import { makeDistortionCurve } from '../../utils';
  * Description. (A channel to handle single/multiple effects)
  *
  *  @class Classname
- *  @extends ParentClass
  *  @constructor
  * @augments parent
  *
@@ -19,6 +18,10 @@ export abstract class Effect<OT> {
   protected _output: GainNode;
   protected _input: ChannelMergerNode;
 
+  /**
+   * Create a point.
+   * @param {number} x  The x value.
+   */
   constructor(
     protected name: EffectsNames,
     protected _context: AudioContext,

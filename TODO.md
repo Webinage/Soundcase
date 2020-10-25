@@ -1,4 +1,6 @@
+- des channelsGroups
 - créer une interface de base pour toutes les options
+- Documenter les parametres de chaque option pour les interfaces de params
 - compléter l'arboraissance du contributing.md
 - compléter les interface d'options des effets
 - créer une class generique pour les instruments (dont le sound player)

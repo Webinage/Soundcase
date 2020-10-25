@@ -31,6 +31,10 @@ export class SoundPlayer {
   >();
   private _output: GainNode;
 
+  /**
+   * Create a point.
+   * @param {number} x  The x value.
+   */
   constructor(
     _context: AudioContext,
     _soundsLibrary: SoundsLibrary,

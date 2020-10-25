@@ -7,8 +7,8 @@ import { MixChannel } from '../channels';
  *
  * Description. (A channel to handle single/multiple effects)
  *
- *  @class Classname
- *  @extends ParentClass
+ *  @class Delay
+ *  @extends Effect
  *  @constructor
  * @augments parent
  *
@@ -21,6 +21,11 @@ export class Delay extends Effect<MyDelayOptions> {
 
   private _dryWetRatio: number;
 
+  /**
+   * Create a Delay.
+   * @param {AudioContext} _context  The audio context the effect will run in.
+   * @param {MyDelayOptions} options  The options the effect will be created with.
+   */
   constructor(
     _context: AudioContext,
     options: MyDelayOptions = {},

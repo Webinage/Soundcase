@@ -15,6 +15,10 @@ import { Channel, Effect, EffectOptions } from '../../types';
 export class ChannelStrip extends Channel {
   private _effects: Effect<EffectOptions>[] = [];
 
+  /**
+   * Create a point.
+   * @param {number} x  The x value.
+   */
   constructor(_context: AudioContext, effect: Effect<EffectOptions>);
   constructor(_context: AudioContext, effects: Effect<EffectOptions>[]);
   constructor(_context: AudioContext, fx: any) {

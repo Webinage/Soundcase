@@ -16,6 +16,10 @@ import { makeDistortionCurve } from '../../utils';
 export class Distortion extends Effect<DistortionOptions> {
   private _node: WaveShaperNode;
 
+  /**
+   * Create a point.
+   * @param {number} x  The x value.
+   */
   constructor(_context: AudioContext, options: DistortionOptions = {}) {
     super('Distortion', _context, options);
 

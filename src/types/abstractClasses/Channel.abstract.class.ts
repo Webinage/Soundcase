@@ -7,7 +7,6 @@ import { EffectOptions } from '..';
  * Description. (A channel to handle single/multiple effects)
  *
  *  @class Classname
- *  @extends ParentClass
  *  @constructor
  * @augments parent
  *
@@ -17,6 +16,10 @@ export abstract class Channel {
   protected _input: ChannelMergerNode;
   protected _output: GainNode;
 
+  /**
+   * Create a point.
+   * @param {number} x  The x value.
+   */
   constructor(protected _context: AudioContext) {
     this._input = new ChannelMergerNode(this._context);
     this._output = new GainNode(this._context);

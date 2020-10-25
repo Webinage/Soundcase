@@ -15,6 +15,10 @@ import { Effect, FilterOptions } from '../../types';
 export class Filter extends Effect<FilterOptions> {
   private _node: BiquadFilterNode;
 
+  /**
+   * Create a point.
+   * @param {number} x  The x value.
+   */
   constructor(_context: AudioContext, options: FilterOptions = {}) {
     super('Filter', _context, options);
 

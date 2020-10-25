@@ -16,6 +16,10 @@ import { keepNumberBetwwen } from '../../utils';
 export class Pan extends Effect<PanOptions> {
   private _node: StereoPannerNode;
 
+  /**
+   * Create a point.
+   * @param {number} x  The x value.
+   */
   constructor(_context: AudioContext, options: PanOptions = {}) {
     super('Pan', _context, options);
 

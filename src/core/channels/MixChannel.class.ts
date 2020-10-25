@@ -5,14 +5,18 @@ import { Channel } from '../../types';
  *
  * Description. (use period)
  *
- *  @class Classname
- *  @extends ParentClass
+ *  @class MixChannel
+ *  @extends Channel
  *  @constructor
  * @augments parent
  *
  * @return {ChannelStrip} Return value description.
  */
 export class MixChannel extends Channel {
+  /**
+   * Create a point.
+   * @param {number} x  The x value.
+   */
   constructor(_context: AudioContext) {
     super(_context);
     this._input.connect(this._output);

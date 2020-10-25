@@ -56,6 +56,10 @@ export class AudioEngine {
     SoundPlayer
   >();
 
+  /**
+   * Create a point.
+   * @param {number} x  The x value.
+   */
   constructor() {
     this._mixChannels
       .get('soundEffectsChannel')
