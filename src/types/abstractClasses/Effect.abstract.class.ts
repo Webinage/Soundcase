@@ -17,14 +17,14 @@ import { makeDistortionCurve } from '../../utils';
 export abstract class Effect<OT> {
   protected options: OT;
   protected _output: GainNode;
-  protected _input: ChannelMergerNode;
+  protected _input: GainNode;
 
   constructor(
     protected name: EffectsNames,
     protected _context: AudioContext,
     options: OT
   ) {
-    this._input = new ChannelMergerNode(this._context);
+    this._input = new GainNode(this._context);
     this._output = new GainNode(this._context);
 
     if (name === '_3BandEQ') {
@@ -69,7 +69,7 @@ export abstract class Effect<OT> {
    *
    * @return {type} Return value description.
    */
-  get input(): ChannelMergerNode {
+  get input(): GainNode {
     return this._input;
   }
 
