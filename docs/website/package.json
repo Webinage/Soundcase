@@ -1,8 +1,9 @@
 {
   "scripts": {
     "examples": "docusaurus-examples",
-    "start": "docusaurus-start",
-    "build": "docusaurus-build",
+    "build-lib": "rm -rf ./static/lib && cd ../../ && tsc --outDir ./docs/website/static/lib",
+    "start": "npm run build-lib && docusaurus-start",
+    "build": "npm run build-lib && docusaurus-build",
     "publish-gh-pages": "docusaurus-publish",
     "write-translations": "docusaurus-write-translations",
     "version": "docusaurus-version",
