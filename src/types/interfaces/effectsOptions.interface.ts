@@ -9,11 +9,34 @@ export interface EffectOptions {}
  *
  */
 export interface _3BandEQOptions extends EffectOptions {
+  /**
+   * Options for _3BandEQ
+   *
+   */
   breakPoints?: {
+    /**
+     * Options for _3BandEQ
+     *
+     */
     lowMid: number;
+
+    /**
+     * Options for _3BandEQ
+     *
+     */
     midHigh: number;
   };
+
+  /**
+   * Options for _3BandEQ
+   *
+   */
   Q?: number;
+
+  /**
+   * Options for _3BandEQ
+   *
+   */
   detune?: number;
 }
 // Check BiquadFilterOptions
@@ -23,6 +46,10 @@ export interface _3BandEQOptions extends EffectOptions {
  *
  */
 export interface MyDelayOptions extends EffectOptions {
+  /**
+   * Options for _3BandEQ
+   *
+   */
   delayTime?: number;
 }
 // Check DelayOptions
@@ -32,7 +59,15 @@ export interface MyDelayOptions extends EffectOptions {
  *
  */
 export interface DistortionOptions extends EffectOptions {
+  /**
+   * Options for _3BandEQ
+   *
+   */
   curve?: Float32Array | number[];
+  /**
+   * Options for _3BandEQ
+   *
+   */
   oversample?: OverSampleType;
 }
 // Check WaveShaperOptions
@@ -42,10 +77,30 @@ export interface DistortionOptions extends EffectOptions {
  *
  */
 export interface FilterOptions extends EffectOptions {
+  /**
+   * Options for _3BandEQ
+   *
+   */
   type?: BiquadFilterType;
+  /**
+   * Options for _3BandEQ
+   *
+   */
   Qu?: number;
+  /**
+   * Options for _3BandEQ
+   *
+   */
   frequency?: number;
+  /**
+   * Options for _3BandEQ
+   *
+   */
   detune?: number;
+  /**
+   * Options for _3BandEQ
+   *
+   */
   gain?: number;
 }
 // Check BiquadFilterOptions
@@ -55,6 +110,10 @@ export interface FilterOptions extends EffectOptions {
  *
  */
 export interface PanOptions extends EffectOptions {
+  /**
+   * Options for _3BandEQ
+   *
+   */
   pan?: number;
 }
 // Check PannerOptions
@@ -64,8 +123,20 @@ export interface PanOptions extends EffectOptions {
  *
  */
 export interface ReverbOptions extends EffectOptions {
+  /**
+   * Options for _3BandEQ
+   *
+   */
   seconds?: number;
+  /**
+   * Options for _3BandEQ
+   *
+   */
   decay?: number;
+  /**
+   * Options for _3BandEQ
+   *
+   */
   reverse?: boolean;
 }
 // Check ConvolverOptions

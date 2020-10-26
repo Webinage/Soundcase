@@ -14,8 +14,8 @@ import { Channel } from '../../types';
  */
 export class MixChannel extends Channel {
   /**
-   * Create a point.
-   * @param {number} x  The x value.
+   * Create a MixChannel.
+   * @param {AudioContext}    _context    The audio context you run the channel strip in.
    */
   constructor(_context: AudioContext) {
     super(_context);

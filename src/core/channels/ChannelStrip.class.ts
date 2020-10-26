@@ -14,12 +14,16 @@ export class ChannelStrip extends Channel {
   private _effects: Effect<EffectOptions>[] = [];
 
   /**
-   * Create a point.
-   * @param {number} x  The x value.
+   * Create a ChannelStrip.
+   * @param {AudioContext}                                        _context    The audio context you run the channelStrip in.
+   * @param {Effect<EffectOptions> | Effect<EffectOptions>[]}     effects     The effect/effects you want to start the channel strip with.
    */
   constructor(_context: AudioContext, effect: Effect<EffectOptions>);
   constructor(_context: AudioContext, effects: Effect<EffectOptions>[]);
-  constructor(_context: AudioContext, fx: any) {
+  constructor(
+    _context: AudioContext,
+    fx: Effect<EffectOptions> | Effect<EffectOptions>[]
+  ) {
     super(_context);
     if (Array.isArray(fx)) {
       this.addEffects(fx);
@@ -29,58 +33,37 @@ export class ChannelStrip extends Channel {
   }
 
   /**
-   * Summary. (use period)
+   * Get channelStrip effects.
    *
-   * Description. (use period)
-   *
-   * @see  Function/class relied on
-   *
-   * @param {type}   var           Description.
-   * @param {type}   [var]         Description of optional variable.
-   * @param {type}   [var=default] Description of optional variable with default variable.
-   * @param {Object} objectVar     Description.
-   * @param {type}   objectVar.key Description of a key in the objectVar parameter.
-   *
-   * @return {type} Return value description.
+   * @return {type} Return an array of Effect.
    */
   get effects() {
     return this._effects;
   }
 
   /**
-   * Summary. (use period)
-   *
-   * Description. (use period)
+   * Add one effect in the channelStrip
    *
    * @see  Function/class relied on
    *
-   * @param {type}   var           Description.
-   * @param {type}   [var]         Description of optional variable.
-   * @param {type}   [var=default] Description of optional variable with default variable.
-   * @param {Object} objectVar     Description.
-   * @param {type}   objectVar.key Description of a key in the objectVar parameter.
-   *
-   * @return {type} Return value description.
+   * @param {Effect<EffectOptions>}   effect     The effect you want to add to the channelStrip.
+   * @param {number}                  [index]    Description of optional variable.
    */
-  addEffect(effect: Effect<EffectOptions>) {
-    this._effects.push(effect);
+  addEffect(effect: Effect<EffectOptions>, index?: number) {
+    if (index) {
+      this._effects.splice(index, 0, effect);
+    } else {
+      this._effects.push(effect);
+    }
     this.rootEffects();
   }
 
   /**
-   * Summary. (use period)
+   * Remove one effect from the channelStrip
    *
-   * Description. (use period)
+   * @see  Function
    *
-   * @see  Function/class relied on
-   *
-   * @param {type}   var           Description.
-   * @param {type}   [var]         Description of optional variable.
-   * @param {type}   [var=default] Description of optional variable with default variable.
-   * @param {Object} objectVar     Description.
-   * @param {type}   objectVar.key Description of a key in the objectVar parameter.
-   *
-   * @return {type} Return value description.
+   * @param {Effect<EffectOptions> | number}   effect   The effect you want to remove from the channelStrip.
    */
   removeEffect(effect: Effect<EffectOptions> | number): void {
     if (typeof effect === 'number') {
@@ -95,39 +78,26 @@ export class ChannelStrip extends Channel {
   }
 
   /**
-   * Summary. (use period)
-   *
-   * Description. (use period)
+   * Add multiple effects in the channelStrip
    *
    * @see  Function/class relied on
    *
-   * @param {type}   var           Description.
-   * @param {type}   [var]         Description of optional variable.
-   * @param {type}   [var=default] Description of optional variable with default variable.
-   * @param {Object} objectVar     Description.
-   * @param {type}   objectVar.key Description of a key in the objectVar parameter.
-   *
-   * @return {type} Return value description.
+   * @param {Effect<EffectOptions>}   effect     The effects you want to add to the channelStrip.
+   * @param {number}                  [index]    Description of optional variable.
    */
-  addEffects(effects: Effect<EffectOptions>[]) {
-    this._effects = [...this._effects, ...effects];
+  addEffects(effects: Effect<EffectOptions>[], index?: number) {
+    if (index) {
+      this._effects.splice(index, 0, ...effects);
+    } else {
+      this._effects = [...this._effects, ...effects];
+    }
     this.rootEffects();
   }
 
   /**
-   * Summary. (use period)
+   * Root every channel effects one into anover, by order of appearance in the channelStrip effects array.
    *
-   * Description. (use period)
-   *
-   * @see  Function/class relied on
-   *
-   * @param {type}   var           Description.
-   * @param {type}   [var]         Description of optional variable.
-   * @param {type}   [var=default] Description of optional variable with default variable.
-   * @param {Object} objectVar     Description.
-   * @param {type}   objectVar.key Description of a key in the objectVar parameter.
-   *
-   * @return {type} Return value description.
+   * @see  Function
    */
   rootEffects() {
     this._input.disconnect();
