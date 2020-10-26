@@ -1,4 +1,7 @@
+- Spliter le left et le right channel dans le delay.
+- Verifier l'unité de mesure du delay time ( secondes ou millisecondes )
 - Documenter les parametres de chaque option pour les interfaces de params
+- Le dry/wet ratio dans les options.
 - préfixer tout ce qui est privé par "\_" (méthodes de classes y compris)
 - compléter l'arboraissance du contributing.md
 - compléter les interface d'options des effets

@@ -51,6 +51,11 @@ export interface MyDelayOptions extends EffectOptions {
    *
    */
   delayTime?: number;
+  /**
+   * Options for _3BandEQ
+   *
+   */
+  feedback?: number;
 }
 // Check DelayOptions
 

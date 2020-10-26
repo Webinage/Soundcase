@@ -16,10 +16,14 @@ import { MixChannel } from '../channels';
  */
 export class Delay extends Effect<MyDelayOptions> {
   private _dryChannel: MixChannel;
-  private _effectChannel: MixChannel;
-  private _leftNode: DelayNode;
-  private _rightNode: DelayNode;
+  private _wetChannel: MixChannel;
 
+  private _channelSplitter: ChannelSplitterNode;
+  private _channelMerger: ChannelMergerNode;
+  private _leftDelayNode: DelayNode;
+  private _rightDelayNode: DelayNode;
+
+  private _feedbackNode: GainNode;
   private _dryWetRatio: number;
 
   /**
@@ -35,70 +39,85 @@ export class Delay extends Effect<MyDelayOptions> {
     super('Delay', _context, options);
 
     this._dryChannel = new MixChannel(this._context);
-    this._effectChannel = new MixChannel(this._context);
-    this.setDryWetRatio(dryWetRatio);
-    this._leftNode = new DelayNode(this._context, options);
-    this._rightNode = new DelayNode(this._context, options);
+    this._wetChannel = new MixChannel(this._context);
 
+    this._channelSplitter = new ChannelSplitterNode(this._context, {
+      numberOfOutputs: 2
+    });
+    this._channelMerger = new ChannelMergerNode(this._context, {
+      numberOfInputs: 2
+    });
+    this._leftDelayNode = new DelayNode(this._context, this.options);
+    this._rightDelayNode = new DelayNode(this._context, this.options);
+
+    this._feedbackNode = new GainNode(this._context);
+    this.setFeedback(this.options.feedback);
+    this.setDryWetRatio(dryWetRatio);
+
+    // Dry
     this._input
       .connect(this._dryChannel.input)
       .connect(this._dryChannel.output)
       .connect(this._output);
 
-    this._input
-      .connect(this._effectChannel.input)
-      .connect(this._leftNode)
-      .connect(this._effectChannel.output)
+    // Wet
+    this._input.connect(this._channelSplitter);
+
+    this._channelSplitter
+      .connect(this._leftDelayNode, 0)
+      .connect(this._channelMerger, 0, 0);
+
+    this._channelSplitter
+      .connect(this._rightDelayNode, 1)
+      .connect(this._channelMerger, 0, 1);
+
+    this._channelMerger
+      .connect(this._wetChannel.input)
+      .connect(this._wetChannel.output)
       .connect(this._output);
 
-    this._input
-      .connect(this._effectChannel.input)
-      .connect(this._rightNode)
-      .connect(this._effectChannel.output)
-      .connect(this._output);
+    // Feedback
+    this._channelMerger
+      .connect(this._feedbackNode)
+      .connect(this._channelSplitter);
 
     this._output.connect(this._context.destination);
   }
 
   /**
-   * Summary. (use period)
+   * Set the effect dry/wet ratio
    *
-   * Description. (use period)
+   * @see  Function
    *
-   * @see  Function/class relied on
-   *
-   * @param {type}   var           Description.
-   * @param {type}   [var]         Description of optional variable.
-   * @param {type}   [var=default] Description of optional variable with default variable.
-   * @param {Object} objectVar     Description.
-   * @param {type}   objectVar.key Description of a key in the objectVar parameter.
-   *
-   * @return {type} Return value description.
+   * @param {number}   ratio    Dry/wet ratio. 1 is for 100%
    */
   setDryWetRatio(ratio: number) {
     this._dryWetRatio = keepNumberBetwwen(ratio, 0, 1);
     this._dryChannel.output.gain.value = 1 - this._dryWetRatio;
-    this._effectChannel.output.gain.value = this._dryWetRatio;
+    this._wetChannel.output.gain.value = this._dryWetRatio;
   }
 
   /**
-   * Summary. (use period)
+   * Set the delay time.
    *
-   * Description. (use period)
+   * @see  Function
    *
-   * @see  Function/class relied on
-   *
-   * @param {type}   var           Description.
-   * @param {type}   [var]         Description of optional variable.
-   * @param {type}   [var=default] Description of optional variable with default variable.
-   * @param {Object} objectVar     Description.
-   * @param {type}   objectVar.key Description of a key in the objectVar parameter.
-   *
-   * @return {type} Return value description.
+   * @param {number}    delayTime   Delay time in seconds.
    */
   setDelayTime(delayTime: number) {
     this.options.delayTime = delayTime;
-    this._leftNode.delayTime.value = delayTime;
-    this._rightNode.delayTime.value = delayTime;
+    this._leftDelayNode.delayTime.value = delayTime;
+    this._rightDelayNode.delayTime.value = delayTime;
+  }
+
+  /**
+   * Set the delay feedback gain.
+   *
+   * @see  Function
+   *
+   * @param {number}   value    Feedback gain. 1 is 100%.
+   */
+  setFeedback(value: number) {
+    this._feedbackNode.gain.value = keepNumberBetwwen(value, 0, 1);
   }
 }

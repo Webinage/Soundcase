@@ -36,7 +36,7 @@ export abstract class Effect<OT> {
         ...options
       };
     } else if (name === 'Delay') {
-      this.options = { ...{ delayTime: 0.5 }, ...options };
+      this.options = { ...{ delayTime: 0.5, feedback: 0.5 }, ...options };
     } else if (name === 'Distortion') {
       this.options = {
         ...{ curve: makeDistortionCurve(), oversample: '2x' },
