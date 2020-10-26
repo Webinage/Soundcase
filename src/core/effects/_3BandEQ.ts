@@ -1,10 +1,9 @@
 import { Effect, _3BandEQOptions } from '../../types';
+import { keepNumberBetwwen } from '../../utils';
 import { MixChannel } from '../channels';
 
 /**
- * Summary. (A channel to handle single/multiple effects)
- *
- * Description. (A channel to handle single/multiple effects)
+ * A 3 band equalizer
  *
  *  @class _3BandEQ
  *  @extends Effect
@@ -71,209 +70,102 @@ export class _3BandEQ extends Effect<_3BandEQOptions> {
   }
 
   /**
-   * Summary. (use period)
+   * Set the low/mid frequency breakpoint
    *
-   * Description. (use period)
+   * @see  Function
    *
-   * @see  Function/class relied on
-   *
-   * @param {type}   var           Description.
-   * @param {type}   [var]         Description of optional variable.
-   * @param {type}   [var=default] Description of optional variable with default variable.
-   * @param {Object} objectVar     Description.
-   * @param {type}   objectVar.key Description of a key in the objectVar parameter.
-   *
-   * @return {type} Return value description.
+   * @param {number}   value    Value of the frequency breakpoitn.
    */
-  get input() {
-    return this._input;
+  setLowMidFrequencyBreakpoint(value: number) {
+    this.options.breakPoints.lowMid = keepNumberBetwwen(
+      value,
+      0,
+      this.options.breakPoints.midHigh
+    );
+    this._lowFilterNode.frequency.value = this.options.breakPoints.lowMid;
+    this._midFilterNode.frequency.value =
+      (this.options.breakPoints.lowMid + this.options.breakPoints.midHigh) / 2;
   }
 
   /**
-   * Summary. (use period)
+   * Set the low/mid frequency breakpoint
    *
-   * Description. (use period)
+   * @see  Function
    *
-   * @see  Function/class relied on
-   *
-   * @param {type}   var           Description.
-   * @param {type}   [var]         Description of optional variable.
-   * @param {type}   [var=default] Description of optional variable with default variable.
-   * @param {Object} objectVar     Description.
-   * @param {type}   objectVar.key Description of a key in the objectVar parameter.
-   *
-   * @return {type} Return value description.
+   * @param {number}   value    Value of the frequency breakpoitn.
    */
-  get output() {
-    return this._output;
+  setMidHighFrequencyBreakpoint(value: number) {
+    this.options.breakPoints.lowMid = keepNumberBetwwen(
+      value,
+      this.options.breakPoints.midHigh,
+      20000
+    );
+    this._midFilterNode.frequency.value =
+      (this.options.breakPoints.lowMid + this.options.breakPoints.midHigh) / 2;
+    this._highFilterNode.frequency.value = this.options.breakPoints.midHigh;
   }
 
   /**
-   * Summary. (use period)
+   * Set the gain for the low frequency band
    *
-   * Description. (use period)
+   * @see  Function
    *
-   * @see  Function/class relied on
-   *
-   * @param {type}   var           Description.
-   * @param {type}   [var]         Description of optional variable.
-   * @param {type}   [var=default] Description of optional variable with default variable.
-   * @param {Object} objectVar     Description.
-   * @param {type}   objectVar.key Description of a key in the objectVar parameter.
-   *
-   * @return {type} Return value description.
+   * @param {number}   value    Gain value. 1 is for 100%
    */
   setLowGain(value: number) {
     this._lowFilterChannel.output.gain.value = value;
   }
 
   /**
-   * Summary. (use period)
+   * Set the Q for the low frequency band.
    *
-   * Description. (use period)
+   * @see  Function
    *
-   * @see  Function/class relied on
-   *
-   * @param {type}   var           Description.
-   * @param {type}   [var]         Description of optional variable.
-   * @param {type}   [var=default] Description of optional variable with default variable.
-   * @param {Object} objectVar     Description.
-   * @param {type}   objectVar.key Description of a key in the objectVar parameter.
-   *
-   * @return {type} Return value description.
-   */
-  setLowFrequency(value: number) {
-    this._lowFilterNode.frequency.value = value;
-  }
-
-  /**
-   * Summary. (use period)
-   *
-   * Description. (use period)
-   *
-   * @see  Function/class relied on
-   *
-   * @param {type}   var           Description.
-   * @param {type}   [var]         Description of optional variable.
-   * @param {type}   [var=default] Description of optional variable with default variable.
-   * @param {Object} objectVar     Description.
-   * @param {type}   objectVar.key Description of a key in the objectVar parameter.
-   *
-   * @return {type} Return value description.
+   * @param {number}   value    Q value.
    */
   setLowQ(value: number) {
     this._lowFilterNode.Q.value = value;
   }
 
   /**
-   * Summary. (use period)
+   * Set the gain for the mid frequency band
    *
-   * Description. (use period)
+   * @see  Function
    *
-   * @see  Function/class relied on
-   *
-   * @param {type}   var           Description.
-   * @param {type}   [var]         Description of optional variable.
-   * @param {type}   [var=default] Description of optional variable with default variable.
-   * @param {Object} objectVar     Description.
-   * @param {type}   objectVar.key Description of a key in the objectVar parameter.
-   *
-   * @return {type} Return value description.
+   * @param {number}   value    Gain value. 1 is for 100%
    */
   setMidGain(value: number) {
     this._midFilterChannel.output.gain.value = value;
   }
 
   /**
-   * Summary. (use period)
+   * Set the Q for the mid frequency band.
    *
-   * Description. (use period)
+   * @see  Function
    *
-   * @see  Function/class relied on
-   *
-   * @param {type}   var           Description.
-   * @param {type}   [var]         Description of optional variable.
-   * @param {type}   [var=default] Description of optional variable with default variable.
-   * @param {Object} objectVar     Description.
-   * @param {type}   objectVar.key Description of a key in the objectVar parameter.
-   *
-   * @return {type} Return value description.
-   */
-  setMidFrequency(value: number) {
-    this._midFilterNode.frequency.value = value;
-  }
-
-  /**
-   * Summary. (use period)
-   *
-   * Description. (use period)
-   *
-   * @see  Function/class relied on
-   *
-   * @param {type}   var           Description.
-   * @param {type}   [var]         Description of optional variable.
-   * @param {type}   [var=default] Description of optional variable with default variable.
-   * @param {Object} objectVar     Description.
-   * @param {type}   objectVar.key Description of a key in the objectVar parameter.
-   *
-   * @return {type} Return value description.
+   * @param {number}   value    Q value.
    */
   setMidQ(value: number) {
     this._midFilterNode.Q.value = value;
   }
 
   /**
-   * Summary. (use period)
+   * Set the gain for the high frequency band
    *
-   * Description. (use period)
+   * @see  Function
    *
-   * @see  Function/class relied on
-   *
-   * @param {type}   var           Description.
-   * @param {type}   [var]         Description of optional variable.
-   * @param {type}   [var=default] Description of optional variable with default variable.
-   * @param {Object} objectVar     Description.
-   * @param {type}   objectVar.key Description of a key in the objectVar parameter.
-   *
-   * @return {type} Return value description.
+   * @param {number}   value    Gain value. 1 is for 100%
    */
   setHighGain(value: number) {
     this._highFilterChannel.output.gain.value = value;
   }
 
   /**
-   * Summary. (use period)
+   * Set the Q for the high frequency band.
    *
-   * Description. (use period)
+   * @see  Function
    *
-   * @see  Function/class relied on
-   *
-   * @param {type}   var           Description.
-   * @param {type}   [var]         Description of optional variable.
-   * @param {type}   [var=default] Description of optional variable with default variable.
-   * @param {Object} objectVar     Description.
-   * @param {type}   objectVar.key Description of a key in the objectVar parameter.
-   *
-   * @return {type} Return value description.
-   */
-  setHighFrequency(value: number) {
-    this._highFilterNode.frequency.value = value;
-  }
-
-  /**
-   * Summary. (use period)
-   *
-   * Description. (use period)
-   *
-   * @see  Function/class relied on
-   *
-   * @param {type}   var           Description.
-   * @param {type}   [var]         Description of optional variable.
-   * @param {type}   [var=default] Description of optional variable with default variable.
-   * @param {Object} objectVar     Description.
-   * @param {type}   objectVar.key Description of a key in the objectVar parameter.
-   *
-   * @return {type} Return value description.
+   * @param {number}   value    Q value.
    */
   setHighQ(value: number) {
     this._highFilterNode.Q.value = value;

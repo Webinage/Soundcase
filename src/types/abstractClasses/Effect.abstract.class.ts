@@ -58,40 +58,24 @@ export abstract class Effect<OT> {
   }
 
   /**
-   * Summary. (use period)
+   * Get the efect input.
    *
-   * Description. (use period)
+   * @see  Function
    *
-   * @see  Function/class relied on
-   *
-   * @param {type}   var           Description.
-   * @param {type}   [var]         Description of optional variable.
-   * @param {type}   [var=default] Description of optional variable with default variable.
-   * @param {Object} objectVar     Description.
-   * @param {type}   objectVar.key Description of a key in the objectVar parameter.
-   *
-   * @return {type} Return value description.
+   * @return {type} Return the effect input.
    */
-  get input(): GainNode {
+  get input() {
     return this._input;
   }
 
   /**
-   * Summary. (use period)
+   * Get the effect output.
    *
-   * Description. (use period)
+   * @see  Function
    *
-   * @see  Function/class relied on
-   *
-   * @param {type}   var           Description.
-   * @param {type}   [var]         Description of optional variable.
-   * @param {type}   [var=default] Description of optional variable with default variable.
-   * @param {Object} objectVar     Description.
-   * @param {type}   objectVar.key Description of a key in the objectVar parameter.
-   *
-   * @return {type} Return value description.
+   * @return {type} Return the effect output.
    */
-  get output(): GainNode {
+  get output() {
     return this._output;
   }
 
