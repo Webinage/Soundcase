@@ -16,7 +16,7 @@ import { makeDistortionCurve } from '../../utils';
 export abstract class Effect<OT> {
   protected options: OT;
   protected _output: GainNode;
-  protected _input: ChannelMergerNode;
+  protected _input: GainNode;
 
   /**
    * Create a point.
@@ -27,7 +27,7 @@ export abstract class Effect<OT> {
     protected _context: AudioContext,
     options: OT
   ) {
-    this._input = new ChannelMergerNode(this._context);
+    this._input = new GainNode(this._context);
     this._output = new GainNode(this._context);
 
     if (name === '_3BandEQ') {
@@ -50,7 +50,10 @@ export abstract class Effect<OT> {
     } else if (name === 'Pan') {
       this.options = { ...{ pan: 0 }, ...options };
     } else if (name === 'Reverb') {
-      this.options = { ...{}, ...options };
+      this.options = {
+        ...{ seconds: 3, decay: 2, reverse: false },
+        ...options
+      };
     }
   }
 
@@ -69,7 +72,7 @@ export abstract class Effect<OT> {
    *
    * @return {type} Return value description.
    */
-  get input(): ChannelMergerNode {
+  get input(): GainNode {
     return this._input;
   }
 

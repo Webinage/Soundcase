@@ -82,9 +82,9 @@ export class Distortion extends Effect<DistortionOptions> {
    * @return {type} Return value description.
    */
   setCurve(amount: number): void;
-  setCurve(curve: number[]): void;
+  // setCurve(curve: number[]): void;
   setCurve(curve: Float32Array): void;
-  setCurve(input: any): void {
+  setCurve(input: number | Float32Array): void {
     if (typeof input === 'number') {
       this._node.curve = makeDistortionCurve(input);
     } else {

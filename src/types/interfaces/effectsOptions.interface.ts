@@ -63,5 +63,16 @@ export interface PanOptions extends EffectOptions {
  * Options for reverb
  *
  */
-export interface ReverbOptions extends EffectOptions {}
+export interface ReverbOptions extends EffectOptions {
+  seconds?: number;
+  decay?: number;
+  reverse?: boolean;
+}
+// Check ConvolverOptions
+
+/**
+ * Options for reverb
+ *
+ */
+export interface ConvolutionReverbOptions extends EffectOptions {}
 // Check ConvolverOptions

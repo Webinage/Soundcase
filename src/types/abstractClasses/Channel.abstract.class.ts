@@ -13,7 +13,7 @@ import { EffectOptions } from '..';
  * @return {ChannelStrip} Return value description.
  */
 export abstract class Channel {
-  protected _input: ChannelMergerNode;
+  protected _input: GainNode;
   protected _output: GainNode;
 
   /**
@@ -21,7 +21,7 @@ export abstract class Channel {
    * @param {number} x  The x value.
    */
   constructor(protected _context: AudioContext) {
-    this._input = new ChannelMergerNode(this._context);
+    this._input = new GainNode(this._context);
     this._output = new GainNode(this._context);
   }
 
@@ -40,7 +40,7 @@ export abstract class Channel {
    *
    * @return {type} Return value description.
    */
-  get input(): ChannelMergerNode {
+  get input(): GainNode {
     return this._input;
   }
 

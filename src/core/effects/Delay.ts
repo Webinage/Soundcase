@@ -17,7 +17,8 @@ import { MixChannel } from '../channels';
 export class Delay extends Effect<MyDelayOptions> {
   private _dryChannel: MixChannel;
   private _effectChannel: MixChannel;
-  private _node: DelayNode;
+  private _leftNode: DelayNode;
+  private _rightNode: DelayNode;
 
   private _dryWetRatio: number;
 
@@ -36,7 +37,8 @@ export class Delay extends Effect<MyDelayOptions> {
     this._dryChannel = new MixChannel(this._context);
     this._effectChannel = new MixChannel(this._context);
     this.setDryWetRatio(dryWetRatio);
-    this._node = new DelayNode(this._context, options);
+    this._leftNode = new DelayNode(this._context, options);
+    this._rightNode = new DelayNode(this._context, options);
 
     this._input
       .connect(this._dryChannel.input)
@@ -45,7 +47,13 @@ export class Delay extends Effect<MyDelayOptions> {
 
     this._input
       .connect(this._effectChannel.input)
-      .connect(this._node)
+      .connect(this._leftNode)
+      .connect(this._effectChannel.output)
+      .connect(this._output);
+
+    this._input
+      .connect(this._effectChannel.input)
+      .connect(this._rightNode)
       .connect(this._effectChannel.output)
       .connect(this._output);
 
@@ -126,7 +134,9 @@ export class Delay extends Effect<MyDelayOptions> {
    *
    * @return {type} Return value description.
    */
-  setDelayTime(time: number) {
-    this._node.delayTime.value = time;
+  setDelayTime(delayTime: number) {
+    this.options.delayTime = delayTime;
+    this._leftNode.delayTime.value = delayTime;
+    this._rightNode.delayTime.value = delayTime;
   }
 }

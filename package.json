@@ -13,11 +13,11 @@
     "url": "git@github.com:Soundcase/Soundcase.git"
   },
   "browser": "lib-umd/soundcase.js",
+  "unpkg": "lib-umd/soundcase.min.js",
   "main": "lib-cjs/src/index.js",
   "types": "lib-cjs/src/index.d.ts",
   "module": "lib-es5-esm/src/index.js",
   "es2015": "lib-es6-esm/src/index.js",
-  "unpkg": "lib-umd/soundcase.min.js",
   "scripts": {
     "commit": "git-cz",
     "test": "echo \"Error: no test specified\" && exit 1",

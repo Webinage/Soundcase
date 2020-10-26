@@ -1,4 +1,10 @@
-import { Effect, EffectOptions, Sound, SoundsLibrary } from '../../types';
+import {
+  Effect,
+  EffectOptions,
+  Instrument,
+  Sound,
+  SoundsLibrary
+} from '../../types';
 import { Channel } from '../../types/abstractClasses/Channel.abstract.class';
 
 /**
@@ -24,12 +30,11 @@ export interface SoundElement {
  *
  * @return {ChannelStrip} Return value description.
  */
-export class SoundPlayer {
+export class SoundPlayer extends Instrument {
   private _audioElements: Map<string, SoundElement> = new Map<
     string,
     SoundElement
   >();
-  private _output: GainNode;
 
   /**
    * Create a point.
@@ -51,10 +56,11 @@ export class SoundPlayer {
     node?: AudioNode
   );
   constructor(
-    private _context: AudioContext,
+    _context: AudioContext,
     private _soundsLibrary: SoundsLibrary,
     item?: AudioNode | Effect<EffectOptions> | Channel
   ) {
+    super(_context);
     this._output = new GainNode(this._context);
 
     if (item) {
