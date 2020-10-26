@@ -47,7 +47,10 @@ export abstract class Effect<OT> {
     } else if (name === 'Pan') {
       this.options = { ...{ pan: 0 }, ...options };
     } else if (name === 'Reverb') {
-      this.options = { ...{}, ...options };
+      this.options = {
+        ...{ seconds: 3, decay: 2, reverse: false },
+        ...options
+      };
     }
   }
 
