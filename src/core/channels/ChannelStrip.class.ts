@@ -138,9 +138,7 @@ export class ChannelStrip extends Channel {
     this._input.connect(this._effects[0].input);
     if (this._effects.length > 1) {
       for (let i = 0; i < this._effects.length - 1; i++) {
-        if (this._effects[i].muted === false) {
-          this._effects[i].output.connect(this._effects[i + 1].input);
-        }
+        this._effects[i].output.connect(this._effects[i + 1].input);
       }
     }
 

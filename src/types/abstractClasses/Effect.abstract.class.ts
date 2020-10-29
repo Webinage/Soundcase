@@ -14,7 +14,7 @@ import { makeDistortionCurve } from '../../utils';
  * @return {ChannelStrip} Return value description.
  */
 export abstract class Effect<OT> {
-  public muted: boolean = false;
+  protected _muted: boolean = false;
   protected options: OT;
   protected _output: GainNode;
   protected _input: GainNode;
@@ -56,6 +56,33 @@ export abstract class Effect<OT> {
         ...options
       };
     }
+  }
+
+  /**
+   * Get the muted effect status.
+   *
+   * @see  Function
+   *
+   * @return {type} Return the muted effect status.
+   */
+  get muted(): boolean {
+    return this._muted;
+  }
+
+  /**
+   * Get the muted effect status.
+   *
+   * @see  Function
+   *
+   * @return {type} Return the muted effect status.
+   */
+  set muted(value: boolean) {
+    this._muted = value;
+    // TO DO : Router l'input dans l'output si false et inversement
+    // if (value === true) {
+    //   this._input.disconnect();
+    //   this._input.connect(this._output);
+    // }
   }
 
   /**
