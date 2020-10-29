@@ -18,10 +18,7 @@ export class Delay extends Effect<MyDelayOptions> {
   private _dryChannel: MixChannel;
   private _wetChannel: MixChannel;
 
-  private _channelSplitter: ChannelSplitterNode;
-  private _channelMerger: ChannelMergerNode;
-  private _leftDelayNode: DelayNode;
-  private _rightDelayNode: DelayNode;
+  private _delayNode: DelayNode;
 
   private _feedbackNode: GainNode;
   private _dryWetRatio: number;
@@ -41,14 +38,7 @@ export class Delay extends Effect<MyDelayOptions> {
     this._dryChannel = new MixChannel(this._context);
     this._wetChannel = new MixChannel(this._context);
 
-    this._channelSplitter = new ChannelSplitterNode(this._context, {
-      numberOfOutputs: 2
-    });
-    this._channelMerger = new ChannelMergerNode(this._context, {
-      numberOfInputs: 2
-    });
-    this._leftDelayNode = new DelayNode(this._context, this.options);
-    this._rightDelayNode = new DelayNode(this._context, this.options);
+    this._delayNode = new DelayNode(this._context, this.options);
 
     this._feedbackNode = new GainNode(this._context);
     this.setFeedback(this.options.feedback);
@@ -61,25 +51,13 @@ export class Delay extends Effect<MyDelayOptions> {
       .connect(this._output);
 
     // Wet
-    this._input.connect(this._channelSplitter);
-
-    this._channelSplitter
-      .connect(this._leftDelayNode, 0)
-      .connect(this._channelMerger, 0, 0);
-
-    this._channelSplitter
-      .connect(this._rightDelayNode, 1)
-      .connect(this._channelMerger, 0, 1);
-
-    this._channelMerger
+    this._input
+      .connect(this._delayNode)
       .connect(this._wetChannel.input)
-      .connect(this._wetChannel.output)
-      .connect(this._output);
+      .connect(this._wetChannel.output);
 
     // Feedback
-    this._channelMerger
-      .connect(this._feedbackNode)
-      .connect(this._channelSplitter);
+    this._delayNode.connect(this._feedbackNode).connect(this._delayNode);
 
     this._output.connect(this._context.destination);
   }
@@ -106,8 +84,7 @@ export class Delay extends Effect<MyDelayOptions> {
    */
   setDelayTime(delayTime: number) {
     this.options.delayTime = delayTime;
-    this._leftDelayNode.delayTime.value = delayTime;
-    this._rightDelayNode.delayTime.value = delayTime;
+    this._delayNode.delayTime.value = delayTime;
   }
 
   /**
