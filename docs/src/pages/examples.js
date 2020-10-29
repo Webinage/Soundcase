@@ -1,20 +1,18 @@
-const React = require('react');
-const { Container, GridBlock } = require('../../core/CompLibrary.js');
-// const Soundcase = require('../../static/lib/index.js');
+import Layout from '@theme/Layout';
+import React from 'react';
+import DelayExample from './examples/Delay.js';
+import DistortionExample from './examples/Distortion.js';
+import FilterExample from './examples/Filter.js';
+import PanExample from './examples/Pan.js';
+import ReverbExample from './examples/Reverb.js';
+import _3BandEqExample from './examples/_3BandEq.js';
 
-const _3BandEqExample = require(process.cwd() + '/core/examples/_3BandEq.js');
-const DelayExample = require(process.cwd() + '/core/examples/Delay.js');
-const DistortionExample = require(process.cwd() +
-  '/core/examples/Distortion.js');
-const FilterExample = require(process.cwd() + '/core/examples/Filter.js');
-const PanExample = require(process.cwd() + '/core/examples/Pan.js');
-const ReverbExample = require(process.cwd() + '/core/examples/Reverb.js');
 
 class Examples extends React.Component {
-  engine;
 
   constructor(props) {
     super(props);
+
   }
 
   Soundcase() {
@@ -23,8 +21,9 @@ class Examples extends React.Component {
 
   render() {
     return (
-      <div className='docMainWrapper wrapper'>
-        <Container className='mainContainer documentContainer postContainer'>
+      <Layout
+        title={`Hello from ${this.props.config.title}`}
+        description="Description will go into a meta tag in <head />">
           <h1>Examples</h1>
           <p>Here are some examples</p>
           <_3BandEqExample />
@@ -33,10 +32,9 @@ class Examples extends React.Component {
           <FilterExample />
           <PanExample />
           <ReverbExample />
-        </Container>
-      </div>
+      </Layout>
     );
   }
 }
 
-module.exports = Examples;
+export default Examples;

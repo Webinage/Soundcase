@@ -16,18 +16,24 @@ module.exports = {
       },
       items: [
         {
+          to: 'docs/mdx',
+          activeBasePath: 'docs',
+          label: 'Getting started',
+          position: 'left',
+        },
+        {
+          to: 'examples/',
+          activeBasePath: 'examples',
+          label: 'Examples',
+          position: 'left',
+        },
+        {
           to: 'docs/',
           activeBasePath: 'docs',
           label: 'Docs',
           position: 'left',
         },
-        // {
-        //   to: 'examples/',
-        //   activeBasePath: 'examples',
-        //   label: 'Examples',
-        //   position: 'left',
-        // },
-        {to: 'blog', label: 'Blog', position: 'left'},
+        {to: 'blog', label: 'Blog', position: 'right'},
         {
           href: 'https://github.com/soundcase/soundcase',
           label: 'GitHub',
@@ -82,7 +88,7 @@ module.exports = {
           ],
         },
       ],
-      copyright: `Copyright © ${new Date().getFullYear()} My Project, Inc. Built with Docusaurus.`,
+      copyright: `Copyright © ${new Date().getFullYear()} Soundcase, Christopher Lenoir.`,
     },
   },
   presets: [
@@ -100,6 +106,13 @@ module.exports = {
           // Please change this to your repo.
           editUrl:
             'https://github.com/soundcase/soundcase/edit/master/website/blog/',
+          feedOptions: {
+            type: 'all',
+            title: 'Soundcase feed',
+            description: 'The Soundcase framework blog feed',
+            copyright: 'Copyright © ${new Date().getFullYear()} Soundcase, Christopher Lenoir.',
+            // language?: string, // possible values: http://www.w3.org/TR/REC-html40/struct/dirlang.html#langcodes
+          }
         },
         theme: {
           customCss: require.resolve('./src/css/custom.css'),

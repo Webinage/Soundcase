@@ -1,4 +1,4 @@
-const React = require('react');
+import React from 'react';
 
 class FilterExample extends React.Component {
   constructor(props) {
@@ -14,4 +14,4 @@ class FilterExample extends React.Component {
   }
 }
 
-module.exports = FilterExample;
+export default FilterExample;

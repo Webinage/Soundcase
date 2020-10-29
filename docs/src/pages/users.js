@@ -1,15 +1,4 @@
-/**
- * Copyright (c) Facebook, Inc. and its affiliates.
- *
- * This source code is licensed under the MIT license found in the
- * LICENSE file in the root directory of this source tree.
- */
-
-const React = require('react');
-
-const CompLibrary = require('../../core/CompLibrary.js');
-
-const Container = CompLibrary.Container;
+import React from 'react';
 
 class Users extends React.Component {
   render() {
@@ -25,8 +14,9 @@ class Users extends React.Component {
     ));
 
     return (
-      <div className="mainContainer">
-        <Container padding={['bottom', 'top']}>
+      <Layout
+        title={`Hello from ${siteConfig.title}`}
+        description="Description will go into a meta tag in <head />">
           <div className="showcaseSection">
             <div className="prose">
               <h1>Who is Using This?</h1>
@@ -44,8 +34,7 @@ class Users extends React.Component {
               </React.Fragment>
             )}
           </div>
-        </Container>
-      </div>
+      </Layout>
     );
   }
 }

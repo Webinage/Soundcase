@@ -1,4 +1,6 @@
-- Spliter le left et le right channel dans le delay.
+- Enlever le split de channel sur la reverb et le delay.
+- Un dry/wet sur chaque effet.
+- une méthode de déconnection des effects dans un channelStrip.
 - Verifier l'unité de mesure du delay time ( secondes ou millisecondes )
 - Documenter les parametres de chaque option pour les interfaces de params
 - Le dry/wet ratio dans les options.
@@ -13,6 +15,11 @@
 - tester la methode remove effect du channel strip avec un effect en parametre
 - faire un tour dans les effets et les channels pour voir si il n'y a pas des valeur à contraindre
 - pourvoir ajouter un effet à un index particulier de la chaine d'effets du channelStrip
+- La méthode setSoundVolume sur le soundplayer
+- Soundplayer : playbackSpeed?/detune?/speed?
+  -> Avec option stretch
+
+- De la pub dans le cli
 
 - retirer les channels de base dans l'audio engine et faire des methodes pour en rajouter.
   -> se répercute dans le projet d'allan en etendant la classe audioengine pour créer un préset avec les 3 channels de base

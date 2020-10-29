@@ -1,4 +1,4 @@
-const React = require('react');
+import React from 'react';
 
 class _3BandEqExample extends React.Component {
   constructor(props) {
@@ -14,4 +14,4 @@ class _3BandEqExample extends React.Component {
   }
 }
 
-module.exports = _3BandEqExample;
+export default _3BandEqExample;

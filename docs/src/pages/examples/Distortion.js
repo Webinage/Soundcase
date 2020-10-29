@@ -1,4 +1,4 @@
-const React = require('react');
+import React from 'react';
 
 class DistortionExample extends React.Component {
   constructor(props) {
@@ -14,4 +14,4 @@ class DistortionExample extends React.Component {
   }
 }
 
-module.exports = DistortionExample;
+export default DistortionExample;

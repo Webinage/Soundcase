@@ -1,5 +1,5 @@
-const React = require('react');
-
+import React from 'react';
+ 
 class PanExample extends React.Component {
   constructor(props) {
     super(props);
@@ -14,4 +14,4 @@ class PanExample extends React.Component {
   }
 }
 
-module.exports = PanExample;
+export default PanExample;

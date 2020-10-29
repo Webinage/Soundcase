@@ -1,4 +1,4 @@
-const React = require('react');
+import React from 'react';
 
 class DelayExample extends React.Component {
   constructor(props) {
@@ -14,4 +14,4 @@ class DelayExample extends React.Component {
   }
 }
 
-module.exports = DelayExample;
+export default DelayExample;
