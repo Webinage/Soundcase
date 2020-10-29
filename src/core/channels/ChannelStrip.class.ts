@@ -55,7 +55,7 @@ export class ChannelStrip extends Channel {
     } else {
       this._effects.push(effect);
     }
-    this.rootEffects();
+    this._rootEffects();
   }
 
   /**
@@ -68,13 +68,44 @@ export class ChannelStrip extends Channel {
   removeEffect(effect: Effect<EffectOptions> | number): void {
     if (typeof effect === 'number') {
       this._effects.splice(effect, 1);
-      this.rootEffects();
+    } else {
+      this._effects = this.effects.filter(ef => ef !== effect);
     }
-    // else {
-    //   this._effects = this.effects.filter(ef => ef !== effect);
-    // }
     // if ('options' in effect) {
     // }
+    this._rootEffects();
+  }
+
+  /**
+   * Mute one effect from the channelStrip
+   *
+   * @see  Function
+   *
+   * @param {Effect<EffectOptions> | number}   effect   The effect you want to mute from the channelStrip.
+   */
+  muteEffect(effect: Effect<EffectOptions> | number): void {
+    if (typeof effect === 'number') {
+      this._effects[effect].muted = true;
+    } else {
+      this.effects.find(ef => ef !== effect).muted = true;
+    }
+    this._rootEffects();
+  }
+
+  /**
+   * Unmute one effect from the channelStrip
+   *
+   * @see  Function
+   *
+   * @param {Effect<EffectOptions> | number}   effect   The effect you want to unmute from the channelStrip.
+   */
+  unmuteEffect(effect: Effect<EffectOptions> | number): void {
+    if (typeof effect === 'number') {
+      this._effects[effect].muted = false;
+    } else {
+      this.effects.find(ef => ef !== effect).muted = false;
+    }
+    this._rootEffects();
   }
 
   /**
@@ -91,7 +122,7 @@ export class ChannelStrip extends Channel {
     } else {
       this._effects = [...this._effects, ...effects];
     }
-    this.rootEffects();
+    this._rootEffects();
   }
 
   /**
@@ -99,7 +130,7 @@ export class ChannelStrip extends Channel {
    *
    * @see  Function
    */
-  rootEffects() {
+  private _rootEffects() {
     this._input.disconnect();
     this._effects.forEach(ef => {
       ef.output.disconnect();
@@ -107,7 +138,9 @@ export class ChannelStrip extends Channel {
     this._input.connect(this._effects[0].input);
     if (this._effects.length > 1) {
       for (let i = 0; i < this._effects.length - 1; i++) {
-        this._effects[i].output.connect(this._effects[i + 1].input);
+        if (this._effects[i].muted === false) {
+          this._effects[i].output.connect(this._effects[i + 1].input);
+        }
       }
     }
 

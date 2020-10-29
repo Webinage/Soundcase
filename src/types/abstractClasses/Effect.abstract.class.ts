@@ -14,6 +14,7 @@ import { makeDistortionCurve } from '../../utils';
  * @return {ChannelStrip} Return value description.
  */
 export abstract class Effect<OT> {
+  public muted: boolean = false;
   protected options: OT;
   protected _output: GainNode;
   protected _input: GainNode;

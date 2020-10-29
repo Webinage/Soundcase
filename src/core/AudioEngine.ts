@@ -1,4 +1,5 @@
 import {
+  Dic,
   DistortionOptions,
   Effect,
   EffectOptions,
@@ -30,16 +31,10 @@ export class AudioEngine {
   // private _masterContext: AudioContext = new (window.AudioContext || (window as any).webkitAudioContext)()
   private _masterContext: AudioContext = new AudioContext();
   private _masterChannel: MixChannel = new MixChannel(this._masterContext);
-  private _mixChannels: Map<string, MixChannel> = new Map<string, MixChannel>();
+  private _mixChannels: Dic<MixChannel> = {};
 
-  private _channelStrips: Map<string, ChannelStrip> = new Map<
-    string,
-    ChannelStrip
-  >();
-  private _soundPlayers: Map<string, SoundPlayer> = new Map<
-    string,
-    SoundPlayer
-  >();
+  private _channelStrips: Dic<ChannelStrip> = {};
+  private _soundPlayers: Dic<SoundPlayer> = {};
 
   /**
    * Create a point.
@@ -103,7 +98,7 @@ export class AudioEngine {
    * @return {type} Return value description.
    */
   getMixChannel(channelName: string) {
-    return this._mixChannels.get(channelName);
+    return this._mixChannels[channelName];
   }
 
   /**
@@ -121,7 +116,7 @@ export class AudioEngine {
    *
    * @return {type} Return value description.
    */
-  get channelStrip() {
+  get channelStrips() {
     return this._channelStrips;
   }
 
@@ -141,7 +136,45 @@ export class AudioEngine {
    * @return {type} Return value description.
    */
   getChannelStrip(channelName: string) {
-    return this._channelStrips.get(channelName);
+    return this._channelStrips[channelName];
+  }
+
+  /**
+   * Summary. (use period)
+   *
+   * Description. (use period)
+   *
+   * @see  Function/class relied on
+   *
+   * @param {type}   var           Description.
+   * @param {type}   [var]         Description of optional variable.
+   * @param {type}   [var=default] Description of optional variable with default variable.
+   * @param {Object} objectVar     Description.
+   * @param {type}   objectVar.key Description of a key in the objectVar parameter.
+   *
+   * @return {type} Return value description.
+   */
+  get soundPlayers() {
+    return this._soundPlayers;
+  }
+
+  /**
+   * Summary. (use period)
+   *
+   * Description. (use period)
+   *
+   * @see  Function/class relied on
+   *
+   * @param {type}   var           Description.
+   * @param {type}   [var]         Description of optional variable.
+   * @param {type}   [var=default] Description of optional variable with default variable.
+   * @param {Object} objectVar     Description.
+   * @param {type}   objectVar.key Description of a key in the objectVar parameter.
+   *
+   * @return {type} Return value description.
+   */
+  getSoundPlayer(playerName: string) {
+    return this._soundPlayers[playerName];
   }
 
   /**
@@ -174,18 +207,15 @@ export class AudioEngine {
     sounds: SoundsLibrary,
     channelName: string = 'master'
   ): SoundPlayer {
-    this._soundPlayers.set(
-      playerName,
-      new SoundPlayer(
-        this._masterContext,
-        sounds,
-        this.channelToConnectNode(channelName)
-      )
+    this._soundPlayers[playerName] = new SoundPlayer(
+      this._masterContext,
+      sounds,
+      this.channelToConnectNode(channelName)
     );
 
     // conect to master channel
 
-    return this._soundPlayers.get(playerName);
+    return this._soundPlayers[playerName];
   }
 
   /**
@@ -243,12 +273,10 @@ export class AudioEngine {
    * @return {MixChannel} Return a mixChannel.
    */
   createMixChannel(channelName: string): MixChannel {
-    this._mixChannels.set(channelName, new MixChannel(this._masterContext));
-    this._mixChannels
-      .get(channelName)
-      .output.connect(this._masterChannel.input);
+    this._mixChannels[channelName] = new MixChannel(this._masterContext);
+    this._mixChannels[channelName].output.connect(this._masterChannel.input);
 
-    return this._mixChannels.get(channelName);
+    return this._mixChannels[channelName];
   }
 
   /**
@@ -269,24 +297,21 @@ export class AudioEngine {
     effects: Effect<EffectOptions>[] = [],
     channelName: string = 'master'
   ): ChannelStrip {
-    this._channelStrips.set(
-      name,
-      new ChannelStrip(this._masterContext, effects)
+    this._channelStrips[name] = new ChannelStrip(this._masterContext, effects);
+    this._channelStrips[name].output.connect(
+      this.channelToConnectNode(channelName)
     );
-    this._channelStrips
-      .get(name)
-      .output.connect(this.channelToConnectNode(channelName));
 
-    return this._channelStrips.get(name);
+    return this._channelStrips[name];
   }
 
   private channelToConnectNode(channelName: string): AudioNode {
     return channelName === 'master'
       ? this._masterChannel.input
       : Object.keys(this._mixChannels).some(key => key === channelName)
-      ? this._mixChannels.get(channelName).input
+      ? this._mixChannels[channelName].input
       : Object.keys(this._channelStrips).some(key => key === channelName)
-      ? this._channelStrips.get(channelName).input
+      ? this._channelStrips[channelName].input
       : this._masterChannel.input;
   }
 }

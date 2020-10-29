@@ -1,3 +1,5 @@
+import { Dic } from '.';
+
 /**
  * Summary. (A channel to handle single/multiple effects)
  *
@@ -28,4 +30,4 @@ export type SoundType = 'oneShot' | 'oneShotParallel' | 'loop';
  * Description. (A channel to handle single/multiple effects)
  *
  */
-export type SoundsLibrary = Map<string, Sound>;
+export type SoundsLibrary = Dic<Sound>;

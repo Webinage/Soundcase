@@ -1,4 +1,5 @@
 import {
+  Dic,
   Effect,
   EffectOptions,
   Instrument,
@@ -31,30 +32,27 @@ export interface SoundElement {
  * @return {ChannelStrip} Return value description.
  */
 export class SoundPlayer extends Instrument {
-  private _audioElements: Map<string, SoundElement> = new Map<
-    string,
-    SoundElement
-  >();
+  private _audioElements: Dic<SoundElement> = {};
 
   /**
    * Create a point.
    * @param {number} x  The x value.
    */
-  constructor(
-    _context: AudioContext,
-    _soundsLibrary: SoundsLibrary,
-    effect?: Effect<EffectOptions>
-  );
-  constructor(
-    _context: AudioContext,
-    _soundsLibrary: SoundsLibrary,
-    channel?: Channel
-  );
-  constructor(
-    _context: AudioContext,
-    _soundsLibrary: SoundsLibrary,
-    node?: AudioNode
-  );
+  // constructor(
+  //   _context: AudioContext,
+  //   _soundsLibrary: SoundsLibrary,
+  //   effect?: Effect<EffectOptions>
+  // );
+  // constructor(
+  //   _context: AudioContext,
+  //   _soundsLibrary: SoundsLibrary,
+  //   channel?: Channel
+  // );
+  // constructor(
+  //   _context: AudioContext,
+  //   _soundsLibrary: SoundsLibrary,
+  //   node?: AudioNode
+  // );
   constructor(
     _context: AudioContext,
     private _soundsLibrary: SoundsLibrary,
@@ -98,6 +96,25 @@ export class SoundPlayer extends Instrument {
     }
   }
 
+  // /**
+  //  * Summary. (use period)
+  //  *
+  //  * Description. (use period)
+  //  *
+  //  * @see  Function/class relied on
+  //  *
+  //  * @param {type}   var           Description.
+  //  * @param {type}   [var]         Description of optional variable.
+  //  * @param {type}   [var=default] Description of optional variable with default variable.
+  //  * @param {Object} objectVar     Description.
+  //  * @param {type}   objectVar.key Description of a key in the objectVar parameter.
+  //  *
+  //  * @return {type} Return value description.
+  //  */
+  // setSoundVolume(volume: number) {
+  //   this._audioElements[name].htmlAudioElement.volume = volume;
+  // }
+
   /**
    * Summary. (use period)
    *
@@ -113,14 +130,14 @@ export class SoundPlayer extends Instrument {
    *
    * @return {type} Return value description.
    */
-  async playSound(name: string, volume = this._soundsLibrary.get(name).volume) {
-    if (!this._audioElements.get(name)) {
-      await this.loadSound(name, volume);
+  async playSound(name: string) {
+    if (!this._audioElements[name]) {
+      await this.loadSound(name);
     }
-    if (this._soundsLibrary.get(name).type !== 'oneShotParallel') {
+    if (this._soundsLibrary[name].type !== 'oneShotParallel') {
       this.stopSound(name);
     }
-    this._audioElements.get(name).htmlAudioElement.play();
+    this._audioElements[name].htmlAudioElement.play();
   }
 
   /**
@@ -139,7 +156,7 @@ export class SoundPlayer extends Instrument {
    * @return {type} Return value description.
    */
   pauseSound(name: string) {
-    this._audioElements.get(name).htmlAudioElement.pause();
+    this._audioElements[name].htmlAudioElement.pause();
   }
 
   /**
@@ -158,26 +175,25 @@ export class SoundPlayer extends Instrument {
    * @return {type} Return value description.
    */
   stopSound(name: string) {
-    this._audioElements.get(name).htmlAudioElement.pause();
-    this._audioElements.get(name).htmlAudioElement.currentTime = 0;
+    this._audioElements[name].htmlAudioElement.pause();
+    this._audioElements[name].htmlAudioElement.currentTime = 0;
   }
 
-  private async loadSound(name: string, volume: number): Promise<void> {
-    const sound: Sound = this._soundsLibrary.get(name);
+  private async loadSound(name: string): Promise<void> {
+    const sound: Sound = this._soundsLibrary[name];
     const htmlAudioElement = await this.handleSoundLoading(sound.path);
 
-    this._audioElements.set(name, {
+    this._audioElements[name] = {
       htmlAudioElement,
       mediaElementAudioSourceNode: this._context.createMediaElementSource(
         htmlAudioElement
       )
-    });
-    this._audioElements.get(name).htmlAudioElement.loop =
+    };
+    this._audioElements[name].htmlAudioElement.loop =
       sound.type === 'loop' ? true : false;
-    this._audioElements.get(name).htmlAudioElement.volume = volume;
+    this._audioElements[name].htmlAudioElement.volume = sound.volume;
 
-    this._audioElements.get(name);
-    // .mediaElementAudioSourceNode.connect(this._output);
+    this._audioElements[name].mediaElementAudioSourceNode.connect(this._output);
     // .mediaElementAudioSourceNode.connect(this._channel.input);
     // .mediaElementAudioSourceNode.connect(this._context.destination);
   }
@@ -187,6 +203,10 @@ export class SoundPlayer extends Instrument {
       const sound = new Audio(path);
       sound.oncanplaythrough = () => {
         resolve(sound);
+      };
+      sound.onerror = () => {
+        console.log('onerror');
+        reject();
       };
     });
     return new Promise((resolve, reject) => {
