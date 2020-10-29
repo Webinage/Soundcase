@@ -20,6 +20,7 @@
   -> Avec option stretch
 
 - De la pub dans le cli
+- Créer un template d'effet pour les devs
 
 - retirer les channels de base dans l'audio engine et faire des methodes pour en rajouter.
   -> se répercute dans le projet d'allan en etendant la classe audioengine pour créer un préset avec les 3 channels de base
