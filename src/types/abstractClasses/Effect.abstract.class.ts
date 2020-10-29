@@ -79,10 +79,12 @@ export abstract class Effect<OT> {
   set muted(value: boolean) {
     this._muted = value;
     // TO DO : Router l'input dans l'output si false et inversement
-    // if (value === true) {
-    //   this._input.disconnect();
-    //   this._input.connect(this._output);
-    // }
+    if (value === true) {
+      this._input.disconnect();
+      this._input.connect(this._output);
+    } else {
+      this._rootEffect();
+    }
   }
 
   /**
@@ -106,6 +108,15 @@ export abstract class Effect<OT> {
   get output() {
     return this._output;
   }
+
+  /**
+   * Get the effect output.
+   *
+   * @see  Function
+   *
+   * @return {type} Return the effect output.
+   */
+  abstract _rootEffect(): void;
 
   // get options() {
   //   return {};

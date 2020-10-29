@@ -63,6 +63,19 @@ export class Delay extends Effect<MyDelayOptions> {
   }
 
   /**
+   * Set the low/mid frequency breakpoint
+   *
+   * @see  Function
+   *
+   * @param {number}   value    Value of the frequency breakpoitn.
+   */
+  _rootEffect() {
+    this._input.disconnect();
+    this._input.connect(this._dryChannel.input);
+    this._input.connect(this._delayNode);
+  }
+
+  /**
    * Set the effect dry/wet ratio
    *
    * @see  Function

@@ -14,7 +14,7 @@ import { makeDistortionCurve } from '../../utils';
  * @return {ChannelStrip} Return value description.
  */
 export class Distortion extends Effect<DistortionOptions> {
-  private _node: WaveShaperNode;
+  private _waveShaperNode: WaveShaperNode;
 
   /**
    * Create a point.
@@ -23,9 +23,21 @@ export class Distortion extends Effect<DistortionOptions> {
   constructor(_context: AudioContext, options: DistortionOptions = {}) {
     super('Distortion', _context, options);
 
-    this._node = new WaveShaperNode(this._context, options);
+    this._waveShaperNode = new WaveShaperNode(this._context, options);
 
-    this._input.connect(this._node).connect(this._output);
+    this._input.connect(this._waveShaperNode).connect(this._output);
+  }
+
+  /**
+   * Set the low/mid frequency breakpoint
+   *
+   * @see  Function
+   *
+   * @param {number}   value    Value of the frequency breakpoitn.
+   */
+  _rootEffect() {
+    this._input.disconnect();
+    this._input.connect(this._waveShaperNode);
   }
 
   /**
@@ -48,9 +60,9 @@ export class Distortion extends Effect<DistortionOptions> {
   setCurve(curve: Float32Array): void;
   setCurve(input: number | Float32Array): void {
     if (typeof input === 'number') {
-      this._node.curve = makeDistortionCurve(input);
+      this._waveShaperNode.curve = makeDistortionCurve(input);
     } else {
-      this._node.curve = input;
+      this._waveShaperNode.curve = input;
     }
   }
 
@@ -70,6 +82,6 @@ export class Distortion extends Effect<DistortionOptions> {
    * @return {type} Return value description.
    */
   setOversample(oversample: OverSampleType): void {
-    this._node.oversample = oversample;
+    this._waveShaperNode.oversample = oversample;
   }
 }

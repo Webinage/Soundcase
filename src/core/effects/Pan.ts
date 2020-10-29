@@ -14,7 +14,7 @@ import { keepNumberBetwwen } from '../../utils';
  * @return {ChannelStrip} Return value description.
  */
 export class Pan extends Effect<PanOptions> {
-  private _node: StereoPannerNode;
+  private _pannerNode: StereoPannerNode;
 
   /**
    * Create a point.
@@ -23,9 +23,21 @@ export class Pan extends Effect<PanOptions> {
   constructor(_context: AudioContext, options: PanOptions = {}) {
     super('Pan', _context, options);
 
-    this._node = new StereoPannerNode(this._context, options);
+    this._pannerNode = new StereoPannerNode(this._context, options);
 
-    this._input.connect(this._node).connect(this._output);
+    this._input.connect(this._pannerNode).connect(this._output);
+  }
+
+  /**
+   * Set the low/mid frequency breakpoint
+   *
+   * @see  Function
+   *
+   * @param {number}   value    Value of the frequency breakpoitn.
+   */
+  _rootEffect() {
+    this._input.disconnect();
+    this._input.connect(this._pannerNode);
   }
 
   /**
@@ -44,6 +56,6 @@ export class Pan extends Effect<PanOptions> {
    * @return {type} Return value description.
    */
   setPan(value: number) {
-    this._node.pan.value = keepNumberBetwwen(value, -1, 1);
+    this._pannerNode.pan.value = keepNumberBetwwen(value, -1, 1);
   }
 }

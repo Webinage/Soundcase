@@ -13,7 +13,7 @@ import { Effect, FilterOptions } from '../../types';
  * @return {ChannelStrip} Return value description.
  */
 export class Filter extends Effect<FilterOptions> {
-  private _node: BiquadFilterNode;
+  private _filterNode: BiquadFilterNode;
 
   /**
    * Create a point.
@@ -22,9 +22,21 @@ export class Filter extends Effect<FilterOptions> {
   constructor(_context: AudioContext, options: FilterOptions = {}) {
     super('Filter', _context, options);
 
-    this._node = new BiquadFilterNode(this._context, options);
+    this._filterNode = new BiquadFilterNode(this._context, options);
 
-    this._input.connect(this._node).connect(this._output);
+    this._input.connect(this._filterNode).connect(this._output);
+  }
+
+  /**
+   * Set the low/mid frequency breakpoint
+   *
+   * @see  Function
+   *
+   * @param {number}   value    Value of the frequency breakpoitn.
+   */
+  _rootEffect() {
+    this._input.disconnect();
+    this._input.connect(this._filterNode);
   }
 
   /**
@@ -43,7 +55,7 @@ export class Filter extends Effect<FilterOptions> {
    * @return {type} Return value description.
    */
   setFrequency(value: number) {
-    this._node.frequency.value = value;
+    this._filterNode.frequency.value = value;
   }
 
   /**
@@ -62,7 +74,7 @@ export class Filter extends Effect<FilterOptions> {
    * @return {type} Return value description.
    */
   setQ(value: number) {
-    this._node.Q.value = value;
+    this._filterNode.Q.value = value;
   }
 
   /**
@@ -81,6 +93,6 @@ export class Filter extends Effect<FilterOptions> {
    * @return {type} Return value description.
    */
   setFilterGain(value: number) {
-    this._node.gain.value = value;
+    this._filterNode.gain.value = value;
   }
 }

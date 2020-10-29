@@ -76,6 +76,20 @@ export class _3BandEQ extends Effect<_3BandEQOptions> {
    *
    * @param {number}   value    Value of the frequency breakpoitn.
    */
+  _rootEffect() {
+    this._input.disconnect();
+    this._input.connect(this._lowFilterNode);
+    this._input.connect(this._midFilterNode);
+    this._input.connect(this._highFilterNode);
+  }
+
+  /**
+   * Set the low/mid frequency breakpoint
+   *
+   * @see  Function
+   *
+   * @param {number}   value    Value of the frequency breakpoitn.
+   */
   setLowMidFrequencyBreakpoint(value: number) {
     this.options.breakPoints.lowMid = keepNumberBetwwen(
       value,

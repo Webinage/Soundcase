@@ -1,4 +1,3 @@
-- Enlever le split de channel sur la reverb et le delay.
 - Un dry/wet sur chaque effet.
 - une méthode de déconnection des effects dans un channelStrip.
 - Verifier l'unité de mesure du delay time ( secondes ou millisecondes )
@@ -18,6 +17,8 @@
 - La méthode setSoundVolume sur le soundplayer
 - Soundplayer : playbackSpeed?/detune?/speed?
   -> Avec option stretch
+
+- Trouver un moyen d'avoir la propriété "\_rootEffect" en private sur la classe abstraite effects
 
 - De la pub dans le cli
 - Créer un template d'effet pour les devs

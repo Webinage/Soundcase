@@ -16,7 +16,7 @@ import { MixChannel } from '../channels';
  */
 export class Reverb extends Effect<ReverbOptions> {
   private _dryChannel: MixChannel;
-  private _effectChannel: MixChannel;
+  private _wetChannel: MixChannel;
   private _node: ConvolverNode;
 
   private _dryWetRatio: number;
@@ -36,7 +36,7 @@ export class Reverb extends Effect<ReverbOptions> {
   ) {
     super('Reverb', _context, options);
     this._dryChannel = new MixChannel(this._context);
-    this._effectChannel = new MixChannel(this._context);
+    this._wetChannel = new MixChannel(this._context);
     this.setDryWetRatio(dryWetRatio);
     this._node = new ConvolverNode(this._context, {
       buffer: this._buildImpulse(this.options)
@@ -48,10 +48,23 @@ export class Reverb extends Effect<ReverbOptions> {
       .connect(this._output);
 
     this._input
-      .connect(this._effectChannel.input)
+      .connect(this._wetChannel.input)
       .connect(this._node)
-      .connect(this._effectChannel.output)
+      .connect(this._wetChannel.output)
       .connect(this._output);
+  }
+
+  /**
+   * Set the low/mid frequency breakpoint
+   *
+   * @see  Function
+   *
+   * @param {number}   value    Value of the frequency breakpoitn.
+   */
+  _rootEffect() {
+    this._input.disconnect();
+    this._input.connect(this._dryChannel.input);
+    this._input.connect(this._wetChannel.input);
   }
 
   /**
@@ -132,7 +145,7 @@ export class Reverb extends Effect<ReverbOptions> {
   setDryWetRatio(ratio: number) {
     this._dryWetRatio = keepNumberBetwwen(ratio, 0, 1);
     this._dryChannel.output.gain.value = 1 - this._dryWetRatio;
-    this._effectChannel.output.gain.value = this._dryWetRatio;
+    this._wetChannel.output.gain.value = this._dryWetRatio;
   }
 
   /**
