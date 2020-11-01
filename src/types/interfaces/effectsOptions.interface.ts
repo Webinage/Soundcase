@@ -2,7 +2,13 @@
  * Parent interface for effects options
  *
  */
-export interface EffectOptions {}
+export interface EffectOptions {
+  /**
+   * Options for EffectOptions
+   *
+   */
+  dryWet?: number;
+}
 
 /**
  * Options for _3BandEQ

@@ -1,6 +1,6 @@
 import React from 'react';
 // import { SoundPlayer} from '../../../static/lib/core/instruments'
-import AE from '../../../static/lib';
+import AE from '../../../../static/lib';
 
 class ReverbExample extends React.Component {
 
@@ -95,6 +95,10 @@ class ReverbExample extends React.Component {
             const effectsChannel = audioEngine.createChannelStrip('effects', [
               audioEngine.createEffect('Reverb')
             ])
+
+            soundPlayer.connect(effectsChannel)
+
+            this.state.soundPlayer.playSound('drums')
             `}
           </code>
         </pre>

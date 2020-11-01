@@ -7,6 +7,7 @@ import {
   SoundsLibrary
 } from '../../types';
 import { Channel } from '../../types/abstractClasses/Channel.abstract.class';
+import { keepNumberBetwwen } from '../../utils';
 
 /**
  * Summary. (A channel to handle single/multiple effects)
@@ -111,9 +112,13 @@ export class SoundPlayer extends Instrument {
   //  *
   //  * @return {type} Return value description.
   //  */
-  // setSoundVolume(volume: number) {
-  //   this._audioElements[name].htmlAudioElement.volume = volume;
-  // }
+  setSoundVolume(name: string, volume: number) {
+    this._audioElements[name].htmlAudioElement.volume = keepNumberBetwwen(
+      volume,
+      0,
+      1
+    );
+  }
 
   /**
    * Summary. (use period)
@@ -132,7 +137,7 @@ export class SoundPlayer extends Instrument {
    */
   async playSound(name: string) {
     if (!this._audioElements[name]) {
-      await this.loadSound(name);
+      await this._loadSound(name);
     }
     if (this._soundsLibrary[name].type !== 'oneShotParallel') {
       this.stopSound(name);
@@ -179,9 +184,9 @@ export class SoundPlayer extends Instrument {
     this._audioElements[name].htmlAudioElement.currentTime = 0;
   }
 
-  private async loadSound(name: string): Promise<void> {
+  private async _loadSound(name: string): Promise<void> {
     const sound: Sound = this._soundsLibrary[name];
-    const htmlAudioElement = await this.handleSoundLoading(sound.path);
+    const htmlAudioElement = await this._handleSoundLoading(sound.path);
 
     this._audioElements[name] = {
       htmlAudioElement,
@@ -191,14 +196,18 @@ export class SoundPlayer extends Instrument {
     };
     this._audioElements[name].htmlAudioElement.loop =
       sound.type === 'loop' ? true : false;
-    this._audioElements[name].htmlAudioElement.volume = sound.volume;
+    this._audioElements[name].htmlAudioElement.volume = keepNumberBetwwen(
+      sound.volume,
+      0,
+      1
+    );
 
     this._audioElements[name].mediaElementAudioSourceNode.connect(this._output);
     // .mediaElementAudioSourceNode.connect(this._channel.input);
     // .mediaElementAudioSourceNode.connect(this._context.destination);
   }
 
-  private async handleSoundLoading(path: string): Promise<HTMLAudioElement> {
+  private async _handleSoundLoading(path: string): Promise<HTMLAudioElement> {
     await new Promise((resolve, reject) => {
       const sound = new Audio(path);
       sound.oncanplaythrough = () => {

@@ -1,9 +1,7 @@
 - Un dry/wet sur chaque effet.
-- une méthode de déconnection des effects dans un channelStrip.
 - Verifier l'unité de mesure du delay time ( secondes ou millisecondes )
 - Documenter les parametres de chaque option pour les interfaces de params
 - Le dry/wet ratio dans les options.
-- préfixer tout ce qui est privé par "\_" (méthodes de classes y compris)
 - compléter l'arboraissance du contributing.md
 - compléter les interface d'options des effets
 - créer une class generique pour les instruments (dont le sound player)
@@ -17,6 +15,10 @@
 - La méthode setSoundVolume sur le soundplayer
 - Soundplayer : playbackSpeed?/detune?/speed?
   -> Avec option stretch
+- Un donnor box sur le site et le github : https://donorbox.org/fr?utm_source=Poweredby
+
+- des groupes de sons dans un player pour en lancer plusieurs d'un coup et les faire charger en semble
+- une methode addSound ???
 
 - Trouver un moyen d'avoir la propriété "\_rootEffect" en private sur la classe abstraite effects
 

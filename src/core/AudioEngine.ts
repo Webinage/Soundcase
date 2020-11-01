@@ -210,7 +210,7 @@ export class AudioEngine {
     this._soundPlayers[playerName] = new SoundPlayer(
       this._masterContext,
       sounds,
-      this.channelToConnectNode(channelName)
+      this._channelToConnectNode(channelName)
     );
 
     // conect to master channel
@@ -299,13 +299,13 @@ export class AudioEngine {
   ): ChannelStrip {
     this._channelStrips[name] = new ChannelStrip(this._masterContext, effects);
     this._channelStrips[name].output.connect(
-      this.channelToConnectNode(channelName)
+      this._channelToConnectNode(channelName)
     );
 
     return this._channelStrips[name];
   }
 
-  private channelToConnectNode(channelName: string): AudioNode {
+  private _channelToConnectNode(channelName: string): AudioNode {
     return channelName === 'master'
       ? this._masterChannel.input
       : Object.keys(this._mixChannels).some(key => key === channelName)

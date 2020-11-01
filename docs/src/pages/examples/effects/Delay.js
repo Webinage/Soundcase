@@ -1,6 +1,6 @@
 import React from 'react';
 // import { SoundPlayer} from '../../../static/lib/core/instruments'
-import AE from '../../../static/lib';
+import AE from '../../../../static/lib';
 
 class DelayExample extends React.Component {
 
@@ -91,6 +91,10 @@ class DelayExample extends React.Component {
             const effectsChannel = audioEngine.createChannelStrip('effects', [
               audioEngine.createEffect('Delay')
             ])
+
+            soundPlayer.connect(effectsChannel)
+
+            this.state.soundPlayer.playSound('drums')
             `}
           </code>
         </pre>
