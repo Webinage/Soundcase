@@ -22,7 +22,7 @@ export class Filter extends Effect<FilterOptions> {
   constructor(_context: AudioContext, options: FilterOptions = {}) {
     super('Filter', _context, options);
 
-    this._filterNode = new BiquadFilterNode(this._context, options);
+    this._filterNode = new BiquadFilterNode(this._context, this.options);
 
     this._input.connect(this._filterNode).connect(this._output);
   }

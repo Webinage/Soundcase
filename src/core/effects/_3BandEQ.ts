@@ -33,13 +33,13 @@ export class _3BandEQ extends Effect<_3BandEQOptions> {
     this._highFilterChannel = new MixChannel(this._context);
     this._lowFilterNode = new BiquadFilterNode(this._context, {
       // Q: options.Q,
-      detune: options.detune,
+      detune: this.options.detune,
       frequency: this.options.breakPoints.lowMid,
       type: 'lowpass'
     });
     this._midFilterNode = new BiquadFilterNode(this._context, {
       // Q: options.Q,
-      detune: options.detune,
+      detune: this.options.detune,
       frequency:
         (this.options.breakPoints.lowMid + this.options.breakPoints.midHigh) /
         2,
@@ -47,7 +47,7 @@ export class _3BandEQ extends Effect<_3BandEQOptions> {
     });
     this._highFilterNode = new BiquadFilterNode(this._context, {
       // Q: options.Q,
-      detune: options.detune,
+      detune: this.options.detune,
       frequency: this.options.breakPoints.midHigh,
       type: 'highpass'
     });

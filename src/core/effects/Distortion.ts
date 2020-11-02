@@ -1,5 +1,5 @@
 import { DistortionOptions, Effect } from '../../types';
-import { makeDistortionCurve } from '../../utils';
+import { keepNumberBetwwen, makeDistortionCurve } from '../../utils';
 
 /**
  * Summary. (A channel to handle single/multiple effects)
@@ -23,7 +23,7 @@ export class Distortion extends Effect<DistortionOptions> {
   constructor(_context: AudioContext, options: DistortionOptions = {}) {
     super('Distortion', _context, options);
 
-    this._waveShaperNode = new WaveShaperNode(this._context, options);
+    this._waveShaperNode = new WaveShaperNode(this._context, this.options);
 
     this._input.connect(this._waveShaperNode).connect(this._output);
   }
@@ -60,7 +60,15 @@ export class Distortion extends Effect<DistortionOptions> {
   setCurve(curve: Float32Array): void;
   setCurve(input: number | Float32Array): void {
     if (typeof input === 'number') {
-      this._waveShaperNode.curve = makeDistortionCurve(input);
+      console.log(
+        `makeDistortionCurve(
+        keepNumberBetwwen(input, 0, 1000)
+      )`,
+        makeDistortionCurve(keepNumberBetwwen(input, 0, 1000))
+      );
+      this._waveShaperNode.curve = makeDistortionCurve(
+        keepNumberBetwwen(input, 0, 1000)
+      );
     } else {
       this._waveShaperNode.curve = input;
     }

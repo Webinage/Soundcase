@@ -23,7 +23,7 @@ export class Pan extends Effect<PanOptions> {
   constructor(_context: AudioContext, options: PanOptions = {}) {
     super('Pan', _context, options);
 
-    this._pannerNode = new StereoPannerNode(this._context, options);
+    this._pannerNode = new StereoPannerNode(this._context, this.options);
 
     this._input.connect(this._pannerNode).connect(this._output);
   }
