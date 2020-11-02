@@ -45,7 +45,7 @@ export abstract class Effect<OT> {
       };
     } else if (name === 'Filter') {
       this.options = {
-        ...{ type: 'lowpass', frequency: 500, Q: 1, detune: 0, gain: 1 },
+        ...{ type: 'lowpass', frequency: 400, Q: 10, detune: 0, gain: 1 },
         ...options
       };
     } else if (name === 'Pan') {
