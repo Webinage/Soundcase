@@ -1,5 +1,4 @@
 import React from 'react';
-// import { SoundPlayer} from '../../../static/lib/core/instruments'
 import AE from '../../../static/lib';
 
 class SimpleMultiPlayerExample extends React.Component {

@@ -1,5 +1,4 @@
 import React from 'react';
-// import { SoundPlayer} from '../../../static/lib/core/instruments'
 import AE from '../../../../static/lib';
 
 class DelayExample extends React.Component {
@@ -10,8 +9,8 @@ class DelayExample extends React.Component {
 
     const audioEngine = new AE.AudioEngine()
     const soundPlayer = audioEngine.createSoundPlayer('soundPlayer', {
-      uttl: {
-        path: '../../static/sounds/uttl.mp3',
+      timba: {
+        path: '../../static/sounds/timba.mp3',
         type: 'loop',
         volume: 1,
       }
@@ -24,7 +23,6 @@ class DelayExample extends React.Component {
     ])
 
     soundPlayer.connect(effectsChannel)
-      // .connect(audioEngine.masterChannel)
 
     this.state = {
       audioEngine,
@@ -41,11 +39,11 @@ class DelayExample extends React.Component {
   }
 
   stop() {
-    this.state.soundPlayer.stopSound('uttl')
+    this.state.soundPlayer.stopSound('timba')
   }
 
   play() {
-    this.state.soundPlayer.playSound('uttl')
+    this.state.soundPlayer.playSound('timba')
   }
 
   updateState(property, value) {
@@ -81,8 +79,8 @@ class DelayExample extends React.Component {
             {`
             const audioEngine = new AE.AudioEngine()
             const soundPlayer = audioEngine.createSoundPlayer('soundPlayer', {
-              uttl: {
-                path: '../../static/sounds/uttl.mp3',
+              timba: {
+                path: '../../static/sounds/timba.mp3',
                 type: 'loop',
                 volume: 1,
               }
@@ -94,7 +92,7 @@ class DelayExample extends React.Component {
 
             soundPlayer.connect(effectsChannel)
 
-            this.state.soundPlayer.playSound('uttl')
+            this.state.soundPlayer.playSound('timba')
             `}
           </code>
         </pre>

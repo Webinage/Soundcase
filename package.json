@@ -32,6 +32,7 @@
     "build-es6-esm": "npm run clean-es6-esm && tsc -t es6 -m es6 --outDir lib-es6-esm",
     "build": "npm run build-umd && npm run build-cjs && npm run build-es5-esm && npm run build-es6-esm",
     "docs": "cd ./docs && npm run start",
+    "docs-build": "cd ./docs && rm -rf ./build && npm run build",
     "docs-publish": "cd ./docs && rm -rf ./build && npm run build && GIT_USER=xledocteurx CURRENT_BRANCH=master USE_SSH=true npm run deploy",
     "before-publish": "npm install && npm run test && npm run build && zip -r -X ./docs/static/dist.zip ./dist",
     "publish": "npm run build && npm publish --access public && npm run docs-publish"
