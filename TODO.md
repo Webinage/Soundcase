@@ -1,3 +1,5 @@
+- Pouvoir utiliser un effet sans channel strip ( a la maniere des instruments )
+  -> vérifier les méthodes de connection/déconnection. pour qu'un effet créé puis rajouté dans un channelStrip soit bien déconnecté du flow/context normal
 - Un dry/wet sur chaque effet.
 - Verifier l'unité de mesure du delay time ( secondes ou millisecondes )
 - Documenter les parametres de chaque option pour les interfaces de params

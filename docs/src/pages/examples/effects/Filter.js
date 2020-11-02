@@ -83,6 +83,14 @@ class FilterExample extends React.Component {
               }
             })
 
+            const effect = audioEngine.createEffect('Filter')
+        
+            const effectsChannel = audioEngine.createChannelStrip('effects', [
+              effect
+            ])
+        
+            soundPlayer.connect(effectsChannel)
+
             this.state.soundPlayer.playSound('synth')
             `}
           </code>
