@@ -17,7 +17,7 @@ import { MixChannel } from '../channels';
 export class Reverb extends Effect<ReverbOptions> {
   private _dryChannel: MixChannel;
   private _wetChannel: MixChannel;
-  private _node: ConvolverNode;
+  private _reverbNode: ConvolverNode;
 
   private _dryWetRatio: number;
 
@@ -38,7 +38,7 @@ export class Reverb extends Effect<ReverbOptions> {
     this._dryChannel = new MixChannel(this._context);
     this._wetChannel = new MixChannel(this._context);
     this.setDryWetRatio(dryWetRatio);
-    this._node = new ConvolverNode(this._context, {
+    this._reverbNode = new ConvolverNode(this._context, {
       buffer: this._buildImpulse(this.options)
     });
 
@@ -49,7 +49,7 @@ export class Reverb extends Effect<ReverbOptions> {
 
     this._input
       .connect(this._wetChannel.input)
-      .connect(this._node)
+      .connect(this._reverbNode)
       .connect(this._wetChannel.output)
       .connect(this._output);
   }
@@ -84,7 +84,7 @@ export class Reverb extends Effect<ReverbOptions> {
    */
   setSeconds(seconds: number) {
     this.options.seconds = seconds;
-    this._node.buffer = this._buildImpulse(this.options);
+    this._reverbNode.buffer = this._buildImpulse(this.options);
   }
 
   /**
@@ -104,7 +104,7 @@ export class Reverb extends Effect<ReverbOptions> {
    */
   setDecay(decay: number) {
     this.options.decay = decay;
-    this._node.buffer = this._buildImpulse(this.options);
+    this._reverbNode.buffer = this._buildImpulse(this.options);
   }
 
   /**
@@ -124,7 +124,7 @@ export class Reverb extends Effect<ReverbOptions> {
    */
   setReverse(reverse: boolean) {
     this.options.reverse = reverse;
-    this._node.buffer = this._buildImpulse(this.options);
+    this._reverbNode.buffer = this._buildImpulse(this.options);
   }
 
   /**

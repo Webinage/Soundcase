@@ -10,8 +10,8 @@ class DelayExample extends React.Component {
 
     const audioEngine = new AE.AudioEngine()
     const soundPlayer = audioEngine.createSoundPlayer('soundPlayer', {
-      drums: {
-        path: '../../static/sounds/drums.mp3',
+      uttl: {
+        path: '../../static/sounds/uttl.mp3',
         type: 'loop',
         volume: 1,
       }
@@ -41,11 +41,11 @@ class DelayExample extends React.Component {
   }
 
   stop() {
-    this.state.soundPlayer.stopSound('drums')
+    this.state.soundPlayer.stopSound('uttl')
   }
 
   play() {
-    this.state.soundPlayer.playSound('drums')
+    this.state.soundPlayer.playSound('uttl')
   }
 
   updateState(property, value) {
@@ -54,12 +54,12 @@ class DelayExample extends React.Component {
 
   handleDelayTimeInputChange(event) {
     this.updateState('delayTime', event.target.value)
-    this.state.effect.setSeconds(event.target.value)
+    this.state.effect.setDelayTime(event.target.value)
   }
 
   handleFeedbackInputChange(event) {
     this.updateState('feedback', event.target.value)
-    this.state.effect.setDecay(event.target.value)
+    this.state.effect.setFeedback(event.target.value)
   }
 
   handleDryWetRatioInputChange(event) {
@@ -81,8 +81,8 @@ class DelayExample extends React.Component {
             {`
             const audioEngine = new AE.AudioEngine()
             const soundPlayer = audioEngine.createSoundPlayer('soundPlayer', {
-              drums: {
-                path: '../../static/sounds/drums.mp3',
+              uttl: {
+                path: '../../static/sounds/uttl.mp3',
                 type: 'loop',
                 volume: 1,
               }
@@ -94,14 +94,14 @@ class DelayExample extends React.Component {
 
             soundPlayer.connect(effectsChannel)
 
-            this.state.soundPlayer.playSound('drums')
+            this.state.soundPlayer.playSound('uttl')
             `}
           </code>
         </pre>
         <button onClick={() => this.stop()}>Stop</button>
         <button onClick={() => this.play()}>Play</button>
         <label htmlFor="delayTime">Delay time : {this.state.delayTime}</label>
-        <input name="delayTime" type='range' min="0" max="10" value={this.state.delayTime} onChange={(event) => this.handleDelayTimeInputChange(event)}/>
+        <input name="delayTime" type='range' min="0" max="5" step="0.01" value={this.state.delayTime} onChange={(event) => this.handleDelayTimeInputChange(event)}/>
         <label htmlFor="feedback">Feedback : {this.state.feedback}</label>
         <input name="feedback" type='range' min="0" max="1" step="0.01" value={this.state.feedback} onChange={(event) => this.handleFeedbackInputChange(event)}/>
 

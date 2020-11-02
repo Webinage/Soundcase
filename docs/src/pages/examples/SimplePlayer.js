@@ -9,8 +9,8 @@ class SimplePlayerExample extends React.Component {
 
     const audioEngine = new AE.AudioEngine()
     const soundPlayer = audioEngine.createSoundPlayer('soundPlayer', {
-      drums: {
-        path: '../../static/sounds/drums.mp3',
+      guitargroup: {
+        path: '../../static/sounds/guitar-group.mp3',
         type: 'loop',
         volume: 1,
       }
@@ -24,11 +24,11 @@ class SimplePlayerExample extends React.Component {
   }
 
   stop() {
-    this.state.soundPlayer.stopSound('drums')
+    this.state.soundPlayer.stopSound('guitargroup')
   }
 
   play() {
-    this.state.soundPlayer.playSound('drums')
+    this.state.soundPlayer.playSound('guitargroup')
   }
 
   updateState(property, value) {
@@ -44,14 +44,14 @@ class SimplePlayerExample extends React.Component {
             {`
             const audioEngine = new AE.AudioEngine()
             const soundPlayer = audioEngine.createSoundPlayer('soundPlayer', {
-              drums: {
-                path: '../../static/sounds/drums.mp3',
+              guitargroup: {
+                path: '../../static/sounds/guitargroup.mp3',
                 type: 'loop',
                 volume: 1,
               }
             })
 
-            this.state.soundPlayer.playSound('drums')
+            this.state.soundPlayer.playSound('guitargroup')
             `}
           </code>
         </pre>

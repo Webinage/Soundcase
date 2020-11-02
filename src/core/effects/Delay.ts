@@ -52,9 +52,10 @@ export class Delay extends Effect<MyDelayOptions> {
 
     // Wet
     this._input
-      .connect(this._delayNode)
       .connect(this._wetChannel.input)
-      .connect(this._wetChannel.output);
+      .connect(this._delayNode)
+      .connect(this._wetChannel.output)
+      .connect(this._output);
 
     // Feedback
     this._delayNode.connect(this._feedbackNode).connect(this._delayNode);
@@ -71,8 +72,9 @@ export class Delay extends Effect<MyDelayOptions> {
    */
   _rootEffect() {
     this._input.disconnect();
+
     this._input.connect(this._dryChannel.input);
-    this._input.connect(this._delayNode);
+    this._input.connect(this._wetChannel.input);
   }
 
   /**
