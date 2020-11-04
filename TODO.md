@@ -1,3 +1,4 @@
+- renomer mute/unmute par bypass
 - Pouvoir utiliser un effet sans channel strip ( a la maniere des instruments )
   -> vérifier les méthodes de connection/déconnection. pour qu'un effet créé puis rajouté dans un channelStrip soit bien déconnecté du flow/context normal
 - Un dry/wet sur chaque effet.
@@ -8,6 +9,7 @@
 - compléter les interface d'options des effets
 - créer une class generique pour les instruments (dont le sound player)
 - plus de any
+- des @min et @max pour la doc des paramètres
 - Class singleton
 - Gérer autrement les effectsNames ( meilleure maiontenabilité )
 - un transformer typescript pour les chemins relatifs
@@ -57,3 +59,5 @@
 
 - des warnings sur les éléments non connectés ( input et outputs )
 - Les tests unitaires
+
+- faire un systeme de min/max values pour que l'on puisse définir des schemas ( et qu'il y ai application automatique en ofnction de la config de fonctions restrictrices des paramètres d'entré ) ??? cf interface schema / class param
