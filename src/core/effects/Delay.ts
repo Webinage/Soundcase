@@ -1,6 +1,6 @@
-import { Effect, MyDelayOptions } from '../../types';
-import { keepNumberBetwwen } from '../../utils';
-import { MixChannel } from '../channels';
+import { Effect } from '../../types/abstractClasses';
+import { MyDelayOptions } from '../../types/interfaces';
+import { clamp } from '../../utils';
 
 /**
  * Summary. (A channel to handle single/multiple effects)
@@ -15,9 +15,6 @@ import { MixChannel } from '../channels';
  * @return {ChannelStrip} Return value description.
  */
 export class Delay extends Effect<MyDelayOptions> {
-  private _dryChannel: MixChannel;
-  private _wetChannel: MixChannel;
-
   private _delayNode: DelayNode;
 
   private _feedbackNode: GainNode;
@@ -28,15 +25,8 @@ export class Delay extends Effect<MyDelayOptions> {
    * @param {AudioContext} _context  The audio context the effect will run in.
    * @param {MyDelayOptions} options  The options the effect will be created with.
    */
-  constructor(
-    _context: AudioContext,
-    options: MyDelayOptions = {},
-    dryWetRatio: number = 0.5
-  ) {
+  constructor(_context: AudioContext, options: MyDelayOptions = {}) {
     super('Delay', _context, options);
-
-    this._dryChannel = new MixChannel(this._context);
-    this._wetChannel = new MixChannel(this._context);
 
     this._delayNode = new DelayNode(this._context, this.options);
 
@@ -44,50 +34,29 @@ export class Delay extends Effect<MyDelayOptions> {
     this.setFeedback(this.options.feedback);
     this.setDryWetRatio(dryWetRatio);
 
-    // Dry
-    this._input
-      .connect(this._dryChannel.input)
-      .connect(this._dryChannel.output)
-      .connect(this._output);
-
-    // Wet
-    this._input
-      .connect(this._wetChannel.input)
-      .connect(this._delayNode)
-      .connect(this._wetChannel.output)
-      .connect(this._output);
-
     // Feedback
     this._delayNode.connect(this._feedbackNode).connect(this._delayNode);
 
-    this._output.connect(this._context.destination);
+    // this._output.connect(this._context.destination);
+  }
+
+  /**
+   *
+   * @see function
+   * @param {number}  value Value of the ....
+   */
+  _rootWetChannel() {
+    this._wetChannel.input
+      .connect(this._delayNode)
+      .connect(this._wetChannel.output);
   }
 
   /**
    * Set the low/mid frequency breakpoint
    *
-   * @see  Function
-   *
-   * @param {number}   value    Value of the frequency breakpoitn.
    */
-  _rootEffect() {
-    this._input.disconnect();
-
-    this._input.connect(this._dryChannel.input);
-    this._input.connect(this._wetChannel.input);
-  }
-
-  /**
-   * Set the effect dry/wet ratio
-   *
-   * @see  Function
-   *
-   * @param {number}   ratio    Dry/wet ratio. 1 is for 100%
-   */
-  setDryWetRatio(ratio: number) {
-    this._dryWetRatio = keepNumberBetwwen(ratio, 0, 1);
-    this._dryChannel.output.gain.value = 1 - this._dryWetRatio;
-    this._wetChannel.output.gain.value = this._dryWetRatio;
+  get delayTime() {
+    return this._delayNode.delayTime;
   }
 
   /**
@@ -98,8 +67,16 @@ export class Delay extends Effect<MyDelayOptions> {
    * @param {number}    delayTime   Delay time in seconds.
    */
   setDelayTime(delayTime: number) {
-    this.options.delayTime = delayTime;
-    this._delayNode.delayTime.value = delayTime;
+    this._updateOptions({ delayTime: clamp(delayTime, 0) });
+    this._delayNode.delayTime.value = this.options.delayTime;
+  }
+
+  /**
+   * Set the low/mid frequency breakpoint
+   *
+   */
+  get feedback() {
+    return this._feedbackNode.gain;
   }
 
   /**
@@ -110,6 +87,7 @@ export class Delay extends Effect<MyDelayOptions> {
    * @param {number}   value    Feedback gain. 1 is 100%.
    */
   setFeedback(value: number) {
-    this._feedbackNode.gain.value = keepNumberBetwwen(value, 0, 1);
+    this._updateOptions({ feedback: clamp(value, 0, 1) });
+    this._feedbackNode.gain.value = this.options.feedback;
   }
 }

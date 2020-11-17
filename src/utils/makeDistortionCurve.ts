@@ -5,9 +5,12 @@
  *
  * @return {Float32Array} Return a float32 array containing curve data.
  */
-export function makeDistortionCurve(amount: number = 100): Float32Array {
+export function makeDistortionCurve(
+  amount: number = 100,
+  sampleRate: number = 44100
+): Float32Array {
   const k = amount,
-    n_samples = 44100,
+    n_samples = sampleRate,
     curve = new Float32Array(n_samples),
     deg = Math.PI / 180;
   let i = 0,

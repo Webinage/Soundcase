@@ -4,10 +4,20 @@
  */
 export interface EffectOptions {
   /**
+   * Options for _3BandEQ
+   *
+   */
+  muted?: boolean;
+  /**
    * Options for EffectOptions
    *
    */
   dryWet?: number;
+  /**
+   * Options for EffectOptions
+   *
+   */
+  outputGain?: number;
 }
 
 /**
@@ -74,7 +84,8 @@ export interface DistortionOptions extends EffectOptions {
    * Options for _3BandEQ
    *
    */
-  curve?: Float32Array | number[];
+  // curve?: Float32Array | number[];
+  curve?: Float32Array;
   /**
    * Options for _3BandEQ
    *
@@ -97,7 +108,7 @@ export interface FilterOptions extends EffectOptions {
    * Options for _3BandEQ
    *
    */
-  Qu?: number;
+  Q?: number;
   /**
    * Options for _3BandEQ
    *
@@ -152,9 +163,9 @@ export interface ReverbOptions extends EffectOptions {
 }
 // Check ConvolverOptions
 
-/**
- * Options for reverb
- *
- */
-export interface ConvolutionReverbOptions extends EffectOptions {}
-// Check ConvolverOptions
+// /**
+//  * Options for reverb
+//  *
+//  */
+// export interface ConvolutionReverbOptions extends BaseEffectOptions {}
+// // Check ConvolverOptions

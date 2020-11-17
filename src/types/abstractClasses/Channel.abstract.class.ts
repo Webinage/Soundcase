@@ -1,5 +1,5 @@
-import { Effect } from '.';
-import { EffectOptions } from '..';
+import { EffectOptions } from '../interfaces';
+import { Effect } from './Effect.abstract.class';
 
 /**
  * Summary. (A channel to handle single/multiple effects)

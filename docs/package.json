@@ -6,7 +6,7 @@
     "docusaurus": "docusaurus",
     "start": "npm run build-lib && docusaurus start",
     "build": "npm run build-lib && docusaurus build",
-    "build-lib": "rm -rf ./static/lib && cd ../ && tsc --outDir ./docs/static/lib",
+    "build-lib": "rm -rf ./static/lib && cd ../ && tsc -t es6 -m es6 --outDir ./docs/static/lib",
     "swizzle": "docusaurus swizzle",
     "deploy": "docusaurus deploy",
     "serve": "docusaurus serve"

@@ -1,5 +1,6 @@
-import { DistortionOptions, Effect } from '../../types';
-import { keepNumberBetwwen, makeDistortionCurve } from '../../utils';
+import { Effect } from '../../types/abstractClasses';
+import { DistortionOptions } from '../../types/interfaces';
+import { clamp, makeDistortionCurve } from '../../utils';
 
 /**
  * Summary. (A channel to handle single/multiple effects)
@@ -24,21 +25,26 @@ export class Distortion extends Effect<DistortionOptions> {
     super('Distortion', _context, options);
 
     this._waveShaperNode = new WaveShaperNode(this._context, this.options);
-
-    this._input.connect(this._waveShaperNode).connect(this._output);
   }
 
   /**
-   * Set the low/mid frequency breakpoint
    *
-   * @see  Function
-   *
-   * @param {number}   value    Value of the frequency breakpoitn.
+   * @see function
+   * @param {number}  value Value of the ....
    */
-  _rootEffect() {
-    this._input.disconnect();
-    this._input.connect(this._waveShaperNode);
+  _rootWetChannel() {
+    this._wetChannel.input
+      .connect(this._waveShaperNode)
+      .connect(this._wetChannel.output);
   }
+
+  // /**
+  //  * Set the low/mid frequency breakpoint
+  //  *
+  //  */
+  // get curve() {
+  //   return this._waveShaperNode.curve;
+  // }
 
   /**
    * Summary. (use period)
@@ -55,23 +61,21 @@ export class Distortion extends Effect<DistortionOptions> {
    *
    * @return {type} Return value description.
    */
-  setCurve(amount: number): void;
-  // setCurve(curve: number[]): void;
-  setCurve(curve: Float32Array): void;
   setCurve(input: number | Float32Array): void {
     if (typeof input === 'number') {
-      console.log(
-        `makeDistortionCurve(
-        keepNumberBetwwen(input, 0, 1000)
-      )`,
-        makeDistortionCurve(keepNumberBetwwen(input, 0, 1000))
-      );
-      this._waveShaperNode.curve = makeDistortionCurve(
-        keepNumberBetwwen(input, 0, 1000)
-      );
-    } else {
+      input = makeDistortionCurve(clamp(input, 0), this._context.sampleRate);
       this._waveShaperNode.curve = input;
     }
+    this._updateOptions({ curve: input });
+    this._waveShaperNode.curve = this.options.curve;
+  }
+
+  /**
+   * Set the low/mid frequency breakpoint
+   *
+   */
+  get oversample() {
+    return this._waveShaperNode.oversample;
   }
 
   /**
@@ -90,6 +94,7 @@ export class Distortion extends Effect<DistortionOptions> {
    * @return {type} Return value description.
    */
   setOversample(oversample: OverSampleType): void {
-    this._waveShaperNode.oversample = oversample;
+    this._updateOptions({ oversample: oversample });
+    this._waveShaperNode.oversample = this.options.oversample;
   }
 }

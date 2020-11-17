@@ -1,4 +1,5 @@
-import { Channel, Effect, EffectOptions } from '../../types';
+import { Channel, Effect } from '../../types/abstractClasses';
+import { EffectOptions } from '../../types/interfaces';
 
 /**
  * Summary. (A channel to handle single/multiple effects)

@@ -1,19 +1,18 @@
+import { Effect } from '../types/abstractClasses';
+import { EffectsNames } from '../types/enums';
 import {
-  Dic,
   DistortionOptions,
-  Effect,
   EffectOptions,
-  EffectsNames,
   FilterOptions,
   MyDelayOptions,
   PanOptions,
   ReverbOptions,
-  SoundsLibrary,
   _3BandEQOptions
-} from '../types';
+} from '../types/interfaces';
+import { Dic, SoundsLibrary } from '../types/types';
 import { ChannelStrip, MixChannel } from './channels';
 import { Delay, Distortion, Filter, Pan, Reverb, _3BandEQ } from './effects';
-import { SoundPlayer } from './instruments';
+import { SoundPlayer } from './SoundPlayer.class';
 
 /**
  * Summary. (A channel to handle single/multiple effects)
@@ -28,12 +27,32 @@ import { SoundPlayer } from './instruments';
  * @return {ChannelStrip} Return value description.
  */
 export class AudioEngine {
-  // private _masterContext: AudioContext = new (window.AudioContext || (window as any).webkitAudioContext)()
+  // private _masterContext: AudioContext = new (window.AudioContext ||
+  //   window.webkitAudioContext)();
+
+  /**
+   * Create a MixChannel.
+   */
   private _masterContext: AudioContext = new AudioContext();
+  /**
+   * Create a MixChannel.
+   */
   private _masterChannel: MixChannel = new MixChannel(this._masterContext);
+  // private _masterContext: AudioContext;
+  // private _masterChannel: MixChannel;
+
+  /**
+   * Create a MixChannel.
+   */
   private _mixChannels: Dic<MixChannel> = {};
 
+  /**
+   * Create a MixChannel.
+   */
   private _channelStrips: Dic<ChannelStrip> = {};
+  /**
+   * Create a MixChannel.
+   */
   private _soundPlayers: Dic<SoundPlayer> = {};
 
   /**
@@ -41,6 +60,8 @@ export class AudioEngine {
    * @param {number} x  The x value.
    */
   constructor() {
+    // window.AudioContext = window.AudioContext || window.webkitAudioContext;
+    // this._masterContext = new AudioContext();
     this._masterChannel.output.connect(this._masterContext.destination);
   }
 

@@ -1,5 +1,6 @@
-import { Effect, PanOptions } from '../../types';
-import { keepNumberBetwwen } from '../../utils';
+import { Effect } from '../../types/abstractClasses';
+import { PanOptions } from '../../types/interfaces';
+import { clamp } from '../../utils';
 
 /**
  * Summary. (A channel to handle single/multiple effects)
@@ -24,20 +25,25 @@ export class Pan extends Effect<PanOptions> {
     super('Pan', _context, options);
 
     this._pannerNode = new StereoPannerNode(this._context, this.options);
+  }
 
-    this._input.connect(this._pannerNode).connect(this._output);
+  /**
+   *
+   * @see function
+   * @param {number}  value Value of the ....
+   */
+  _rootWetChannel() {
+    this._wetChannel.input
+      .connect(this._pannerNode)
+      .connect(this._wetChannel.output);
   }
 
   /**
    * Set the low/mid frequency breakpoint
    *
-   * @see  Function
-   *
-   * @param {number}   value    Value of the frequency breakpoitn.
    */
-  _rootEffect() {
-    this._input.disconnect();
-    this._input.connect(this._pannerNode);
+  get pan() {
+    return this._pannerNode.pan;
   }
 
   /**
@@ -56,6 +62,7 @@ export class Pan extends Effect<PanOptions> {
    * @return {type} Return value description.
    */
   setPan(value: number) {
-    this._pannerNode.pan.value = keepNumberBetwwen(value, -1, 1);
+    this._updateOptions({ pan: clamp(value, -1, 1) });
+    this._pannerNode.pan.value = this.options.pan;
   }
 }

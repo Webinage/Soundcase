@@ -1,4 +1,5 @@
-import { Effect, FilterOptions } from '../../types';
+import { Effect } from '../../types/abstractClasses';
+import { FilterOptions } from '../../types/interfaces';
 
 /**
  * Summary. (A channel to handle single/multiple effects)
@@ -23,20 +24,25 @@ export class Filter extends Effect<FilterOptions> {
     super('Filter', _context, options);
 
     this._filterNode = new BiquadFilterNode(this._context, this.options);
+  }
 
-    this._input.connect(this._filterNode).connect(this._output);
+  /**
+   *
+   * @see function
+   * @param {number}  value Value of the ....
+   */
+  _rootWetChannel() {
+    this._wetChannel.input
+      .connect(this._filterNode)
+      .connect(this._wetChannel.output);
   }
 
   /**
    * Set the low/mid frequency breakpoint
    *
-   * @see  Function
-   *
-   * @param {number}   value    Value of the frequency breakpoitn.
    */
-  _rootEffect() {
-    this._input.disconnect();
-    this._input.connect(this._filterNode);
+  get frequency() {
+    return this._filterNode.frequency;
   }
 
   /**
@@ -55,7 +61,16 @@ export class Filter extends Effect<FilterOptions> {
    * @return {type} Return value description.
    */
   setFrequency(value: number) {
+    this._updateOptions({ frequency: value });
     this._filterNode.frequency.value = value;
+  }
+
+  /**
+   * Set the low/mid frequency breakpoint
+   *
+   */
+  get Q() {
+    return this._filterNode.Q;
   }
 
   /**
@@ -74,7 +89,16 @@ export class Filter extends Effect<FilterOptions> {
    * @return {type} Return value description.
    */
   setQ(value: number) {
-    this._filterNode.Q.value = value;
+    this._updateOptions({ Q: value });
+    this._filterNode.Q.value = this.options.Q;
+  }
+
+  /**
+   * Set the low/mid frequency breakpoint
+   *
+   */
+  get gain() {
+    return this._filterNode.gain;
   }
 
   /**
@@ -92,8 +116,37 @@ export class Filter extends Effect<FilterOptions> {
    *
    * @return {type} Return value description.
    */
-  setFilterGain(value: number) {
-    this._filterNode.gain.value = value;
+  setGain(value: number) {
+    this._updateOptions({ gain: value });
+    this._filterNode.gain.value = this.options.gain;
+  }
+
+  /**
+   * Set the low/mid frequency breakpoint
+   *
+   */
+  get detune() {
+    return this._filterNode.detune;
+  }
+
+  /**
+   * Summary. (use period)
+   *
+   * Description. (use period)
+   *
+   * @see  Function/class relied on
+   *
+   * @param {type}   var           Description.
+   * @param {type}   [var]         Description of optional variable.
+   * @param {type}   [var=default] Description of optional variable with default variable.
+   * @param {Object} objectVar     Description.
+   * @param {type}   objectVar.key Description of a key in the objectVar parameter.
+   *
+   * @return {type} Return value description.
+   */
+  setDetune(value: number) {
+    this._updateOptions({ detune: value });
+    this._filterNode.detune.value = this.options.detune;
   }
 
   /**
@@ -112,6 +165,7 @@ export class Filter extends Effect<FilterOptions> {
    * @return {type} Return value description.
    */
   setFilterType(value: BiquadFilterType) {
-    this._filterNode.type = value;
+    this._updateOptions({ type: value });
+    this._filterNode.type = this.options.type;
   }
 }

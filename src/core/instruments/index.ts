@@ -1,1 +1,2 @@
-export * from './SoundPlayer.class';
+export * from './audioInstruments';
+// export * from './midiInstruments';

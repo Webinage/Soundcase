@@ -39,4 +39,4 @@ class Users extends React.Component {
   }
 }
 
-module.exports = Users;
+export default Users;

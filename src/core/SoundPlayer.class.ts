@@ -1,13 +1,8 @@
-import {
-  Dic,
-  Effect,
-  EffectOptions,
-  Instrument,
-  Sound,
-  SoundsLibrary
-} from '../../types';
-import { Channel } from '../../types/abstractClasses/Channel.abstract.class';
-import { keepNumberBetwwen } from '../../utils';
+import { Effect } from '../types/abstractClasses';
+import { Channel } from '../types/abstractClasses/Channel.abstract.class';
+import { EffectOptions, Sound } from '../types/interfaces';
+import { Dic, SoundsLibrary } from '../types/types';
+import { clamp } from '../utils';
 
 /**
  * Summary. (A channel to handle single/multiple effects)
@@ -32,8 +27,11 @@ export interface SoundElement {
  *
  * @return {ChannelStrip} Return value description.
  */
-export class SoundPlayer extends Instrument {
+// export class SoundPlayer extends AudioInstrument {
+export class SoundPlayer {
   private _audioElements: Dic<SoundElement> = {};
+
+  protected _output: GainNode;
 
   /**
    * Create a point.
@@ -55,11 +53,10 @@ export class SoundPlayer extends Instrument {
   //   node?: AudioNode
   // );
   constructor(
-    _context: AudioContext,
+    private _context: AudioContext,
     private _soundsLibrary: SoundsLibrary,
     item?: AudioNode | Effect<EffectOptions> | Channel
   ) {
-    super(_context);
     this._output = new GainNode(this._context);
 
     if (item) {
@@ -113,11 +110,7 @@ export class SoundPlayer extends Instrument {
   //  * @return {type} Return value description.
   //  */
   setSoundVolume(name: string, volume: number) {
-    this._audioElements[name].htmlAudioElement.volume = keepNumberBetwwen(
-      volume,
-      0,
-      1
-    );
+    this._audioElements[name].htmlAudioElement.volume = clamp(volume, 0, 1);
   }
 
   /**
@@ -196,7 +189,7 @@ export class SoundPlayer extends Instrument {
     };
     this._audioElements[name].htmlAudioElement.loop =
       sound.type === 'loop' ? true : false;
-    this._audioElements[name].htmlAudioElement.volume = keepNumberBetwwen(
+    this._audioElements[name].htmlAudioElement.volume = clamp(
       sound.volume,
       0,
       1
@@ -224,5 +217,24 @@ export class SoundPlayer extends Instrument {
         resolve(sound);
       };
     });
+  }
+
+  /**
+   * Summary. (use period)
+   *
+   * Description. (use period)
+   *
+   * @see  Function/class relied on
+   *
+   * @param {type}   var           Description.
+   * @param {type}   [var]         Description of optional variable.
+   * @param {type}   [var=default] Description of optional variable with default variable.
+   * @param {Object} objectVar     Description.
+   * @param {type}   objectVar.key Description of a key in the objectVar parameter.
+   *
+   * @return {type} Return value description.
+   */
+  setGain(value: number): void {
+    this._output.gain.value = value;
   }
 }

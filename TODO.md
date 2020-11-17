@@ -1,3 +1,10 @@
+- retirer les mixchannels de l'equalizer 3 bandes
+- muted/drywet/gain (initialiser les nodes de base input/outpu/dry/wet avec les paramètres des options) l84à87
+- muted/drywet/gain (mettre ces getter setter sur l'abstract class)
+- Dans les effets. Quand on modifi un parametre. metttre à jour en meme temps les options du parametre.
+- Une enveloppe d'amplitude étendu de la classe enveloppe ( avec un flow de channel )
+- Midi et keyboard input polyphonic ( garder trace des différentes touches appuyés)
+- Coder le glide avec une fonction d'interpolation linéaire
 - renomer mute/unmute par bypass
 - Pouvoir utiliser un effet sans channel strip ( a la maniere des instruments )
   -> vérifier les méthodes de connection/déconnection. pour qu'un effet créé puis rajouté dans un channelStrip soit bien déconnecté du flow/context normal
@@ -9,6 +16,7 @@
 - compléter les interface d'options des effets
 - créer une class generique pour les instruments (dont le sound player)
 - plus de any
+- exposer des propriétés des noeuds dans les effets pour les binds avec les enveloppes et oscillateurs
 - des @min et @max pour la doc des paramètres
 - Class singleton
 - Gérer autrement les effectsNames ( meilleure maiontenabilité )
@@ -20,6 +28,13 @@
 - Soundplayer : playbackSpeed?/detune?/speed?
   -> Avec option stretch
 - Un donnor box sur le site et le github : https://donorbox.org/fr?utm_source=Poweredby
+- Méthode disconnect sur l'effect abstract classe. ( et plus globalement sur tous les éléments ayant une méthode connect())
+- des console warning si un "keepvaluebetween" sort de ses gond ???
+- Faire le type de clavier qwerty
+- repenser l'initialisation de l'abstract class effect pour y inclure la méthode d'updateOptions dans le constructeur et simplifier l'init
+- Mettre le dryWet get/set dans tous les effets
+- Typer tous les getter d'effets en AudioParam
+- Trouver une solution pour que les parametres dynamique des effets générants des buffers ( comme la distortion ou la réverb ) puissent être modifiés et que le getter des params puisse etre relié à une enveloppe
 
 - des groupes de sons dans un player pour en lancer plusieurs d'un coup et les faire charger en semble
 - une methode addSound ???
@@ -61,3 +76,6 @@
 - Les tests unitaires
 
 - faire un systeme de min/max values pour que l'on puisse définir des schemas ( et qu'il y ai application automatique en ofnction de la config de fonctions restrictrices des paramètres d'entré ) ??? cf interface schema / class param
+
+- nodemon sur la doc pour watcher le dossier src
+- Dans le generatedistortioncurve, remplacer la valeur en dur du sample rate par un calcul type : contexteAudio.sampleRate

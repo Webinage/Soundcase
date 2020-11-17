@@ -20,6 +20,7 @@
   "es2015": "lib-es6-esm/src/index.js",
   "scripts": {
     "commit": "git-cz",
+    "debug-circular": "madge --circular ./docs/static/lib --image ./circular.jpg",
     "test": "echo \"Error: no test specified\" && exit 1",
     "clean-umd": "rm -rf ./_bundle",
     "clean-cjs": "rm -rf ./lib-cjs",
@@ -45,8 +46,11 @@
   "files": [
     "dist/*"
   ],
-  "dependencies": {},
+  "dependencies": {
+    "rxjs": "^6.6.3"
+  },
   "devDependencies": {
+    "@types/webmidi": "^2.0.4",
     "awesome-typescript-loader": "^5.2.1",
     "commitizen": "^4.2.2",
     "cz-conventional-changelog": "^3.3.0",

@@ -17,10 +17,6 @@ class Examples extends React.Component {
 
   }
 
-  Soundcase() {
-    // this.engine = new Soundcase.default.AudioEngine();
-  }
-
   render() {
     return (
       <Layout
