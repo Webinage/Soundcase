@@ -15,10 +15,9 @@ import { clamp } from '../../utils';
  * @return {ChannelStrip} Return value description.
  */
 export class Delay extends Effect<MyDelayOptions> {
-  private _delayNode: DelayNode;
+  private readonly _delayNode: DelayNode;
 
-  private _feedbackNode: GainNode;
-  private _dryWetRatio: number;
+  private readonly _feedbackNode: GainNode;
 
   /**
    * Create a Delay.
@@ -32,7 +31,6 @@ export class Delay extends Effect<MyDelayOptions> {
 
     this._feedbackNode = new GainNode(this._context);
     this.setFeedback(this.options.feedback);
-    this.setDryWetRatio(dryWetRatio);
 
     // Feedback
     this._delayNode.connect(this._feedbackNode).connect(this._delayNode);

@@ -6,12 +6,11 @@ import {
   FilterOptions,
   MyDelayOptions,
   PanOptions,
-  ReverbOptions,
-  _3BandEQOptions
+  ReverbOptions
 } from '../types/interfaces';
 import { Dic, SoundsLibrary } from '../types/types';
 import { ChannelStrip, MixChannel } from './channels';
-import { Delay, Distortion, Filter, Pan, Reverb, _3BandEQ } from './effects';
+import { Delay, Distortion, Filter, Pan, Reverb } from './effects';
 import { SoundPlayer } from './SoundPlayer.class';
 
 /**
@@ -254,7 +253,7 @@ export class AudioEngine {
    *
    * @return {type} Return value description.
    */
-  createEffect(effectType: '_3BandEQ', options?: _3BandEQOptions): _3BandEQ;
+  // createEffect(effectType: '_3BandEQ', options?: _3BandEQOptions): _3BandEQ;
   createEffect(effectType: 'Delay', options?: MyDelayOptions): Delay;
   createEffect(
     effectType: 'Distortion',
@@ -267,9 +266,10 @@ export class AudioEngine {
     effectType: EffectsNames,
     options: EffectOptions = {}
   ): Effect<EffectOptions> {
-    if (effectType === '_3BandEQ') {
-      return new _3BandEQ(this._masterContext, options);
-    } else if (effectType === 'Delay') {
+    // if (effectType === '_3BandEQ') {
+    //   return new _3BandEQ(this._masterContext, options);
+    // } else
+    if (effectType === 'Delay') {
       return new Delay(this._masterContext, options);
     } else if (effectType === 'Distortion') {
       return new Distortion(this._masterContext, options);

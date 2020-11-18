@@ -13,8 +13,8 @@ import { Effect } from './Effect.abstract.class';
  * @return {ChannelStrip} Return value description.
  */
 export abstract class Channel {
-  protected _input: GainNode;
-  protected _output: GainNode;
+  protected readonly _input: GainNode;
+  protected readonly _output: GainNode;
 
   /**
    * Create a point.

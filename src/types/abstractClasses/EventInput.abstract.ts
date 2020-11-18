@@ -3,9 +3,9 @@ import { BehaviorSubject, EMPTY, Observable, Subscription } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 
 export abstract class EventInput<T> {
-  protected _subject$: BehaviorSubject<Observable<T>> = new BehaviorSubject<
+  protected readonly _subject$: BehaviorSubject<
     Observable<T>
-  >(EMPTY);
+  > = new BehaviorSubject<Observable<T>>(EMPTY);
   protected _subscription: Subscription;
 
   constructor() {}

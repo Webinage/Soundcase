@@ -1,6 +1,6 @@
 import { BehaviorSubject, Observable } from 'rxjs';
 import { MixChannel } from '../../core/channels';
-import { makeDistortionCurve } from '../../utils';
+import { clamp, makeDistortionCurve } from '../../utils';
 import { EffectsNames } from '../enums';
 import { EffectOptions } from '../interfaces';
 import { Channel } from './Channel.abstract.class';
@@ -17,11 +17,13 @@ import { Channel } from './Channel.abstract.class';
  * @return {ChannelStrip} Return value description.
  */
 export abstract class Effect<OT extends EffectOptions> {
-  protected _optionsSubject$: BehaviorSubject<OT> = new BehaviorSubject(null);
-  protected _dryChannel: MixChannel;
-  protected _wetChannel: MixChannel;
-  protected _output: GainNode;
-  protected _input: GainNode;
+  private readonly _optionsSubject$: BehaviorSubject<OT> = new BehaviorSubject(
+    null
+  );
+  protected readonly _dryChannel: MixChannel;
+  protected readonly _wetChannel: MixChannel;
+  protected readonly _output: GainNode;
+  protected readonly _input: GainNode;
 
   /**
    * Create a point.
@@ -32,22 +34,36 @@ export abstract class Effect<OT extends EffectOptions> {
     protected _context: AudioContext,
     options: OT
   ) {
-    if (name === '_3BandEQ') {
-      this._optionsSubject$.next({
-        ...{
-          muted: false,
-          dryWet: 1,
-          gain: 1,
-          breakPoints: {
-            lowMid: 200,
-            midHigh: 2000
-          },
-          Q: 1,
-          detune: 0
-        },
-        ...options
-      });
-    } else if (name === 'Delay') {
+    // if (name === '_3BandEQ') {
+    //   this._optionsSubject$.next({
+    //     ...{
+    //       muted: false,
+    //       dryWet: 1,
+    //       gain: 1,
+    //       breakPoints: {
+    //         lowMid: 200,
+    //         midHigh: 2000
+    //       },
+    //       low: {
+    //         gain: 1,
+    //         Q: 1,
+    //         detune: 0
+    //       },
+    //       mid: {
+    //         gain: 1,
+    //         Q: 1,
+    //         detune: 0
+    //       },
+    //       high: {
+    //         gain: 1,
+    //         Q: 1,
+    //         detune: 0
+    //       }
+    //     },
+    //     ...options
+    //   });
+    // } else
+    if (name === 'Delay') {
       this._optionsSubject$.next({
         ...{
           muted: false,
@@ -106,6 +122,8 @@ export abstract class Effect<OT extends EffectOptions> {
     this._wetChannel = new MixChannel(this._context);
     this._output = new GainNode(this._context);
 
+    this.setDryWetRatio(options.dryWet);
+
     // Dry
     this._input
       .connect(this._dryChannel.input)
@@ -135,7 +153,7 @@ export abstract class Effect<OT extends EffectOptions> {
     return this._optionsSubject$.value;
   }
 
-  protected _updateOptions(options: OT) {
+  protected _updateOptions(options: OT | EffectOptions) {
     this._optionsSubject$.next({ ...this.options, ...options });
   }
 

@@ -15,7 +15,7 @@ import { clamp } from '../../utils';
  * @return {ChannelStrip} Return value description.
  */
 export class Pan extends Effect<PanOptions> {
-  private _pannerNode: StereoPannerNode;
+  private readonly _pannerNode: StereoPannerNode;
 
   /**
    * Create a point.

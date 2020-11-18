@@ -19,7 +19,7 @@ export abstract class MonophonicSynth extends AudioInstrument {
    * Create a point.
    * @param {number} x  The x value.
    */
-  constructor(protected _context: AudioContext) {
+  constructor(_context: AudioContext) {
     super(_context);
   }
 

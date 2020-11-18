@@ -14,7 +14,7 @@ import { FilterOptions } from '../../types/interfaces';
  * @return {ChannelStrip} Return value description.
  */
 export class Filter extends Effect<FilterOptions> {
-  private _filterNode: BiquadFilterNode;
+  private readonly _filterNode: BiquadFilterNode;
 
   /**
    * Create a point.

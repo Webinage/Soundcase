@@ -17,7 +17,8 @@ export abstract class MidiInstrument extends Instrument {
    * Create a point.
    * @param {number} x  The x value.
    */
-  constructor(protected _context: AudioContext) {
+  // constructor(protected _context: AudioContext) {
+  constructor() {
     super();
   }
 }

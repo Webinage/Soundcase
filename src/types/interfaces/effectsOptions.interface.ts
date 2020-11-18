@@ -43,6 +43,23 @@ export interface _3BandEQOptions extends EffectOptions {
     midHigh: number;
   };
 
+  low?: _3BandEQBandOptions;
+  mid?: _3BandEQBandOptions;
+  high?: _3BandEQBandOptions;
+}
+// Check BiquadFilterOptions
+
+/**
+ * Options for _3BandEQ
+ *
+ */
+export interface _3BandEQBandOptions {
+  /**
+   * Options for _3BandEQ
+   *
+   */
+  gain?: number;
+
   /**
    * Options for _3BandEQ
    *
@@ -55,7 +72,6 @@ export interface _3BandEQOptions extends EffectOptions {
    */
   detune?: number;
 }
-// Check BiquadFilterOptions
 
 /**
  * Options for Delay

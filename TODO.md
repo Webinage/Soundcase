@@ -1,3 +1,6 @@
+- Trouver une solution pour l'update d'options de manière recursive
+- mettre des readonly dans toutes les classes abstraites
+- enlever les private/protected quand c'est possible dans les constructor
 - retirer les mixchannels de l'equalizer 3 bandes
 - muted/drywet/gain (initialiser les nodes de base input/outpu/dry/wet avec les paramètres des options) l84à87
 - muted/drywet/gain (mettre ces getter setter sur l'abstract class)

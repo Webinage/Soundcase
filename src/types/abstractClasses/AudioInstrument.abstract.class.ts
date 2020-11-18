@@ -18,7 +18,7 @@ import { Instrument } from './Instrument.abstract.class';
  * @return {ChannelStrip} Return value description.
  */
 export abstract class AudioInstrument extends Instrument {
-  protected _output: GainNode;
+  protected readonly _output: GainNode;
   // protected _midiInput: MidiInput = new MidiInput(
   //   note => {
   //     const midiNote = MidiNotes[note];
@@ -29,8 +29,8 @@ export abstract class AudioInstrument extends Instrument {
   //     this.stop();
   //   }
   // );
-  protected _midiInput: MidiInput = new MidiInput();
-  protected _keyboardInput: KeyboardInput = new KeyboardInput();
+  protected readonly _midiInput: MidiInput = new MidiInput();
+  protected readonly _keyboardInput: KeyboardInput = new KeyboardInput();
 
   // protected _keyboardInput: KeyboardInput = new KeyboardInput();
 

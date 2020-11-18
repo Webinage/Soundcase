@@ -15,7 +15,7 @@ import { clamp, makeDistortionCurve } from '../../utils';
  * @return {ChannelStrip} Return value description.
  */
 export class Distortion extends Effect<DistortionOptions> {
-  private _waveShaperNode: WaveShaperNode;
+  private readonly _waveShaperNode: WaveShaperNode;
 
   /**
    * Create a point.

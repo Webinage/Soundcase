@@ -1,7 +1,6 @@
 import { Effect } from '../../types/abstractClasses';
 import { ReverbOptions } from '../../types/interfaces';
 import { buildImpulse } from '../../utils';
-import { MixChannel } from '../channels';
 
 /**
  * Summary. (A channel to handle single/multiple effects)
@@ -16,7 +15,7 @@ import { MixChannel } from '../channels';
  * @return {ChannelStrip} Return value description.
  */
 export class Reverb extends Effect<ReverbOptions> {
-  private _reverbNode: ConvolverNode;
+  private readonly _reverbNode: ConvolverNode;
 
   /**
    * Create a point.
@@ -28,9 +27,6 @@ export class Reverb extends Effect<ReverbOptions> {
    */
   constructor(_context: AudioContext, options: ReverbOptions = {}) {
     super('Reverb', _context, options);
-    this._dryChannel = new MixChannel(this._context);
-    this._wetChannel = new MixChannel(this._context);
-    this.setDryWetRatio(dryWetRatio);
     this._reverbNode = new ConvolverNode(this._context, {
       buffer: buildImpulse(this.options)
     });
