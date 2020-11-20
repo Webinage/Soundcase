@@ -12,6 +12,11 @@ import { EnvelopeType } from '../enums';
  */
 export interface EnvelopeOptions {
   /**
+   * Options for _3BandEQ
+   *
+   */
+  muted?: boolean;
+  /**
    * Create a point.
    * @param {number} x  The x value.
    */

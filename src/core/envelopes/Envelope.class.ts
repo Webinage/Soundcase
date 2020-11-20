@@ -1,15 +1,18 @@
+import { BehaviorSubject, Observable } from 'rxjs';
+import { EnvelopeType } from '../../types/enums';
 import { EnvelopeOptions, EnvelopeParam } from '../../types/interfaces';
 import { clamp, millisecondsToSeconds } from '../../utils';
 
 export class Envelope {
+  private readonly _optionsSubject$: BehaviorSubject<
+    EnvelopeOptions
+  > = new BehaviorSubject(null);
   params: EnvelopeParam[] = [];
 
-  constructor(
-    private _context: AudioContext,
-    private _options: EnvelopeOptions = {}
-  ) {
-    this._options = {
+  constructor(private _context: AudioContext, _options: EnvelopeOptions = {}) {
+    this._optionsSubject$.next({
       ...{
+        muted: false,
         envelopeType: 'exponential',
         attackTime: 10,
         decayTime: 200,
@@ -17,15 +20,27 @@ export class Envelope {
         releaseTime: 1000
       },
       ..._options
-    };
+    });
   }
 
   /**
    *
    * @param param
    */
-  get options() {
-    return this._options;
+  get options$(): Observable<EnvelopeOptions> {
+    return this._optionsSubject$.asObservable();
+  }
+
+  /**
+   *
+   * @param param
+   */
+  get options(): EnvelopeOptions {
+    return this._optionsSubject$.value;
+  }
+
+  protected _updateOptions(options: EnvelopeOptions) {
+    this._optionsSubject$.next({ ...this.options, ...options });
   }
 
   /**
@@ -45,6 +60,7 @@ export class Envelope {
    */
   bind(param: AudioParam, minValue: number = 0, maxValue: number = 1) {
     this.params.push({ param, minValue, maxValue });
+    // return () => this.disconnect(param);
   }
 
   /**
@@ -86,28 +102,28 @@ export class Envelope {
       const now = this._context.currentTime;
       param.param.cancelScheduledValues(now);
       param.param.setValueAtTime(param.minValue, now);
-      if (this._options.envelopeType === 'exponential') {
+      if (this.options.envelopeType === 'exponential') {
         param.param.exponentialRampToValueAtTime(
           param.maxValue,
-          now + millisecondsToSeconds(clamp(this._options.attackTime, 0))
+          now + millisecondsToSeconds(clamp(this.options.attackTime, 0))
         );
         param.param.exponentialRampToValueAtTime(
-          this._options.sustainValue,
+          this.options.sustainValue,
           now +
             millisecondsToSeconds(
-              clamp(this._options.attackTime + this._options.decayTime, 0)
+              clamp(this.options.attackTime + this.options.decayTime, 0)
             )
         );
       } else {
         param.param.linearRampToValueAtTime(
           param.maxValue,
-          now + millisecondsToSeconds(clamp(this._options.attackTime, 0))
+          now + millisecondsToSeconds(clamp(this.options.attackTime, 0))
         );
         param.param.linearRampToValueAtTime(
-          this._options.sustainValue,
+          this.options.sustainValue,
           now +
             millisecondsToSeconds(
-              clamp(this._options.attackTime + this._options.decayTime, 0)
+              clamp(this.options.attackTime + this.options.decayTime, 0)
             )
         );
       }
@@ -133,18 +149,96 @@ export class Envelope {
     this.params.forEach(param => {
       const now = this._context.currentTime;
       param.param.cancelScheduledValues(now);
-      param.param.setValueAtTime(this._options.sustainValue, now);
-      if (this._options.envelopeType === 'exponential') {
+      param.param.setValueAtTime(this.options.sustainValue, now);
+      if (this.options.envelopeType === 'exponential') {
         param.param.exponentialRampToValueAtTime(
           clamp(param.minValue, 0.01),
-          now + millisecondsToSeconds(this._options.releaseTime)
+          now + millisecondsToSeconds(this.options.releaseTime)
         );
       } else {
         param.param.linearRampToValueAtTime(
           clamp(param.minValue, 0),
-          now + millisecondsToSeconds(this._options.releaseTime)
+          now + millisecondsToSeconds(this.options.releaseTime)
         );
       }
     });
+  }
+
+  /**
+   * Summary. (use period)
+   *
+   * Description. (use period)
+   *
+   * @see  Function/class relied on
+   *
+   * @param {type}   var           Description.
+   */
+  setMuted(value: boolean) {
+    this._updateOptions({ muted: value });
+  }
+
+  /**
+   * Summary. (use period)
+   *
+   * Description. (use period)
+   *
+   * @see  Function/class relied on
+   *
+   * @param {type}   var           Description.
+   */
+  setEnvelopeType(value: EnvelopeType) {
+    this._updateOptions({ envelopeType: value });
+  }
+
+  /**
+   * Summary. (use period)
+   *
+   * Description. (use period)
+   *
+   * @see  Function/class relied on
+   *
+   * @param {type}   var           Description.
+   */
+  setAttackTime(value: number) {
+    this._updateOptions({ attackTime: clamp(value, 0) });
+  }
+
+  /**
+   * Summary. (use period)
+   *
+   * Description. (use period)
+   *
+   * @see  Function/class relied on
+   *
+   * @param {type}   var           Description.
+   */
+  setDecayTime(value: number) {
+    this._updateOptions({ decayTime: clamp(value, 0) });
+  }
+
+  /**
+   * Summary. (use period)
+   *
+   * Description. (use period)
+   *
+   * @see  Function/class relied on
+   *
+   * @param {type}   var           Description.
+   */
+  setSustainValue(value: number) {
+    this._updateOptions({ sustainValue: clamp(value, 0) });
+  }
+
+  /**
+   * Summary. (use period)
+   *
+   * Description. (use period)
+   *
+   * @see  Function/class relied on
+   *
+   * @param {type}   var           Description.
+   */
+  setReleaseTime(value: number) {
+    this._updateOptions({ releaseTime: clamp(value, 0) });
   }
 }
