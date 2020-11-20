@@ -326,6 +326,7 @@ export class AudioEngine {
     return this._channelStrips[name];
   }
 
+  // TO DO : Pouvoir passer un objet channel
   private _channelToConnectNode(channelName: string): AudioNode {
     return channelName === 'master'
       ? this._masterChannel.input

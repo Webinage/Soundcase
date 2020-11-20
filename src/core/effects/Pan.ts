@@ -25,6 +25,7 @@ export class Pan extends Effect<PanOptions> {
     super('Pan', _context, options);
 
     this._pannerNode = new StereoPannerNode(this._context, this.options);
+    this._rootWetChannel();
   }
 
   /**
@@ -32,7 +33,7 @@ export class Pan extends Effect<PanOptions> {
    * @see function
    * @param {number}  value Value of the ....
    */
-  _rootWetChannel() {
+  private _rootWetChannel() {
     this._wetChannel.input
       .connect(this._pannerNode)
       .connect(this._wetChannel.output);

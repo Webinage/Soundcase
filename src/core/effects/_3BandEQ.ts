@@ -51,6 +51,7 @@
 //       frequency: this.options.breakPoints.midHigh,
 //       type: 'highpass'
 //     });
+//     this._rootWetChannel();
 //   }
 
 //   /**
@@ -58,7 +59,7 @@
 //    * @see function
 //    * @param {number}  value Value of the ....
 //    */
-//   _rootWetChannel() {
+//   private _rootWetChannel() {
 //     this._wetChannel.input
 //       .connect(this._lowFilterNode)
 //       // .connect(this._lowFilterChannel.input)

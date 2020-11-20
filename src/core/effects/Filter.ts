@@ -24,6 +24,7 @@ export class Filter extends Effect<FilterOptions> {
     super('Filter', _context, options);
 
     this._filterNode = new BiquadFilterNode(this._context, this.options);
+    this._rootWetChannel();
   }
 
   /**
@@ -31,7 +32,7 @@ export class Filter extends Effect<FilterOptions> {
    * @see function
    * @param {number}  value Value of the ....
    */
-  _rootWetChannel() {
+  private _rootWetChannel() {
     this._wetChannel.input
       .connect(this._filterNode)
       .connect(this._wetChannel.output);

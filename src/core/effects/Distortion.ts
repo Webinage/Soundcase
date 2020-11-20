@@ -25,6 +25,7 @@ export class Distortion extends Effect<DistortionOptions> {
     super('Distortion', _context, options);
 
     this._waveShaperNode = new WaveShaperNode(this._context, this.options);
+    this._rootWetChannel();
   }
 
   /**
@@ -32,7 +33,7 @@ export class Distortion extends Effect<DistortionOptions> {
    * @see function
    * @param {number}  value Value of the ....
    */
-  _rootWetChannel() {
+  private _rootWetChannel() {
     this._wetChannel.input
       .connect(this._waveShaperNode)
       .connect(this._wetChannel.output);

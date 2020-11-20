@@ -38,7 +38,13 @@ export class Monark extends MonophonicSynth {
 
     this._filter = new Filter(_context, {});
 
-    this._filterEnvelope = new Envelope(_context);
+    this._filterEnvelope = new Envelope(_context, {
+      envelopeType: 'linear',
+      attackTime: 10,
+      decayTime: 2000,
+      sustainValue: 0,
+      releaseTime: 100
+    });
     this._amplitudeEnvelope = new Envelope(_context);
 
     this._oscillator1.connect(this._filter.input);
@@ -55,13 +61,14 @@ export class Monark extends MonophonicSynth {
 
   play(note: number) {
     this._oscillator1.play(note);
-    this._oscillator2.play(note);
+    // this._oscillator2.play(note);
     this._amplitudeEnvelope.trigger();
     this._filterEnvelope.trigger();
   }
 
   stop() {
     this._oscillator1.stop(this._amplitudeEnvelope.options.releaseTime);
+    // this._oscillator2.stop(this._amplitudeEnvelope.options.releaseTime);
     this._amplitudeEnvelope.release();
     this._filterEnvelope.release();
   }

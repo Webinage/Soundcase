@@ -122,7 +122,7 @@ export abstract class Effect<OT extends EffectOptions> {
     this._wetChannel = new MixChannel(this._context);
     this._output = new GainNode(this._context);
 
-    this.setDryWetRatio(options.dryWet);
+    this.setDryWetRatio(this.options.dryWet);
 
     // Dry
     this._input
@@ -133,26 +133,40 @@ export abstract class Effect<OT extends EffectOptions> {
     // Wet
     this._input.connect(this._wetChannel.input);
     this._wetChannel.output.connect(this._output);
-    this._rootWetChannel();
+    // TO DO trouver le moyen d'executer ca
+    // this._rootWetChannel();
   }
 
-  /**
-   * Get the effect output.
-   *
-   * @see  Function
-   *
-   * @return {type} Return the effect output.
-   */
-  abstract _rootWetChannel(): void;
+  // TO DO trouver le moyen d'executer ca
+  // /**
+  //  * Get the effect output.
+  //  *
+  //  * @see  Function
+  //  *
+  //  * @return {type} Return the effect output.
+  //  */
+  // abstract _rootWetChannel(): void;
 
+  /**
+   *
+   * @param param
+   */
   get options$(): Observable<OT> {
     return this._optionsSubject$.asObservable();
   }
 
+  /**
+   *
+   * @param param
+   */
   get options(): OT {
     return this._optionsSubject$.value;
   }
 
+  /**
+   *
+   * @param param
+   */
   protected _updateOptions(options: OT | EffectOptions) {
     this._optionsSubject$.next({ ...this.options, ...options });
   }
@@ -285,6 +299,7 @@ export abstract class Effect<OT extends EffectOptions> {
    * @return {type} Return value description.
    */
   setDryWetRatio(ratio: number) {
+    console.log('ratio : ', ratio);
     this._updateOptions({ dryWet: clamp(ratio, 0, 1) });
     this._dryChannel.output.gain.value = 1 - this.options.dryWet;
     this._wetChannel.output.gain.value = this.options.dryWet;

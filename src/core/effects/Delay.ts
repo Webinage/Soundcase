@@ -36,6 +36,7 @@ export class Delay extends Effect<MyDelayOptions> {
     this._delayNode.connect(this._feedbackNode).connect(this._delayNode);
 
     // this._output.connect(this._context.destination);
+    this._rootWetChannel();
   }
 
   /**
@@ -43,7 +44,7 @@ export class Delay extends Effect<MyDelayOptions> {
    * @see function
    * @param {number}  value Value of the ....
    */
-  _rootWetChannel() {
+  private _rootWetChannel() {
     this._wetChannel.input
       .connect(this._delayNode)
       .connect(this._wetChannel.output);

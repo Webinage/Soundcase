@@ -1,3 +1,4 @@
+- Dans l'uadioEngine prévoir le passage d'objets channel dans la méthode \_channelToConnectNode
 - Trouver une solution pour l'update d'options de manière recursive
 - mettre des readonly dans toutes les classes abstraites
 - enlever les private/protected quand c'est possible dans les constructor

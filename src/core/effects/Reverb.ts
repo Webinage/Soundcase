@@ -30,6 +30,7 @@ export class Reverb extends Effect<ReverbOptions> {
     this._reverbNode = new ConvolverNode(this._context, {
       buffer: buildImpulse(this.options)
     });
+    this._rootWetChannel();
   }
 
   /**
@@ -39,7 +40,7 @@ export class Reverb extends Effect<ReverbOptions> {
    *
    * @param {number}   value    Value of the frequency breakpoitn.
    */
-  _rootWetChannel() {
+  private _rootWetChannel() {
     this._wetChannel.input
       .connect(this._reverbNode)
       .connect(this._wetChannel.output);
