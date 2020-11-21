@@ -34,36 +34,35 @@ export abstract class Effect<OT extends EffectOptions> {
     protected _context: AudioContext,
     options: OT
   ) {
-    // if (name === '_3BandEQ') {
-    //   this._optionsSubject$.next({
-    //     ...{
-    //       muted: false,
-    //       dryWet: 1,
-    //       gain: 1,
-    //       breakPoints: {
-    //         lowMid: 200,
-    //         midHigh: 2000
-    //       },
-    //       low: {
-    //         gain: 1,
-    //         Q: 1,
-    //         detune: 0
-    //       },
-    //       mid: {
-    //         gain: 1,
-    //         Q: 1,
-    //         detune: 0
-    //       },
-    //       high: {
-    //         gain: 1,
-    //         Q: 1,
-    //         detune: 0
-    //       }
-    //     },
-    //     ...options
-    //   });
-    // } else
-    if (name === 'Delay') {
+    if (name === '_3BandEQ') {
+      this._optionsSubject$.next({
+        ...{
+          muted: false,
+          dryWet: 1,
+          gain: 1,
+          breakPoints: {
+            lowMid: 200,
+            midHigh: 2000
+          },
+          low: {
+            gain: 1,
+            Q: 1,
+            detune: 0
+          },
+          mid: {
+            gain: 1,
+            Q: 1,
+            detune: 0
+          },
+          high: {
+            gain: 1,
+            Q: 1,
+            detune: 0
+          }
+        },
+        ...options
+      });
+    } else if (name === 'Delay') {
       this._optionsSubject$.next({
         ...{
           muted: false,
@@ -243,9 +242,6 @@ export abstract class Effect<OT extends EffectOptions> {
    *
    * @return {type} Return value description.
    */
-  // connect(effect: Effect<EffectOptions>): AudioNode;
-  // connect(channel: Channel): AudioNode;
-  // connect(node: AudioNode): AudioNode;
   connect(item: AudioNode | Effect<EffectOptions> | Channel): AudioNode {
     if ('input' in item && 'output' in item) {
       this._output.connect(item.input);
@@ -253,6 +249,25 @@ export abstract class Effect<OT extends EffectOptions> {
     } else {
       return this._output.connect(item);
     }
+  }
+
+  /**
+   * Summary. (use period)
+   *
+   * Description. (use period)
+   *
+   * @see  Function/class relied on
+   *
+   * @param {type}   var           Description.
+   * @param {type}   [var]         Description of optional variable.
+   * @param {type}   [var=default] Description of optional variable with default variable.
+   * @param {Object} objectVar     Description.
+   * @param {type}   objectVar.key Description of a key in the objectVar parameter.
+   *
+   * @return {type} Return value description.
+   */
+  disconnect() {
+    return this._output.disconnect();
   }
 
   /**

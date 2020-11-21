@@ -3,5 +3,9 @@
  *
  */
 export type EffectsNames =
-  // | '_3BandEQ'
-  'Delay' | 'Distortion' | 'Filter' | 'Pan' | 'Reverb';
+  | '_3BandEQ'
+  | 'Delay'
+  | 'Distortion'
+  | 'Filter'
+  | 'Pan'
+  | 'Reverb';
