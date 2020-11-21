@@ -12,24 +12,35 @@ import { EffectOptions } from '../../types/interfaces';
  * @return {ChannelStrip} Return a channel strip.
  */
 export class ChannelStrip extends Channel {
-  private _effects: Effect<EffectOptions>[] = [];
+  private _effects: (Effect<EffectOptions> | AudioNode)[] = [];
 
   /**
    * Create a ChannelStrip.
    * @param {AudioContext}                                        _context    The audio context you run the channelStrip in.
    * @param {Effect<EffectOptions> | Effect<EffectOptions>[]}     effects     The effect/effects you want to start the channel strip with.
    */
-  constructor(_context: AudioContext, effect: Effect<EffectOptions>);
-  constructor(_context: AudioContext, effects: Effect<EffectOptions>[]);
+  constructor(_context: AudioContext);
   constructor(
     _context: AudioContext,
-    fx: Effect<EffectOptions> | Effect<EffectOptions>[]
+    effect: Effect<EffectOptions> | AudioNode
+  );
+  constructor(
+    _context: AudioContext,
+    effects: (Effect<EffectOptions> | AudioNode)[]
+  );
+  constructor(
+    _context: AudioContext,
+    fx?:
+      | (Effect<EffectOptions> | AudioNode)
+      | (Effect<EffectOptions> | AudioNode)[]
   ) {
     super(_context);
-    if (Array.isArray(fx)) {
-      this.addEffects(fx);
-    } else {
-      this.addEffect(fx);
+    if (fx) {
+      if (Array.isArray(fx)) {
+        this.addEffects(fx);
+      } else {
+        this.addEffect(fx);
+      }
     }
   }
 
@@ -50,7 +61,7 @@ export class ChannelStrip extends Channel {
    * @param {Effect<EffectOptions>}   effect     The effect you want to add to the channelStrip.
    * @param {number}                  [index]    Description of optional variable.
    */
-  addEffect(effect: Effect<EffectOptions>, index?: number) {
+  addEffect(effect: Effect<EffectOptions> | AudioNode, index?: number) {
     if (index) {
       this._effects.splice(index, 0, effect);
     } else {
@@ -84,11 +95,17 @@ export class ChannelStrip extends Channel {
    *
    * @param {Effect<EffectOptions> | number}   effect   The effect you want to mute from the channelStrip.
    */
-  muteEffect(effect: Effect<EffectOptions> | number): void {
+  muteEffect(effect: Effect<EffectOptions> | AudioNode | number): void {
     if (typeof effect === 'number') {
-      this._effects[effect].muted = true;
-    } else {
-      this.effects.find(ef => ef !== effect).muted = true;
+      if ('output' in this._effects[effect]) {
+        (this._effects[effect] as Effect<EffectOptions>).muted = true;
+      }
+    } else if ('output' in effect) {
+      if ('output' in this.effects.find(ef => ef !== effect)) {
+        (this.effects.find(ef => ef !== effect) as Effect<
+          EffectOptions
+        >).muted = true;
+      }
     }
     this._rootEffects();
   }
@@ -100,11 +117,15 @@ export class ChannelStrip extends Channel {
    *
    * @param {Effect<EffectOptions> | number}   effect   The effect you want to unmute from the channelStrip.
    */
-  unmuteEffect(effect: Effect<EffectOptions> | number): void {
+  unmuteEffect(effect: Effect<EffectOptions> | AudioNode | number): void {
     if (typeof effect === 'number') {
-      this._effects[effect].muted = false;
-    } else {
-      this.effects.find(ef => ef !== effect).muted = false;
+      if ('output' in this._effects[effect]) {
+        (this._effects[effect] as Effect<EffectOptions>).muted = false;
+      }
+    } else if ('output' in effect) {
+      (this.effects.find(ef => ef !== effect) as Effect<
+        EffectOptions
+      >).muted = false;
     }
     this._rootEffects();
   }
@@ -117,7 +138,7 @@ export class ChannelStrip extends Channel {
    * @param {Effect<EffectOptions>}   effect     The effects you want to add to the channelStrip.
    * @param {number}                  [index]    Description of optional variable.
    */
-  addEffects(effects: Effect<EffectOptions>[], index?: number) {
+  addEffects(effects: (Effect<EffectOptions> | AudioNode)[], index?: number) {
     if (index) {
       this._effects.splice(index, 0, ...effects);
     } else {
@@ -134,16 +155,29 @@ export class ChannelStrip extends Channel {
   private _rootEffects() {
     this._input.disconnect();
     this._effects.forEach(ef => {
-      ef.output.disconnect();
+      ef.disconnect();
     });
-    this._input.connect(this._effects[0].input);
+    // this._input.connect(this._effects[0].input);
+
+    if ('input' in this._effects[0]) {
+      this._input.connect(this._effects[0].input);
+    } else {
+      this._input.connect(this._effects[0]);
+    }
+
     if (this._effects.length > 1) {
       for (let i = 0; i < this._effects.length - 1; i++) {
-        this._effects[i].output.connect(this._effects[i + 1].input);
+        if ('input' in this._effects[i + 1]) {
+          this._effects[i].connect(
+            (this._effects[i + 1] as Effect<EffectOptions>).input
+          );
+        } else {
+          this._effects[i].connect(this._effects[i + 1] as AudioNode);
+        }
       }
     }
 
-    this._effects[this._effects.length - 1].output.connect(this._output);
+    this._effects[this._effects.length - 1].connect(this._output);
 
     // const channelFlow = this._effects.reduce((prev_node, ef) => prev_node.connect(ef._input), this._input)
     // channelFlow.connect(this.gain)
