@@ -1,6 +1,6 @@
 import { Observable } from 'rxjs';
 import { EventInput } from '../../types/abstractClasses/EventInput.abstract';
-import { MidiNotes } from '../../types/enums';
+// import { MidiNotes } from '../../types/enums';
 import { InputMessage } from '../../types/interfaces';
 import { clamp } from '../../utils';
 
@@ -44,7 +44,10 @@ export class MidiInput extends EventInput<InputMessage> {
 
             const cmd = msg.data[0] >> 4;
             // const cmd = msg.data[0];
-            const note = MidiNotes[clamp(msg.data[1], 21, 108)];
+            // TODO : WTF l'enum midinotes ??
+            // const note = MidiNotes[clamp(msg.data[1], 21, 108)];
+            const note = 44
+            console.log('msg.data[1] : ', msg.data[1])
             const velocity = msg.data[2];
 
             // if (cmd === 143 || (cmd === 144 && velocity === 0)) {
