@@ -1,16 +1,15 @@
-import { BehaviorSubject, Observable } from 'rxjs';
+import { HasOptions } from '../../types/abstractClasses';
 import { EnvelopeType } from '../../types/enums';
 import { EnvelopeOptions, EnvelopeParam } from '../../types/interfaces';
 import { clamp, millisecondsToSeconds } from '../../utils';
 
-export class Envelope {
-  private readonly _optionsSubject$: BehaviorSubject<
-    EnvelopeOptions
-  > = new BehaviorSubject(null);
+export class Envelope extends HasOptions<EnvelopeOptions> {
   params: EnvelopeParam[] = [];
 
-  constructor(private _context: AudioContext, _options: EnvelopeOptions = {}) {
-    this._optionsSubject$.next({
+  constructor(private _context: AudioContext, options: EnvelopeOptions = {}) {
+    super(options);
+
+    this._updateOptions<EnvelopeOptions>({
       ...{
         muted: false,
         envelopeType: 'exponential',
@@ -19,28 +18,8 @@ export class Envelope {
         sustainValue: 0.25,
         releaseTime: 1000
       },
-      ..._options
+      ...options
     });
-  }
-
-  /**
-   *
-   * @param param
-   */
-  get options$(): Observable<EnvelopeOptions> {
-    return this._optionsSubject$.asObservable();
-  }
-
-  /**
-   *
-   * @param param
-   */
-  get options(): EnvelopeOptions {
-    return this._optionsSubject$.value;
-  }
-
-  protected _updateOptions(options: EnvelopeOptions) {
-    this._optionsSubject$.next({ ...this.options, ...options });
   }
 
   /**

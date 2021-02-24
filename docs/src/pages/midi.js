@@ -9,6 +9,7 @@ class Midi extends React.Component {
 
     const audioContext = new AudioContext()
     const instrument = new AE.instruments.Monark(audioContext)
+    // const instrument = new AE.instruments.SimplePolySynth(audioContext)
 
     this.state = {
       audioContext,

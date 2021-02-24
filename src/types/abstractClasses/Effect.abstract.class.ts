@@ -1,9 +1,9 @@
-import { BehaviorSubject, Observable } from 'rxjs';
 import { MixChannel } from '../../core/channels';
 import { clamp, makeDistortionCurve } from '../../utils';
 import { EffectsNames } from '../enums';
 import { EffectOptions } from '../interfaces';
 import { Channel } from './Channel.abstract.class';
+import { HasOptions } from './HasOptions.abstract';
 
 /**
  * Summary. (A channel to handle single/multiple effects)
@@ -16,10 +16,7 @@ import { Channel } from './Channel.abstract.class';
  *
  * @return {ChannelStrip} Return value description.
  */
-export abstract class Effect<OT extends EffectOptions> {
-  private readonly _optionsSubject$: BehaviorSubject<OT> = new BehaviorSubject(
-    null
-  );
+export abstract class Effect<OT extends EffectOptions> extends HasOptions<OT> {
   protected readonly _dryChannel: MixChannel;
   protected readonly _wetChannel: MixChannel;
   protected readonly _output: GainNode;
@@ -34,8 +31,10 @@ export abstract class Effect<OT extends EffectOptions> {
     protected _context: AudioContext,
     options: OT
   ) {
+    super(options);
+
     if (name === '_3BandEQ') {
-      this._optionsSubject$.next({
+      this._updateOptions<EffectOptions>({
         ...{
           muted: false,
           dryWet: 1,
@@ -63,7 +62,7 @@ export abstract class Effect<OT extends EffectOptions> {
         ...options
       });
     } else if (name === 'Delay') {
-      this._optionsSubject$.next({
+      this._updateOptions<EffectOptions>({
         ...{
           muted: false,
           dryWet: 0.5,
@@ -74,7 +73,7 @@ export abstract class Effect<OT extends EffectOptions> {
         ...options
       });
     } else if (name === 'Distortion') {
-      this._optionsSubject$.next({
+      this._updateOptions<EffectOptions>({
         ...{
           muted: false,
           dryWet: 1,
@@ -85,7 +84,7 @@ export abstract class Effect<OT extends EffectOptions> {
         ...options
       });
     } else if (name === 'Filter') {
-      this._optionsSubject$.next({
+      this._updateOptions<EffectOptions>({
         ...{
           muted: false,
           dryWet: 1,
@@ -98,12 +97,12 @@ export abstract class Effect<OT extends EffectOptions> {
         ...options
       });
     } else if (name === 'Pan') {
-      this._optionsSubject$.next({
+      this._updateOptions<EffectOptions>({
         ...{ muted: false, dryWet: 1, gain: 1, pan: 0 },
         ...options
       });
     } else if (name === 'Reverb') {
-      this._optionsSubject$.next({
+      this._updateOptions<EffectOptions>({
         ...{
           muted: false,
           dryWet: 0.5,
@@ -147,30 +146,6 @@ export abstract class Effect<OT extends EffectOptions> {
   // abstract _rootWetChannel(): void;
 
   /**
-   *
-   * @param param
-   */
-  get options$(): Observable<OT> {
-    return this._optionsSubject$.asObservable();
-  }
-
-  /**
-   *
-   * @param param
-   */
-  get options(): OT {
-    return this._optionsSubject$.value;
-  }
-
-  /**
-   *
-   * @param param
-   */
-  protected _updateOptions(options: OT | EffectOptions) {
-    this._optionsSubject$.next({ ...this.options, ...options });
-  }
-
-  /**
    * Get the muted effect status.
    *
    * @see  Function
@@ -190,7 +165,7 @@ export abstract class Effect<OT extends EffectOptions> {
    */
   set muted(value: boolean) {
     // this._updateOptions({ muted: value } as EffectOptions);
-    this._updateOptions({ muted: value });
+    this._updateOptions<EffectOptions>({ muted: value });
     // TO DO : Router l'input dans l'output si false et inversement
     if (this.options.muted === true) {
       // this._input.disconnect();
@@ -286,7 +261,7 @@ export abstract class Effect<OT extends EffectOptions> {
    * @return {type} Return value description.
    */
   setGain(value: number) {
-    this._updateOptions({ outputGain: value });
+    this._updateOptions<EffectOptions>({ outputGain: value });
     this._output.gain.value = value;
   }
 
@@ -314,8 +289,7 @@ export abstract class Effect<OT extends EffectOptions> {
    * @return {type} Return value description.
    */
   setDryWetRatio(ratio: number) {
-    console.log('ratio : ', ratio);
-    this._updateOptions({ dryWet: clamp(ratio, 0, 1) });
+    this._updateOptions<EffectOptions>({ dryWet: clamp(ratio, 0, 1) });
     this._dryChannel.output.gain.value = 1 - this.options.dryWet;
     this._wetChannel.output.gain.value = this.options.dryWet;
   }

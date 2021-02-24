@@ -24,7 +24,7 @@ export class KeyboardInput extends EventInput<InputMessage> {
       new Observable(observer => {
         document.addEventListener('keydown', event => {
           if (this._keyboard.map.includes(event.key)) {
-            if(!event.repeat) {
+            if (!event.repeat) {
               observer.next(this.handleKeyEvent('NOTE_ON', event));
             }
           }

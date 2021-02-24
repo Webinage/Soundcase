@@ -19,20 +19,9 @@ import { Instrument } from './Instrument.abstract.class';
  */
 export abstract class AudioInstrument extends Instrument {
   protected readonly _output: GainNode;
-  // protected _midiInput: MidiInput = new MidiInput(
-  //   note => {
-  //     const midiNote = MidiNotes[note];
-  //     console.log('midiNote', midiNote);
-  //     this.play(midiNote);
-  //   },
-  //   () => {
-  //     this.stop();
-  //   }
-  // );
+
   protected readonly _midiInput: MidiInput = new MidiInput();
   protected readonly _keyboardInput: KeyboardInput = new KeyboardInput();
-
-  // protected _keyboardInput: KeyboardInput = new KeyboardInput();
 
   /**
    * Create a point.
@@ -41,63 +30,7 @@ export abstract class AudioInstrument extends Instrument {
   constructor(protected _context: AudioContext) {
     super();
     this._output = new GainNode(this._context);
-
-    // TO DO : Ne pas
-    this.subscribeToInputs();
   }
-
-  /**
-   * Summary. (use period)
-   *
-   * Description. (use period)
-   *
-   * @see  Function/class relied on
-   *
-   * @param {type}   var           Description.
-   * @param {type}   [var]         Description of optional variable.
-   * @param {type}   [var=default] Description of optional variable with default variable.
-   * @param {Object} objectVar     Description.
-   * @param {type}   objectVar.key Description of a key in the objectVar parameter.
-   *
-   * @return {type} Return value description.
-   */
-  subscribeToInputs() {
-    this._midiInput.subscribe(message => {
-      console.log('message : ', message);
-      if (message.type === 'NOTE_ON') {
-        this.play(message.note);
-      } else if (message.type === 'NOTE_OFF') {
-        this.stop();
-      }
-    });
-
-    this._keyboardInput.subscribe(message => {
-      console.log('message : ', message);
-      if (message.type === 'NOTE_ON') {
-        this.play(message.note);
-      } else if (message.type === 'NOTE_OFF') {
-        this.stop();
-      }
-    });
-  }
-
-  /**
-   * Summary. (use period)
-   *
-   * Description. (use period)
-   *
-   * @see  Function/class relied on
-   *
-   * @return {type} Return value description.
-   */
-  unsubscribeToInputs() {
-    this._midiInput.unsubscribe();
-    this._keyboardInput.unsubscribe();
-  }
-
-  abstract play(note: number): void;
-
-  abstract stop(): void;
 
   /**
    * Summary. (use period)

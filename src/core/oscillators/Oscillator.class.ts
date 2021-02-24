@@ -1,7 +1,13 @@
-import { Channel, Effect } from '../../types/abstractClasses';
-import { OscillatorType } from '../../types/enums';
-import { EffectOptions } from '../../types/interfaces';
+import { Channel, Effect, HasOptions } from '../../types/abstractClasses';
+import { InternationalNotes } from '../../types/enums';
+import { EffectOptions, MyOscillatorOptions } from '../../types/interfaces';
 import { clamp } from '../../utils';
+
+interface Voice {
+  // isPlaying: boolean;
+  note: number;
+  oscillator: OscillatorNode;
+}
 
 /**
  * Summary. (A channel to handle single/multiple effects)
@@ -14,30 +20,30 @@ import { clamp } from '../../utils';
  *
  * @return {ChannelStrip} Return value description.
  */
-export class Oscillator {
-  private _hasStarted: boolean = false;
-  private _oscillator: OscillatorNode;
+export class Oscillator extends HasOptions<MyOscillatorOptions> {
+  private _voices: Voice[] = [];
+
+  // private _hasStarted: boolean = false;
   private _output: GainNode;
 
   /**
    * Create a point.
    * @param {number} x  The x value.
    */
-  constructor(private _type: OscillatorType, private _context: AudioContext) {
+  constructor(
+    private _context: AudioContext,
+    options: MyOscillatorOptions = {}
+  ) {
+    super(options);
     this._output = new GainNode(this._context);
 
-    this._oscillator = new OscillatorNode(this._context);
-    if (this._type === 'sine') {
-      this._oscillator.type = 'sine';
-    } else if (this._type === 'triangle') {
-      this._oscillator.type = 'triangle';
-    } else if (this._type === 'square') {
-      this._oscillator.type = 'sawtooth';
-    } else if (this._type === 'sawtooth') {
-      this._oscillator.type = 'sawtooth';
-    }
-
-    this._oscillator.connect(this._output);
+    this._updateOptions<MyOscillatorOptions>({
+      ...{
+        type: 'square',
+        numberOfVoices: 1
+      },
+      ...options
+    });
   }
 
   /**
@@ -68,21 +74,11 @@ export class Oscillator {
    *
    * @return {type} Description.
    */
-  set frequency(value: number) {
-    this._oscillator.frequency.value = clamp(value, 1, 20000);
-  }
-
-  /**
-   * Get the effect output.
-   *
-   * @see  Function
-   *
-   * @param  {type} name Description
-   *
-   * @return {type} Description.
-   */
   set detune(value: number) {
-    this._oscillator.detune.value = clamp(value, 0, 100);
+    this._updateOptions<OscillatorOptions>({ detune: value });
+    this._voices.forEach(voice => {
+      voice.oscillator.detune.value = clamp(value, 0, 100);
+    });
   }
 
   /**
@@ -146,18 +142,36 @@ export class Oscillator {
   // TO DO Overload de méthode
   play(
     // note: MidiNotes | InternationalNotes | number,
-    note: number
+    input: number | number[] | InternationalNotes | InternationalNotes[]
     // velocity?: number,
     // duration?: number
   ): void {
-    this._oscillator.frequency.value = note;
-    if (this._hasStarted) {
-      this._oscillator.connect(this._output);
-    } else {
-      this._oscillator.start();
-      this._hasStarted = true;
-    }
-    // this._output.gain.value = value;
+    const notes = typeof input === 'number' ? [input] : input;
+
+    notes.forEach(note => {
+      const isPresentInVoices: boolean =
+        this._voices.findIndex(oscillator => oscillator.note === note) >= 0;
+      const voicesIsFull: boolean =
+        this._voices.length >= this.options.numberOfVoices;
+
+      if (!isPresentInVoices && !voicesIsFull) {
+        const oscillator = new OscillatorNode(this._context);
+        oscillator.type = this.options.type;
+        oscillator.frequency.value = note;
+        oscillator.connect(this._output);
+
+        this._voices.push({
+          note,
+          oscillator
+        });
+
+        oscillator.start();
+      } else if (this.options.numberOfVoices === 1) {
+        this._voices[0].oscillator.frequency.value = note;
+      }
+    });
+
+    console.log('PLAY this._voices : ', this._voices);
   }
 
   /**
@@ -175,16 +189,50 @@ export class Oscillator {
    *
    * @return {type} Return value description.
    */
-  stop(after?: number): void {
-    // this._oscillator.stop();
-    if (this._hasStarted) {
-      if (after) {
-        setTimeout(() => {
-          this._oscillator.disconnect();
-        }, after);
-      } else {
-        this._oscillator.disconnect();
+  stop(note?: number, after?: number): void {
+    console.log('0');
+    if (note) {
+      console.log('1');
+      const presentVoiceIndex = this._voices.findIndex(
+        oscillator => oscillator.note === note
+      );
+      console.log('presentVoiceIndex : ', presentVoiceIndex);
+
+      if (presentVoiceIndex >= 0) {
+        console.log('3');
+
+        if (after) {
+          console.log('5');
+
+          setTimeout(() => {
+            this._voices[presentVoiceIndex].oscillator.stop();
+            this._voices.splice(presentVoiceIndex, 1);
+            // this._voices = this._voices.filter(voice => voice.note == note);
+          }, after);
+        } else {
+          console.log('6');
+
+          this._voices[presentVoiceIndex].oscillator.stop();
+          this._voices.splice(presentVoiceIndex, 1);
+          // this._voices = this._voices.filter(voice => voice.note == note);
+        }
+      } else if (this.options.numberOfVoices === 1) {
+        console.log('4');
+
+        this._voices[0].oscillator.stop();
+        // this._voices.splice(0, 1);
+        // this._voices.pop();
+        this._voices = [];
       }
+    } else {
+      console.log('2');
+
+      this._voices.forEach(voice => {
+        voice.oscillator.stop();
+      });
+      this._voices = [];
     }
+
+    console.log('STOP this._voices : ', this._voices);
   }
 }

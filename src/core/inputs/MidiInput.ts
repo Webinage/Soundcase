@@ -42,12 +42,13 @@ export class MidiInput extends EventInput<InputMessage> {
             // console.log('msg note : ', msg.data[1]);
             // console.log('msg velocity : ', msg.data[2]);
 
-            // const cmd = msg.data[0] >> 4;
-            const cmd = msg.data[0];
+            const cmd = msg.data[0] >> 4;
+            // const cmd = msg.data[0];
             const note = MidiNotes[clamp(msg.data[1], 21, 108)];
             const velocity = msg.data[2];
 
-            if (cmd === 143 || (cmd === 144 && velocity === 0)) {
+            // if (cmd === 143 || (cmd === 144 && velocity === 0)) {
+            if (cmd === 8 || (cmd === 9 && velocity === 0)) {
               observer.next({ type: 'NOTE_OFF', note, velocity });
             } else {
               observer.next({ type: 'NOTE_ON', note, velocity });
