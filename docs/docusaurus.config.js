@@ -22,16 +22,29 @@ module.exports = {
           position: 'left',
         },
         {
-          to: 'examples/',
+          to: 'examples',
           activeBasePath: 'examples',
           label: 'Examples',
           position: 'left',
         },
         {
-          to: 'docs/',
+          to: 'midi',
+          activeBasePath: 'midi',
+          label: 'Midi',
+          position: 'left',
+        },
+        {
+          to: 'docs',
           activeBasePath: 'docs',
           label: 'Docs',
           position: 'left',
+        },
+        {
+          to: "docs/jsdoc/test",
+          activeBasePath: 'docs',
+          label: 'Docs2',
+          position: 'left',
+
         },
         {to: 'blog', label: 'Blog', position: 'right'},
         {

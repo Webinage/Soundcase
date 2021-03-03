@@ -222,11 +222,7 @@ export class AudioEngine {
   //   sounds: SoundsLibrary,
   //   channelStripName?: string
   // ): SoundPlayer;
-  createSoundPlayer(
-    playerName: string,
-    sounds: SoundsLibrary,
-    channelName: string = 'master'
-  ): SoundPlayer {
+  createSoundPlayer(playerName: string, sounds: SoundsLibrary, channelName: string = 'master'): SoundPlayer {
     this._soundPlayers[playerName] = new SoundPlayer(
       this._masterContext,
       sounds,
@@ -255,17 +251,11 @@ export class AudioEngine {
    */
   // createEffect(effectType: '_3BandEQ', options?: _3BandEQOptions): _3BandEQ;
   createEffect(effectType: 'Delay', options?: MyDelayOptions): Delay;
-  createEffect(
-    effectType: 'Distortion',
-    options?: DistortionOptions
-  ): Distortion;
+  createEffect(effectType: 'Distortion', options?: DistortionOptions): Distortion;
   createEffect(effectType: 'Filter', options?: FilterOptions): Filter;
   createEffect(effectType: 'Pan', options?: PanOptions): Pan;
   createEffect(effectType: 'Reverb', options?: ReverbOptions): Reverb;
-  createEffect(
-    effectType: EffectsNames,
-    options: EffectOptions = {}
-  ): Effect<EffectOptions> {
+  createEffect(effectType: EffectsNames, options: EffectOptions = {}): Effect<EffectOptions> {
     // if (effectType === '_3BandEQ') {
     //   return new _3BandEQ(this._masterContext, options);
     // } else
@@ -319,9 +309,7 @@ export class AudioEngine {
     channelName: string = 'master'
   ): ChannelStrip {
     this._channelStrips[name] = new ChannelStrip(this._masterContext, effects);
-    this._channelStrips[name].output.connect(
-      this._channelToConnectNode(channelName)
-    );
+    this._channelStrips[name].output.connect(this._channelToConnectNode(channelName));
 
     return this._channelStrips[name];
   }

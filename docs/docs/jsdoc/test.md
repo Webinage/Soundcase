@@ -7,12 +7,38 @@
 <dd><p>Classname</p></dd>
 </dl>
 
+## Members
+
+<dl>
+<dt><a href="#A4">A4</a></dt>
+<dd><p>The Global <a href="https://en.wikipedia.org/wiki/Concert_pitch">concert tuning pitch</a> which is used
+to generate all the other pitch values from notes. A4's values in number.</p></dd>
+</dl>
+
 ## Functions
 
 <dl>
 <dt><a href="#buildImpulse">buildImpulse(options)</a> ⇒ <code>AudioBuffer</code></dt>
 <dd><p>Utility function for building an impulse response from the options parameters.</p>
 <p>Based on https://github.com/web-audio-components/simple-reverb _buildImpulse for reverb method</p></dd>
+<dt><a href="#secondsToMilliseconds">secondsToMilliseconds(seconds)</a> ⇒ <code>number</code></dt>
+<dd><p>Convert seconds to milliseconds.</p></dd>
+<dt><a href="#millisecondsToSeconds">millisecondsToSeconds(milliseconds)</a> ⇒ <code>number</code></dt>
+<dd><p>Convert milliseconds to seconds.</p></dd>
+<dt><a href="#equalPowerScale">equalPowerScale(percent)</a></dt>
+<dd><p>Equal power gain scale. Good for cross-fading.</p></dd>
+<dt><a href="#dbToGain">dbToGain()</a></dt>
+<dd><p>Convert decibels into gain.</p></dd>
+<dt><a href="#gainToDb">gainToDb()</a></dt>
+<dd><p>Convert gain to decibels.</p></dd>
+<dt><a href="#intervalToFrequencyRatio">intervalToFrequencyRatio(interval)</a></dt>
+<dd><p>Convert an interval (in semitones) to a frequency ratio.</p></dd>
+<dt><a href="#frequencyToMidiNote">frequencyToMidiNote(frequency)</a></dt>
+<dd><p>Convert a frequency value to a MIDI note.</p></dd>
+<dt><a href="#frequencyToMidiNoteFloat">frequencyToMidiNoteFloat()</a></dt>
+<dd><p>Convert a frequency to a floating point midi value</p></dd>
+<dt><a href="#midiToFrequency">midiToFrequency(midi)</a> ⇒</dt>
+<dd><p>Convert a MIDI note to frequency value.</p></dd>
 <dt><a href="#clamp">clamp(value, min, max)</a> ⇒</dt>
 <dd><p>Returns a number whose value is limited to the given range.</p>
 <p>Example: limit the output of this computation to between 0 and 255
@@ -23,16 +49,6 @@
 <dd><p>Clone an array.</p></dd>
 <dt><a href="#makeDistortionCurve">makeDistortionCurve(amount)</a> ⇒ <code>Float32Array</code></dt>
 <dd><p>I am not sure what I am doing.</p></dd>
-<dt><a href="#secondsToMilliseconds">secondsToMilliseconds(seconds)</a> ⇒ <code>number</code></dt>
-<dd><p>Convert seconds to milliseconds.</p></dd>
-<dt><a href="#millisecondsToSeconds">millisecondsToSeconds(milliseconds)</a> ⇒ <code>number</code></dt>
-<dd><p>Convert milliseconds to seconds.</p></dd>
-<dt><a href="#dbToVolume">dbToVolume(db)</a> ⇒ <code>number</code></dt>
-<dd><p>Convert decibels to percentage.
-Volume is expressed in percentage</p></dd>
-<dt><a href="#volumeToDb">volumeToDb(volume)</a> ⇒ <code>number</code></dt>
-<dd><p>Convert percentage to decibels.
-Volume is expressed in percentage</p></dd>
 </dl>
 
 <a name="AudioEngine"></a>
@@ -63,6 +79,13 @@ Volume is expressed in percentage</p></dd>
 <p>Description. (A channel to handle single/multiple effects)</p>
 
 **Returns**: <code>ChannelStrip</code> - <p>Return value description.</p>  
+<a name="A4"></a>
+
+## A4
+<p>The Global <a href="https://en.wikipedia.org/wiki/Concert_pitch">concert tuning pitch</a> which is used
+to generate all the other pitch values from notes. A4's values in number.</p>
+
+**Kind**: global variable  
 <a name="buildImpulse"></a>
 
 ## buildImpulse(options) ⇒ <code>AudioBuffer</code>
@@ -76,6 +99,108 @@ Volume is expressed in percentage</p></dd>
 | --- | --- | --- |
 | options | <code>ReverbOptions</code> | <p>The reverb options that will be used to generate the impulse.</p> |
 
+<a name="secondsToMilliseconds"></a>
+
+## secondsToMilliseconds(seconds) ⇒ <code>number</code>
+<p>Convert seconds to milliseconds.</p>
+
+**Kind**: global function  
+**Returns**: <code>number</code> - <p>Return the number of milliseconds</p>  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| seconds | <code>number</code> | <p>Number of seconds.</p> |
+
+<a name="millisecondsToSeconds"></a>
+
+## millisecondsToSeconds(milliseconds) ⇒ <code>number</code>
+<p>Convert milliseconds to seconds.</p>
+
+**Kind**: global function  
+**Returns**: <code>number</code> - <p>Return the number of seconds</p>  
+**See**: Function/class relied on  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| milliseconds | <code>number</code> | <p>Number of milliseconds.</p> |
+
+<a name="equalPowerScale"></a>
+
+## equalPowerScale(percent)
+<p>Equal power gain scale. Good for cross-fading.</p>
+
+**Kind**: global function  
+
+| Param | Description |
+| --- | --- |
+| percent | <p>(0-1)</p> |
+
+<a name="dbToGain"></a>
+
+## dbToGain()
+<p>Convert decibels into gain.</p>
+
+**Kind**: global function  
+<a name="gainToDb"></a>
+
+## gainToDb()
+<p>Convert gain to decibels.</p>
+
+**Kind**: global function  
+<a name="intervalToFrequencyRatio"></a>
+
+## intervalToFrequencyRatio(interval)
+<p>Convert an interval (in semitones) to a frequency ratio.</p>
+
+**Kind**: global function  
+
+| Param | Description |
+| --- | --- |
+| interval | <p>the number of semitones above the base note</p> |
+
+**Example**  
+```js
+Tone.intervalToFrequencyRatio(0); // 1
+Tone.intervalToFrequencyRatio(12); // 2
+Tone.intervalToFrequencyRatio(-12); // 0.5
+```
+<a name="frequencyToMidiNote"></a>
+
+## frequencyToMidiNote(frequency)
+<p>Convert a frequency value to a MIDI note.</p>
+
+**Kind**: global function  
+
+| Param | Description |
+| --- | --- |
+| frequency | <p>The value to frequency value to convert.</p> |
+
+**Example**  
+```js
+Tone.ftom(440); // returns 69
+```
+<a name="frequencyToMidiNoteFloat"></a>
+
+## frequencyToMidiNoteFloat()
+<p>Convert a frequency to a floating point midi value</p>
+
+**Kind**: global function  
+<a name="midiToFrequency"></a>
+
+## midiToFrequency(midi) ⇒
+<p>Convert a MIDI note to frequency value.</p>
+
+**Kind**: global function  
+**Returns**: <p>The corresponding frequency value</p>  
+
+| Param | Description |
+| --- | --- |
+| midi | <p>The midi number to convert.</p> |
+
+**Example**  
+```js
+Tone.mtof(69); // 440
+```
 <a name="clamp"></a>
 
 ## clamp(value, min, max) ⇒
@@ -130,55 +255,4 @@ Volume is expressed in percentage</p></dd>
 | Param | Type | Description |
 | --- | --- | --- |
 | amount | <code>number</code> | <p>Distortion curve sharpening coef.</p> |
-
-<a name="secondsToMilliseconds"></a>
-
-## secondsToMilliseconds(seconds) ⇒ <code>number</code>
-<p>Convert seconds to milliseconds.</p>
-
-**Kind**: global function  
-**Returns**: <code>number</code> - <p>Return the number of milliseconds</p>  
-
-| Param | Type | Description |
-| --- | --- | --- |
-| seconds | <code>number</code> | <p>Number of seconds.</p> |
-
-<a name="millisecondsToSeconds"></a>
-
-## millisecondsToSeconds(milliseconds) ⇒ <code>number</code>
-<p>Convert milliseconds to seconds.</p>
-
-**Kind**: global function  
-**Returns**: <code>number</code> - <p>Return the number of seconds</p>  
-**See**: Function/class relied on  
-
-| Param | Type | Description |
-| --- | --- | --- |
-| milliseconds | <code>number</code> | <p>Number of milliseconds.</p> |
-
-<a name="dbToVolume"></a>
-
-## dbToVolume(db) ⇒ <code>number</code>
-<p>Convert decibels to percentage.
-Volume is expressed in percentage</p>
-
-**Kind**: global function  
-**Returns**: <code>number</code> - <p>Return the volume in percentage.</p>  
-
-| Param | Type | Description |
-| --- | --- | --- |
-| db | <code>number</code> | <p>Volume in decibels.</p> |
-
-<a name="volumeToDb"></a>
-
-## volumeToDb(volume) ⇒ <code>number</code>
-<p>Convert percentage to decibels.
-Volume is expressed in percentage</p>
-
-**Kind**: global function  
-**Returns**: <code>number</code> - <p>Return the volume in decibels.</p>  
-
-| Param | Type | Description |
-| --- | --- | --- |
-| volume | <code>number</code> | <p>Volume in percentage.</p> |
 
