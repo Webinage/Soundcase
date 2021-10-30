@@ -1,0 +1,21 @@
+import { AudioEngine } from './core/AudioEngine';
+import * as channels from './core/channels/index';
+import * as effects from './core/effects/index';
+import * as envelopes from './core/envelopes';
+import * as inputs from './core/inputs';
+import * as instruments from './core/instruments';
+import * as oscillators from './core/oscillators';
+import { SoundPlayer } from './core/SoundPlayer.class';
+import * as utils from './utils/index';
+declare const _default: {
+    AudioEngine: typeof AudioEngine;
+    SoundPlayer: typeof SoundPlayer;
+    channels: typeof channels;
+    effects: typeof effects;
+    envelopes: typeof envelopes;
+    inputs: typeof inputs;
+    instruments: typeof instruments;
+    oscillators: typeof oscillators;
+    utils: typeof utils;
+};
+export default _default;

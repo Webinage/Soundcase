@@ -1,0 +1,20 @@
+{
+  "unversionedId": "jsdoc/test",
+  "id": "jsdoc/test",
+  "isDocsHomePage": false,
+  "title": "test",
+  "description": "Classes",
+  "source": "@site/docs/jsdoc/test.md",
+  "sourceDirName": "jsdoc",
+  "slug": "/jsdoc/test",
+  "permalink": "/docs/jsdoc/test",
+  "editUrl": "https://github.com/facebook/docusaurus/edit/main/website/docs/jsdoc/test.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {},
+  "sidebar": "tutorialSidebar",
+  "previous": {
+    "title": "Translate your site",
+    "permalink": "/docs/tutorial-extras/translate-your-site"
+  }
+}
