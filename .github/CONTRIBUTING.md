@@ -104,6 +104,7 @@ As a pure community-driven project without major corporate backing, we also welc
 - [Become a backer or sponsor on Patreon](https://www.patreon.com/lenoirc)
 - [Become a backer or sponsor on OpenCollective](https://opencollective.com/soundcase)
 - [One-time donation via PayPal](https://paypal.me/xledocteurx)
+- [Offer me a cofee](https://ko-fi.com/soundcase)
 
 ### What's the difference between Patreon and OpenCollective funding?
 
