@@ -26,12 +26,9 @@ export abstract class Effect<OT extends EffectOptions> extends HasOptions<OT> {
    * Create a point.
    * @param {number} x  The x value.
    */
-  constructor(
-    protected name: EffectsNames,
-    protected _context: AudioContext,
-    options: OT
-  ) {
-    super(options);
+  constructor(protected name: EffectsNames, protected _context: AudioContext, options: OT) {
+    // super(options);
+    super();
 
     if (name === '_3BandEQ') {
       this._updateOptions<EffectOptions>({
@@ -123,10 +120,7 @@ export abstract class Effect<OT extends EffectOptions> extends HasOptions<OT> {
     this.setDryWetRatio(this.options.dryWet);
 
     // Dry
-    this._input
-      .connect(this._dryChannel.input)
-      .connect(this._dryChannel.output)
-      .connect(this._output);
+    this._input.connect(this._dryChannel.input).connect(this._dryChannel.output).connect(this._output);
 
     // Wet
     this._input.connect(this._wetChannel.input);

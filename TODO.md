@@ -1,5 +1,6 @@
+- https://ko-fi.com/emsquared Rajouter un ko-fi pour le financement
 - Revoir tous les appels aux méthodes updates options pour y mettre le générique d'options
-- une classeabstaite "hasOptions"
+- une classe abstaite "hasOptions"
 - Faire de oscillator une classe abstraite pour prévoire plus tard des customs comme le chite noise, etc ..
 - Dans l'uadioEngine prévoir le passage d'objets channel dans la méthode \_channelToConnectNode
 - Trouver une solution pour l'update d'options de manière recursive

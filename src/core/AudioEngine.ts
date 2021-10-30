@@ -11,6 +11,7 @@ import {
 import { Dic, SoundsLibrary } from '../types/types';
 import { ChannelStrip, MixChannel } from './channels';
 import { Delay, Distortion, Filter, Pan, Reverb } from './effects';
+import { AudioInput } from './instruments';
 import { SoundPlayer } from './SoundPlayer.class';
 
 /**
@@ -26,13 +27,16 @@ import { SoundPlayer } from './SoundPlayer.class';
  * @return {ChannelStrip} Return value description.
  */
 export class AudioEngine {
-  // private _masterContext: AudioContext = new (window.AudioContext ||
-  //   window.webkitAudioContext)();
-
   /**
    * Create a MixChannel.
    */
+  // private _masterContext: AudioContext = new AudioContext();
   private _masterContext: AudioContext = new AudioContext();
+
+  get masterContext() {
+    return this._masterContext;
+  }
+  // typeof window !== 'undefined' ? new (window.AudioContext || (window as any).webkitAudioContext)() : null;
   /**
    * Create a MixChannel.
    */
@@ -53,6 +57,10 @@ export class AudioEngine {
    * Create a MixChannel.
    */
   private _soundPlayers: Dic<SoundPlayer> = {};
+  /**
+   * Create an AudioIUnput
+   */
+  private _audioInputs: Dic<AudioInput> = {};
 
   /**
    * Create a point.
@@ -60,7 +68,7 @@ export class AudioEngine {
    */
   constructor() {
     // window.AudioContext = window.AudioContext || window.webkitAudioContext;
-    // this._masterContext = new AudioContext();
+    // this._masterContext = new global.AudioContext();
     this._masterChannel.output.connect(this._masterContext.destination);
   }
 
@@ -198,6 +206,27 @@ export class AudioEngine {
   }
 
   /**
+   *
+   * @returns
+   */
+  getAudioInput(audioInputName: string): AudioInput {
+    return this._audioInputs[audioInputName];
+  }
+
+  async getAduioInputSources() {
+    return new window.InputDeviceInfo();
+  }
+
+  /**
+   *
+   * @returns
+   */
+  createAudioInput(audioInputName: string, channelName: string = 'master'): AudioInput {
+    this._audioInputs[audioInputName] = new AudioInput(this._masterContext, this._channelToConnectNode(channelName));
+    return this._audioInputs[audioInputName];
+  }
+
+  /**
    * Summary. (use period)
    *
    * Description. (use period)
@@ -308,6 +337,10 @@ export class AudioEngine {
     effects: Effect<EffectOptions>[] = [],
     channelName: string = 'master'
   ): ChannelStrip {
+    console.log('createChannelStrip name', name);
+    console.log('createChannelStrip effects', effects);
+    console.log('createChannelStrip channelName', channelName);
+
     this._channelStrips[name] = new ChannelStrip(this._masterContext, effects);
     this._channelStrips[name].output.connect(this._channelToConnectNode(channelName));
 
@@ -316,6 +349,7 @@ export class AudioEngine {
 
   // TO DO : Pouvoir passer un objet channel
   private _channelToConnectNode(channelName: string): AudioNode {
+    console.log('_channelToConnectNode channelName', channelName);
     return channelName === 'master'
       ? this._masterChannel.input
       : Object.keys(this._mixChannels).some(key => key === channelName)

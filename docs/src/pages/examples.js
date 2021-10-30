@@ -1,14 +1,12 @@
+import BrowserOnly from '@docusaurus/BrowserOnly';
 import Layout from '@theme/Layout';
-import React from 'react';
-import DelayExample from './examples/effects/Delay';
-import DistortionExample from './examples/effects/Distortion';
-import FilterExample from './examples/effects/Filter';
-import PanExample from './examples/effects/Pan';
-import ReverbExample from './examples/effects/Reverb';
-import _3BandEqExample from './examples/effects/_3BandEq';
-import SimpleMultiPlayer from './examples/SimpleMultiPlayer';
-import SimplePlayer from './examples/SimplePlayer';
-
+import React, { Fragment } from 'react';
+import DelayExample from '../components/examples/effects/Delay';
+import DistortionExample from '../components/examples/effects/Distortion';
+import FilterExample from '../components/examples/effects/Filter';
+import PanExample from '../components/examples/effects/Pan';
+import SimpleMultiPlayer from '../components/examples/SimpleMultiPlayer';
+import SimplePlayer from '../components/examples/SimplePlayer';
 
 class Examples extends React.Component {
 
@@ -21,16 +19,22 @@ class Examples extends React.Component {
       <Layout
         title={`Hello from ${this.props.config.title}`}
         description="Description will go into a meta tag in <head />">
-          <h1>Examples</h1>
-          <p>Here are some examples</p>
-          <SimplePlayer />
-          <SimpleMultiPlayer />
-          <_3BandEqExample />
-          <DelayExample />
-          <DistortionExample />
-          <FilterExample />
-          <PanExample />
-          <ReverbExample />
+        <h1>Examples</h1>
+        <p>Here are some examples</p>
+        <BrowserOnly fallback={<div>Loading...</div>}>
+          {() => {
+            return <Fragment>
+              <SimplePlayer />
+              <SimpleMultiPlayer />
+              {/* <_3BandEqExample /> */}
+              <DelayExample />
+              <DistortionExample />
+              <FilterExample />
+              <PanExample />
+              {/* <ReverbExample /> */}
+            </Fragment>
+          }}
+        </BrowserOnly>
       </Layout>
     );
   }

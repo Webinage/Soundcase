@@ -26,7 +26,8 @@
     "clean-cjs": "rm -rf ./lib-cjs",
     "clean-es5-esm": "rm -rf ./lib-es5-esm",
     "clean-es6-esm": "rm -rf ./lib-es6-esm",
-    "clean": "npm run clean-cjs && npm run clean-es5-esm && npm run clean-es6-esm && npm run clean-umd",
+    "clean-docs": "cd ./docs/ && npm run clear",
+    "clean": "npm run clean-cjs && npm run clean-es5-esm && npm run clean-es6-esm && npm run clean-umd && npm run clean-docs",
     "build-umd": "npm run clean-umd && webpack --config webpack.config.js",
     "build-cjs": "npm run clean-cjs && tsc",
     "build-es5-esm": "npm run clean-es5-esm && tsc -t es5 -m es6 --outDir lib-es5-esm",
@@ -58,7 +59,7 @@
     "git-cz": "^4.7.1",
     "ts-loader": "^8.0.5",
     "typescript": "^4.0.3",
-    "webpack": "^5.1.3",
+    "webpack": "^5.51.2",
     "webpack-cli": "^4.1.0"
   }
 }

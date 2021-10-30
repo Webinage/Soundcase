@@ -1,11 +1,10 @@
 import { BehaviorSubject, Observable } from 'rxjs';
 
 export abstract class HasOptions<OT> {
-  private readonly _optionsSubject$: BehaviorSubject<OT> = new BehaviorSubject(
-    null
-  );
+  private readonly _optionsSubject$: BehaviorSubject<OT> = new BehaviorSubject(null);
 
-  constructor(options: OT) {}
+  // constructor(options: OT) {}
+  constructor() {}
 
   /**
    *

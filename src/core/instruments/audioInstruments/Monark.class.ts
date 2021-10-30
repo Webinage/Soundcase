@@ -76,7 +76,8 @@ export class Monark extends Synth {
 
   stop(note: number) {
     console.log('STOP NOTE : ', note);
-    this._oscillator1.stop(note, this._amplitudeEnvelope.options.releaseTime);
+    this._oscillator1.stop(note);
+    // this._oscillator1.stop(note, this._amplitudeEnvelope.options.releaseTime);
     // this._oscillator2.stop(note, this._amplitudeEnvelope.options.releaseTime);
     // this._amplitudeEnvelope.release();
     // this._filterEnvelope.release();

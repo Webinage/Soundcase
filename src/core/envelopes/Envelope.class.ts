@@ -7,7 +7,8 @@ export class Envelope extends HasOptions<EnvelopeOptions> {
   params: EnvelopeParam[] = [];
 
   constructor(private _context: AudioContext, options: EnvelopeOptions = {}) {
-    super(options);
+    // super(options);
+    super();
 
     this._updateOptions<EnvelopeOptions>({
       ...{
@@ -88,10 +89,7 @@ export class Envelope extends HasOptions<EnvelopeOptions> {
         );
         param.param.exponentialRampToValueAtTime(
           this.options.sustainValue,
-          now +
-            millisecondsToSeconds(
-              clamp(this.options.attackTime + this.options.decayTime, 0)
-            )
+          now + millisecondsToSeconds(clamp(this.options.attackTime + this.options.decayTime, 0))
         );
       } else {
         param.param.linearRampToValueAtTime(
@@ -100,10 +98,7 @@ export class Envelope extends HasOptions<EnvelopeOptions> {
         );
         param.param.linearRampToValueAtTime(
           this.options.sustainValue,
-          now +
-            millisecondsToSeconds(
-              clamp(this.options.attackTime + this.options.decayTime, 0)
-            )
+          now + millisecondsToSeconds(clamp(this.options.attackTime + this.options.decayTime, 0))
         );
       }
     });

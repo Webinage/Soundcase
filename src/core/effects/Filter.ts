@@ -33,9 +33,7 @@ export class Filter extends Effect<FilterOptions> {
    * @param {number}  value Value of the ....
    */
   private _rootWetChannel() {
-    this._wetChannel.input
-      .connect(this._filterNode)
-      .connect(this._wetChannel.output);
+    this._wetChannel.input.connect(this._filterNode).connect(this._wetChannel.output);
   }
 
   /**
@@ -95,7 +93,7 @@ export class Filter extends Effect<FilterOptions> {
   }
 
   /**
-   * Set the low/mid frequency breakpoint
+   * Set the gain level
    *
    */
   get gain() {

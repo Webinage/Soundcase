@@ -1,3 +1,4 @@
+import Layout from '@theme/Layout';
 import React from 'react';
 
 function Help(props) {
@@ -33,7 +34,8 @@ function Help(props) {
             <h1>Need help?</h1>
           </header>
           <p>This project is maintained by a dedicated group of people.</p>
-          <GridBlock contents={supportLinks} layout="threeColumn" />
+          {JSON.stringify(supportLinks)}
+          {/* <GridBlock contents={supportLinks} layout="threeColumn" /> */}
         </div>
     </Layout>
 

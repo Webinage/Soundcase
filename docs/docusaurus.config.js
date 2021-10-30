@@ -1,136 +1,132 @@
-module.exports = {
+const lightCodeTheme = require('prism-react-renderer/themes/github');
+const darkCodeTheme = require('prism-react-renderer/themes/dracula');
+
+// With JSDoc @type annotations, IDEs can provide config autocompletion
+/** @type {import('@docusaurus/types').DocusaurusConfig} */
+(module.exports = {
   title: 'Soundcase',
   tagline: 'A web audio engine',
-  url: 'https://soundcase.github.io',
-  baseUrl: '/soundcase/',
+  url: 'https://your-docusaurus-test-site.com',
+  baseUrl: '/',
   onBrokenLinks: 'throw',
+  onBrokenMarkdownLinks: 'warn',
   favicon: 'img/favicon.ico',
-  organizationName: 'soundcase',
-  projectName: 'soundcase',
-  themeConfig: {
-    navbar: {
-      title: 'Soundcase',
-      logo: {
-        alt: 'Soundcase Logo',
-        src: 'img/logo.svg',
-      },
-      items: [
-        {
-          to: 'docs/mdx',
-          activeBasePath: 'docs',
-          label: 'Getting started',
-          position: 'left',
-        },
-        {
-          to: 'examples',
-          activeBasePath: 'examples',
-          label: 'Examples',
-          position: 'left',
-        },
-        {
-          to: 'midi',
-          activeBasePath: 'midi',
-          label: 'Midi',
-          position: 'left',
-        },
-        {
-          to: 'docs',
-          activeBasePath: 'docs',
-          label: 'Docs',
-          position: 'left',
-        },
-        {
-          to: "docs/jsdoc/test",
-          activeBasePath: 'docs',
-          label: 'Docs2',
-          position: 'left',
+  organizationName: 'facebook', // Usually your GitHub org/user name.
+  projectName: 'docusaurus', // Usually your repo name.
 
-        },
-        {to: 'blog', label: 'Blog', position: 'right'},
-        {
-          href: 'https://github.com/soundcase/soundcase',
-          label: 'GitHub',
-          position: 'right',
-        },
-      ],
-    },
-    footer: {
-      style: 'dark',
-      links: [
-        {
-          title: 'Docs',
-          items: [
-            {
-              label: 'Style Guide',
-              to: 'docs/',
-            },
-            {
-              label: 'Second Doc',
-              to: 'docs/doc2/',
-            },
-          ],
-        },
-        {
-          title: 'Community',
-          items: [
-            {
-              label: 'Stack Overflow',
-              href: 'https://stackoverflow.com/questions/tagged/docusaurus',
-            },
-            {
-              label: 'Discord',
-              href: 'https://discordapp.com/invite/docusaurus',
-            },
-            {
-              label: 'Twitter',
-              href: 'https://twitter.com/docusaurus',
-            },
-          ],
-        },
-        {
-          title: 'More',
-          items: [
-            {
-              label: 'Blog',
-              to: 'blog',
-            },
-            {
-              label: 'GitHub',
-              href: 'https://github.com/facebook/docusaurus',
-            },
-          ],
-        },
-      ],
-      copyright: `Copyright © ${new Date().getFullYear()} Soundcase, Christopher Lenoir.`,
-    },
-  },
   presets: [
     [
       '@docusaurus/preset-classic',
-      {
+      /** @type {import('@docusaurus/preset-classic').Options} */
+      ({
         docs: {
           sidebarPath: require.resolve('./sidebars.js'),
           // Please change this to your repo.
-          editUrl:
-            'https://github.com/soundcase/soundcase/edit/master/website/',
+          editUrl: 'https://github.com/facebook/docusaurus/edit/main/website/',
         },
         blog: {
           showReadingTime: true,
           // Please change this to your repo.
           editUrl:
-            'https://github.com/soundcase/soundcase/edit/master/website/blog/',
-          feedOptions: {
-            type: 'all',
-            title: 'Soundcase feed',
-            description: 'The Soundcase framework blog feed',
-            copyright: 'Copyright © ${new Date().getFullYear()} Soundcase, Christopher Lenoir.',
-            // language?: string, // possible values: http://www.w3.org/TR/REC-html40/struct/dirlang.html#langcodes
-          }
+            'https://github.com/facebook/docusaurus/edit/main/website/blog/',
         },
         theme: {
           customCss: require.resolve('./src/css/custom.css'),
         },
-      },
+      }),
     ],
   ],
-};
+
+  themeConfig:
+    /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
+    ({
+      navbar: {
+        title: 'Soundcase',
+        logo: {
+          alt: 'Soundcase\'s Logo',
+          src: 'img/logo.svg',
+        },
+        items: [
+          {
+            type: 'doc',
+            docId: 'intro',
+            position: 'left',
+            label: 'Tutorial',
+          },
+          {
+            to: 'examples',
+            activeBasePath: 'examples',
+            label: 'Examples',
+            position: 'left',
+          },
+          {
+            to: 'midi',
+            activeBasePath: 'midi',
+            label: 'Midi',
+            position: 'left',
+          },
+          {
+            to: 'audio',
+            activeBasePath: 'audio',
+            label: 'Audio',
+            position: 'left',
+          },
+          {to: '/blog', label: 'Blog', position: 'left'},
+          {
+            href: 'https://github.com/facebook/docusaurus',
+            label: 'GitHub',
+            position: 'right',
+          },
+        ],
+      },
+      footer: {
+        style: 'dark',
+        links: [
+          {
+            title: 'Docs',
+            items: [
+              {
+                label: 'Tutorial',
+                to: '/docs/intro',
+              },
+            ],
+          },
+          {
+            title: 'Community',
+            items: [
+              {
+                label: 'Stack Overflow',
+                href: 'https://stackoverflow.com/questions/tagged/docusaurus',
+              },
+              {
+                label: 'Discord',
+                href: 'https://discordapp.com/invite/docusaurus',
+              },
+              {
+                label: 'Twitter',
+                href: 'https://twitter.com/docusaurus',
+              },
+            ],
+          },
+          {
+            title: 'More',
+            items: [
+              {
+                label: 'Blog',
+                to: '/blog',
+              },
+              {
+                label: 'GitHub',
+                href: 'https://github.com/facebook/docusaurus',
+              },
+            ],
+          },
+        ],
+        copyright: `Copyright © ${new Date().getFullYear()} My Project, Inc. Built with Docusaurus.`,
+      },
+      prism: {
+        theme: lightCodeTheme,
+        darkTheme: darkCodeTheme,
+      },
+    }),
+});

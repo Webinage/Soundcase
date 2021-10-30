@@ -1,39 +1,28 @@
+import BrowserOnly from '@docusaurus/BrowserOnly';
 import Layout from '@theme/Layout';
-import React from 'react';
-import AE from '../../static/lib';
+import React, { Fragment } from 'react';
+import MidiExample from '../components/examples/midi';
 
 class Midi extends React.Component {
 
   constructor(props) {
     super(props);
-
-    const audioContext = new AudioContext()
-    const instrument = new AE.instruments.Monark(audioContext)
-    // const instrument = new AE.instruments.SimplePolySynth(audioContext)
-
-    this.state = {
-      audioContext,
-      instrument,
-    }
-  }
-    
-  componentDidMount() {
-    this.state.instrument.connect(this.state.audioContext.destination)
-  }
-
-  updateState(property, value) {
-    this.setState(state => ({ [property]: value }))
-    // this.setState(({ [property]: value }))
   }
 
   render() {
     return (
     <Layout
-        title={`Hello from ${this.props.config.title}`}
-        description="Description will go into a meta tag in <head />">
+       title={`Hello from ${this.props.config.title}`}
+       description="Description will go into a meta tag in <head />">
         <h1>Midi</h1>
         <p>Here are some examples</p>
-            
+        <BrowserOnly fallback={<div>Loading...</div>}>
+          {() => {
+            return <Fragment>
+              <MidiExample />
+            </Fragment>
+          }}
+        </BrowserOnly>
     </Layout>
     );
   }

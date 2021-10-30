@@ -30,11 +30,9 @@ export class Oscillator extends HasOptions<MyOscillatorOptions> {
    * Create a point.
    * @param {number} x  The x value.
    */
-  constructor(
-    private _context: AudioContext,
-    options: MyOscillatorOptions = {}
-  ) {
-    super(options);
+  constructor(private _context: AudioContext, options: MyOscillatorOptions = {}) {
+    // super(options);
+    super();
     this._output = new GainNode(this._context);
 
     this._updateOptions<MyOscillatorOptions>({
@@ -149,10 +147,8 @@ export class Oscillator extends HasOptions<MyOscillatorOptions> {
     const notes = typeof input === 'number' ? [input] : input;
 
     notes.forEach(note => {
-      const isPresentInVoices: boolean =
-        this._voices.findIndex(oscillator => oscillator.note === note) >= 0;
-      const voicesIsFull: boolean =
-        this._voices.length >= this.options.numberOfVoices;
+      const isPresentInVoices: boolean = this._voices.findIndex(oscillator => oscillator.note === note) >= 0;
+      const voicesIsFull: boolean = this._voices.length >= this.options.numberOfVoices;
 
       if (!isPresentInVoices && !voicesIsFull) {
         const oscillator = new OscillatorNode(this._context);
@@ -193,9 +189,7 @@ export class Oscillator extends HasOptions<MyOscillatorOptions> {
     console.log('0');
     if (note) {
       console.log('1');
-      const presentVoiceIndex = this._voices.findIndex(
-        oscillator => oscillator.note === note
-      );
+      const presentVoiceIndex = this._voices.findIndex(oscillator => oscillator.note === note);
       console.log('presentVoiceIndex : ', presentVoiceIndex);
 
       if (presentVoiceIndex >= 0) {

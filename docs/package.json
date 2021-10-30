@@ -4,34 +4,33 @@
   "private": true,
   "scripts": {
     "docusaurus": "docusaurus",
-    "start": "npm run build-lib && docusaurus start",
+    "start": "docusaurus start",
     "build": "npm run build-lib && npm run build-md && docusaurus build",
-    "build-lib": "rm -rf ./static/lib && cd ../ && tsc -t es6 -m es6 --outDir ./docs/static/lib",
-    "build-md": "rm -rf ./docs/jsdoc && mkdir ./docs/jsdoc && jsdoc2md --files ../src/**/*.ts --configure ./jsdoc2md.json > ./docs/jsdoc/test.md",
+    "build-start": "npm run build && docusaurus start",
     "swizzle": "docusaurus swizzle",
     "deploy": "docusaurus deploy",
-    "serve": "docusaurus serve"
+    "clear": "docusaurus clear",
+    "serve": "docusaurus serve",
+    "write-translations": "docusaurus write-translations",
+    "write-heading-ids": "docusaurus write-heading-ids",
+    "build-lib": "rm -rf ./static/lib && cd ../ && tsc -t es6 -m es6 --outDir ./docs/static/lib",
+    "build-md": "rm -rf ./docs/jsdoc && mkdir ./docs/jsdoc && jsdoc2md --files ../src/**/*.ts --configure ./jsdoc2md.json > ./docs/jsdoc/test.md"
   },
   "dependencies": {
-    "@docusaurus/core": "2.0.0-alpha.66",
-    "@docusaurus/preset-classic": "2.0.0-alpha.66",
-    "@mdx-js/react": "^1.5.8",
+    "@docusaurus/core": "2.0.0-beta.6",
+    "@docusaurus/preset-classic": "2.0.0-beta.6",
+    "@mdx-js/react": "^1.6.21",
+    "@svgr/webpack": "^5.5.0",
     "clsx": "^1.1.1",
-    "react": "^16.8.4",
-    "react-dom": "^16.8.4"
-  },
-  "devDependencies": {
-    "@babel/cli": "^7.12.7",
-    "@babel/core": "^7.12.3",
-    "@babel/preset-env": "^7.12.1",
-    "@babel/preset-typescript": "^7.12.1",
-    "jsdoc-babel": "^0.5.0",
-    "jsdoc-to-markdown": "^6.0.1",
-    "typescript": "^4.1.2"
+    "file-loader": "^6.2.0",
+    "prism-react-renderer": "^1.2.1",
+    "react": "^17.0.1",
+    "react-dom": "^17.0.1",
+    "url-loader": "^4.1.1"
   },
   "browserslist": {
     "production": [
-      ">0.2%",
+      ">0.5%",
       "not dead",
       "not op_mini all"
     ],
@@ -40,5 +39,9 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "jsdoc-babel": "^0.5.0",
+    "jsdoc-to-markdown": "^7.0.1"
   }
 }

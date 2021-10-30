@@ -1,3 +1,4 @@
+import Layout from '@theme/Layout';
 import React from 'react';
 
 class Users extends React.Component {

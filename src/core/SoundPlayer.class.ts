@@ -183,17 +183,10 @@ export class SoundPlayer {
 
     this._audioElements[name] = {
       htmlAudioElement,
-      mediaElementAudioSourceNode: this._context.createMediaElementSource(
-        htmlAudioElement
-      )
+      mediaElementAudioSourceNode: this._context.createMediaElementSource(htmlAudioElement)
     };
-    this._audioElements[name].htmlAudioElement.loop =
-      sound.type === 'loop' ? true : false;
-    this._audioElements[name].htmlAudioElement.volume = clamp(
-      sound.volume,
-      0,
-      1
-    );
+    this._audioElements[name].htmlAudioElement.loop = sound.type === 'loop' ? true : false;
+    this._audioElements[name].htmlAudioElement.volume = clamp(sound.volume, 0, 1);
 
     this._audioElements[name].mediaElementAudioSourceNode.connect(this._output);
     // .mediaElementAudioSourceNode.connect(this._channel.input);
@@ -211,7 +204,7 @@ export class SoundPlayer {
         reject();
       };
     });
-    return new Promise((resolve, reject) => {
+    return new Promise(resolve => {
       const sound = new Audio(path);
       sound.oncanplaythrough = () => {
         resolve(sound);
