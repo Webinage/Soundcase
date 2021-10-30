@@ -1,0 +1,3 @@
+- plan quand audioengine.createChannelStrip( // PAS DEFFETS )
+- Dans l'éxample de la reverb ( et surement d'autres effets ) l'effet fait comme un reset au niveau du traitement sonore lorsque l'on change un des paramètres
+- Le set gain sur le filter ne marche pas

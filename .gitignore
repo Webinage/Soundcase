@@ -1,6 +1,13 @@
 .DS_Store
 node_modules
-dist
+circular.jpg
+
+lib-umd
+lib-cjs
+lib-es5-esm
+lib-es6-esm
+
+_bundle
 
 # local env files
 .env.local

@@ -12,6 +12,7 @@ Soundcase is an MIT-licensed open source project with its ongoing development ma
 
 - [Become a backer or sponsor on Patreon](https://www.patreon.com/lenoirc)
 - [Become a backer or sponsor on OpenCollective](https://opencollective.com/soundcase)
+- [Offer me a cofee on Ko-Fi](https://ko-fi.com/soundcase)
 - [One-time donation via PayPal](https://paypal.me/xledocteurx)
 
 #### What's the difference between Patreon and OpenCollective?

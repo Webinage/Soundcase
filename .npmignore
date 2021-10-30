@@ -1,8 +1,13 @@
 .DS_Store
 .github
 node_modules
+TODO.md
 docs
 src
+
+.*
+**/tsconfig.json
+**/webpack.config.js
 
 # local env files
 .env.local
